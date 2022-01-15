@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Stateful Domains
@@ -12,7 +11,6 @@ return [
     | and production domains which access your API via a frontend SPA.
     |
     */
-
     'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', sprintf(
         '%s%s',
         'localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1',
@@ -30,7 +28,6 @@ return [
     | token that's present on an incoming request for authentication.
     |
     */
-
     'guard' => ['web'],
 
     /*
@@ -43,7 +40,6 @@ return [
     | not expire. This won't tweak the lifetime of first-party sessions.
     |
     */
-
     'expiration' => null,
 
     /*
@@ -56,10 +52,8 @@ return [
     | request. You may change the middleware listed below as required.
     |
     */
-
     'middleware' => [
         'verify_csrf_token' => App\Http\Middleware\VerifyCsrfToken::class,
         'encrypt_cookies' => App\Http\Middleware\EncryptCookies::class,
     ],
-
 ];

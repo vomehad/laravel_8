@@ -10,6 +10,7 @@
     @include('includes.assets.css')
 </head>
 <body>
+    @include('includes.header')
     @yield('content')
     @include('includes.aside')
 </body>

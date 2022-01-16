@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Lang;
 
 class UserController extends Controller
 {
@@ -15,7 +16,15 @@ class UserController extends Controller
 
     public function home()
     {
-        $title = 'home';
-        return view('home', ['title' => $title]);
+        $title = Lang::get('basic.home');
+        $nav = [
+            '/' => $title,
+            '/welcome' => trans('basic.welcome'),
+        ];
+
+        return view('home', [
+            'title' => $title,
+            'nav' => $nav,
+        ]);
     }
 }

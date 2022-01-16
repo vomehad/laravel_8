@@ -15,7 +15,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->nav = [
-            ['url' => '/', 'name' => Route::currentRouteAction()],
+            ['url' => '/', 'name' => Route::getCurrentRoute()->getName()],
             ['url' => '/welcome', 'name' => trans('basic.welcome')]
         ];
     }
@@ -25,7 +25,7 @@ class UserController extends Controller
 //        $users = User::all();
 
         return view('welcome', [
-            'title' => Route::currentRouteAction(),
+            'title' => Route::getCurrentRoute()->getName(),
             'nav' => $this->nav,
         ]);
     }

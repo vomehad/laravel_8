@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class ConfigController extends Controller
 {
-    public function all()
+    public function getAll()
     {
-        dd(config());
+        $config = config();
+        foreach (reset($config) as $one) {
+            dump($one);
+        }
+
+        return view('general.config', $config);
+    }
+
+    public function getByKey($key)
+    {
+        dd(config($key));
     }
 }

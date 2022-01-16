@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,6 +9,8 @@
     @yield('meta')
     <title>@yield('title')</title>
     @include('includes.assets.css')
+    @include('includes.assets.fonts')
+    @yield('head')
 </head>
 <body class="container">
     @include('includes.header')

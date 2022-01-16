@@ -18,8 +18,8 @@ class UserController extends Controller
     {
         $title = Lang::get('basic.home');
         $nav = [
-            '/' => $title,
-            '/welcome' => trans('basic.welcome'),
+            ['url' => '/', 'name' => $title],
+            ['url' => '/welcome', 'name' => trans('basic.welcome')]
         ];
 
         return view('home', [

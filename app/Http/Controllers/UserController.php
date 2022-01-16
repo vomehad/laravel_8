@@ -3,28 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+//use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Route;
+use function PHPUnit\Framework\never;
 
 class UserController extends Controller
 {
+    private array $nav;
+
+    public function __construct()
+    {
+        $nav = [
+            ['url' => '/', 'name' => Route::currentRouteAction()],
+            ['url' => '/welcome', 'name' => trans('basic.welcome')]
+        ];
+    }
+
     public function welcome()
     {
-        $users = User::all();
+//        $users = User::all();
 
-        return view('welcome', ['users' => $users]);
+        return view('welcome', [
+            'title' => Route::currentRouteAction(),
+            'nav' => $this->nav,
+        ]);
     }
 
     public function home()
     {
         $title = Lang::get('basic.home');
-        $nav = [
-            ['url' => '/', 'name' => $title],
-            ['url' => '/welcome', 'name' => trans('basic.welcome')]
-        ];
 
         return view('home', [
             'title' => $title,
-            'nav' => $nav,
+            'nav' => $this->nav,
         ]);
     }
 }

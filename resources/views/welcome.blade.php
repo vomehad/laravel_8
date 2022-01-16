@@ -1,5 +1,6 @@
 @extends('layouts.app')
-    @section('title')Laravel@endsection
+
+    @section('title'){{"$title"}}@endsection
 
     @section('head')
         <!-- Styles -->

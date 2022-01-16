@@ -20,7 +20,7 @@
             </a>
         @endif
 
-        @if(empty($nav))
+        @if(isset($nav) && empty($nav))
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
                 @foreach($nav as $link)
                     <a class="me-3 py-2 text-dark text-decoration-none"

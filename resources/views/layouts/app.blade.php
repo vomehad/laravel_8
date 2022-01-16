@@ -10,7 +10,7 @@
     <title>@yield('title')</title>
     @include('includes.assets.css')
 </head>
-<body>
+<body class="container">
     @include('includes.header')
     @yield('content')
     @include('includes.aside')

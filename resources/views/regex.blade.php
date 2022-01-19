@@ -7,7 +7,3 @@
         <div class="">{{ $regex }}</div>
     @endsection
 
-    @section('aside')
-        @parent
-        <p>adding text</p>
-    @endsection

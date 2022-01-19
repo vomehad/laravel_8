@@ -7,5 +7,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [UserController::class, 'home'])->name('Home');
 Route::get('/welcome', [UserController::class, 'welcome'])->name('Welcome');
 
-Route::get('/config', [ConfigController::class, 'getAll']);
-Route::get('/config/{key}', [ConfigController::class, 'getByKey']);
+Route::group(['prefix' => '/config'], function() {
+    Route::get('/', [ConfigController::class, 'getAll']);
+    Route::get('/{key}', [ConfigController::class, 'getByKey']);
+});
+
+Route::get('/useRegex/{word}', [UserController::class, 'useRegex']);

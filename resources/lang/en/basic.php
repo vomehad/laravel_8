@@ -2,5 +2,6 @@
 
 return [
     'home' => 'Home',
-    'welcome' => 'Welcome'
+    'welcome' => 'Welcome',
+    'regex' => 'TEst Regex',
 ];

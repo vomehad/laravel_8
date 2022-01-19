@@ -39,4 +39,19 @@ class UserController extends Controller
             'nav' => $this->nav,
         ]);
     }
+
+    public function useRegex(string $word): string
+    {
+        $title = Lang::get('basic.regex');
+
+        $pattern = '//';
+        preg_match($pattern, $word, $match);
+        dd($match);
+
+        return view('regex', [
+            'title' => $title,
+            'nav' => $this->nav,
+            'regex' => $word,
+        ]);
+    }
 }

@@ -46,9 +46,15 @@ class UserController extends Controller
         $title = Lang::get('basic.regex');
 
         if ($word) {
-            $pattern = '//';
-            preg_match($pattern, $word, $match);
-            dd($match);
+            $pattern = '/(.)/';
+
+            $word = preg_replace_callback(
+                $pattern,
+                function($matches) {
+                    return reset($matches) . " ";
+                },
+                $word
+            );
         }
 
         return view('regex', [

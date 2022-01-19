@@ -16,7 +16,8 @@ class UserController extends Controller
     {
         $this->nav = [
             ['url' => '/', 'name' => Route::getCurrentRoute()->getName()],
-            ['url' => '/welcome', 'name' => trans('basic.welcome')]
+            ['url' => '/welcome', 'name' => trans('basic.welcome')],
+            ['url' => '/useRegex', 'name' => trans('basic.regex')],
         ];
     }
 

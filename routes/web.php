@@ -12,4 +12,4 @@ Route::group(['prefix' => '/config'], function() {
     Route::get('/{key}', [ConfigController::class, 'getByKey']);
 });
 
-Route::get('/useRegex/{word}', [UserController::class, 'useRegex']);
+Route::get('/useRegex/{word?}', [UserController::class, 'useRegex']);

@@ -8,3 +8,6 @@
         <div class="">{{ $regex }}</div>
     @endsection
 
+    @section('aside')
+{{--        @parent--}}
+    @endsection

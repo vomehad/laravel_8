@@ -15,15 +15,13 @@ class UserController extends Controller
     {
         $this->nav = [
             ['url' => route('Home'), 'name' => "Home"],
-            ['url' => route('Welcome'), 'name' => trans('basic.welcome')],
-            ['url' => route('Regex'), 'name' => trans('basic.regex')],
+            ['url' => route('Welcome'), 'name' => trans("welcome")],
+            ['url' => route('Regex'), 'name' => trans("regex")],
         ];
     }
 
     public function welcome()
     {
-//        $users = User::all();
-
         return view('welcome', [
             'title' => Route::getCurrentRoute()->getName(),
             'nav' => $this->nav,

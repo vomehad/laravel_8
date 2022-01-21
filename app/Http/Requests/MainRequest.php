@@ -2,18 +2,18 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Support\Facades\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
-class MainRequest extends Request
+class MainRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +21,26 @@ class MainRequest extends Request
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'name' => 'required',
+            'email' => 'required|email',
+            'subject' => 'required',
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'name' => 'NAME',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'fill email input',
         ];
     }
 }

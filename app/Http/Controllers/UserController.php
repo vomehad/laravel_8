@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\MainRequest;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Route;
 
@@ -52,8 +52,8 @@ class UserController extends Controller
         ]);
     }
 
-    public function create(Request $request)
+    public function create(MainRequest $request)
     {
-        dd($request->all());
+        return view('home');
     }
 }

@@ -20,7 +20,12 @@
                     <label for="validationCustomUsername" class="form-label">Username</label>
                     <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                        <input type="text"
+                               class="form-control"
+                               id="validationCustomUsername"
+                               aria-describedby="inputGroupPrepend"
+                               name="username"
+                        >
                         <div class="invalid-feedback">
                             Please choose a username.
                         </div>
@@ -69,7 +74,7 @@
                             <label for="subject">subject</label>
                             <input type="text"
                                    class="form-control {{ !empty($subjectFault) ? "border-danger" : "" }}"
-                                   name="text"
+                                   name="subject"
                                    placeholder="input subject"
                                    id="subject"
                             >

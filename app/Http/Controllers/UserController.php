@@ -63,6 +63,6 @@ class UserController extends Controller
         $contact->message = $request->message;
         $contact->save();
 
-        return redirect()->route('Home');
+        return redirect()->route('Home')->with('success', 'Message uploaded');
     }
 }

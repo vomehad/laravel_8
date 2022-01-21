@@ -15,6 +15,7 @@
 <body class="container body-content">
     @include('includes.header')
     <div class="container">
+        @include('includes.assets.messages')
         <div class="row">
             <div class="col-8">
                 @yield('content')

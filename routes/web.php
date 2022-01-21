@@ -13,9 +13,6 @@ Route::group(['prefix' => '/config'], function() {
 });
 
 Route::group(['prefix' => '/kinsman'], function() {
-//    Route::post('/create', function() {
-//       dd(\Illuminate\Http\Request::all());
-//    })->name('Create');
     Route::post('/create', [UserController::class, 'create'])->name('Create');
 });
 

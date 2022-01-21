@@ -3,6 +3,7 @@
     @section('title')"{{$title}}"@endsection
 
     @section('content')
+
         <div class="home-content">
             <div class="form-wrap">
                 <form action="{{ route('Create') }}" method="post">

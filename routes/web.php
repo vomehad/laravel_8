@@ -12,4 +12,11 @@ Route::group(['prefix' => '/config'], function() {
     Route::get('/{key}', [ConfigController::class, 'getByKey']);
 });
 
+Route::group(['prefix' => '/kinsman'], function() {
+//    Route::post('/create', function() {
+//       dd(\Illuminate\Http\Request::all());
+//    })->name('Create');
+    Route::post('/create', [UserController::class, 'create'])->name('Create');
+});
+
 Route::get('/useRegex/{word?}', [UserController::class, 'useRegex']);

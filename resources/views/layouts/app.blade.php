@@ -12,9 +12,18 @@
     @include('includes.assets.fonts')
     @yield('head')
 </head>
-<body class="container">
+<body class="container body-content">
     @include('includes.header')
-    @yield('content')
-    @include('includes.aside')
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                @yield('content')
+            </div>
+            <div class="col-4">
+                @include('includes.aside')
+            </div>
+        </div>
+    </div>
+    @include('includes.footer')
 </body>
 </html>

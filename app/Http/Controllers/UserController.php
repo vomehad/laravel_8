@@ -50,4 +50,9 @@ class UserController extends Controller
             'regex' => $splitWord,
         ]);
     }
+
+    public function create()
+    {
+        dd('or');
+    }
 }

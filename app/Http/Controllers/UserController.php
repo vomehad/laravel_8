@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Route;
 
@@ -12,9 +13,9 @@ class UserController extends Controller
     public function __construct()
     {
         $this->nav = [
-            ['url' => '/', 'name' => "Home"],
-            ['url' => '/welcome', 'name' => trans('basic.welcome')],
-            ['url' => '/useRegex', 'name' => trans('basic.regex')],
+            ['url' => route('Home'), 'name' => "Home"],
+            ['url' => route('Welcome'), 'name' => trans('basic.welcome')],
+            ['url' => route('Regex'), 'name' => trans('basic.regex')],
         ];
     }
 
@@ -51,8 +52,8 @@ class UserController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        dd('or');
+        dd($request->all());
     }
 }

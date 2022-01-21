@@ -16,4 +16,4 @@ Route::group(['prefix' => '/kinsman'], function() {
     Route::post('/create', [UserController::class, 'create'])->name('Create');
 });
 
-Route::get('/useRegex/{word?}', [UserController::class, 'useRegex']);
+Route::get('/useRegex/{word?}', [UserController::class, 'useRegex'])->name('Regex');

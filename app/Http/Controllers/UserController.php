@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MainRequest;
+use App\Models\Contact;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Route;
 
@@ -54,6 +55,14 @@ class UserController extends Controller
 
     public function create(MainRequest $request)
     {
-        return view('home');
+        $contact = new Contact();
+        $contact->username = $request->input('username');
+        $contact->name = $request->name;
+        $contact->email = $request->get('email');
+        $contact->subject = $request->subject;
+        $contact->message = $request->message;
+        $contact->save();
+
+        return redirect()->route('Home');
     }
 }

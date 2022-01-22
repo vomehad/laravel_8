@@ -1,4 +1,4 @@
-const readyToGame = () => {
+function readyToGame() {
     const start = document.querySelector('#start');
     const newGame = document.querySelector('#theEnd');
 

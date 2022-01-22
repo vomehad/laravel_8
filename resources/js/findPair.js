@@ -1,4 +1,4 @@
-function readyToGame() {
+document.addEventListener("DOMContentLoaded", function() {
     const start = document.querySelector('#start');
     const newGame = document.querySelector('#theEnd');
 
@@ -198,6 +198,4 @@ function readyToGame() {
             td.style.background = 'white';
         }
     }
-}
-
-document.addEventListener("DOMContentLoaded", readyToGame);
+});

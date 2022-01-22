@@ -14,7 +14,7 @@
                 @for($iH = 1; $iH <= $maxBlocks; $iH++)
                     <tr>
                         @for($iV = 1; $iV <= $maxBlocks; $iV++)
-                            <td>{{ $item++ }}</td>
+                            <td class="td__cell">{{ $item++ }}</td>
                         @endfor
                     </tr>
                 @endfor

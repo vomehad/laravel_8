@@ -26,5 +26,6 @@
         </div>
     </div>
     @include('includes.footer')
+    @include('includes.assets.js')
 </body>
 </html>

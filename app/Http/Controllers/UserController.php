@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MainRequest;
 use App\Models\Contact;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,7 @@ class UserController extends Controller
         ];
     }
 
-    public function welcome()
+    public function welcome(): string
     {
         return view('welcome', [
             'title' => Route::getCurrentRoute()->getName(),
@@ -51,7 +52,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function create(MainRequest $request)
+    public function create(MainRequest $request): RedirectResponse
     {
         $contact = new Contact();
         $contact->username = $request->input('username');
@@ -62,5 +63,13 @@ class UserController extends Controller
         $contact->save();
 
         return redirect()->route('Home')->with('success', 'Message uploaded');
+    }
+
+    public function playGame(): string
+    {
+        return view('playGame', [
+            'title' => 'Find All Pairs',
+            'nav' => $this->nav,
+        ]);
     }
 }

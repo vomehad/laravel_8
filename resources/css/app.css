@@ -9,3 +9,7 @@
 .nav-content {
     background: #bebebe;
 }
+
+#winner {
+    display: none;
+}

@@ -5,7 +5,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [UserController::class, 'home'])->name('Home');
-Route::get('/welcome', [UserController::class, 'welcome'])->name('Welcome');
+Route::get('/welcome', [UserController::class, 'playGame'])->name('Welcome');
 
 Route::group(['prefix' => '/config'], function() {
     Route::get('/', [ConfigController::class, 'getAll']);

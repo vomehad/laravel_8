@@ -21,7 +21,7 @@
                 </table>
 
                 <button id="start"
-                        class="btn btn-block"
+                        class="btn btn-success"
                 >Start</button>
 
                 <p id="timer"></p>
@@ -29,7 +29,7 @@
                 <div id="winner">
                     <p id="youWin">You Win</p>
                     <p id="yourTime">Just a second</p>
-                    <button id="theEnd">Play New Game</button>
+                    <button id="theEnd" class="btn btn-danger">Play New Game</button>
                 </div>
             </div>
         </div>
@@ -50,6 +50,7 @@
             const colors = fillArray();
             const obj = createObj();
             let arrTd = [];
+            let countMove = 0;
 
             // functions
             const clearArray = () => [];
@@ -79,6 +80,7 @@
                 initBlocks(clickMode);
 
                 function clickMode() {
+                    countMove++;
                     this.style.background = obj[this.innerHTML];
                     arrTd.push(this);
                     correctClicks(arrTd);
@@ -149,6 +151,7 @@
                         if (Win()) {
                             clearInterval(id);
                             modalWindow();
+                            // $.ajax()
                         }
 
                         timer.innerHTML = `${getZero(minutes)}:${getZero(seconds)}.${millisec}`;
@@ -159,7 +162,7 @@
 
                 function modalWindow() {
                     document.querySelector('#winner').style.display = 'grid';
-                    document.querySelector('#yourTime').innerHTML = 'Time spend: ' + timer.innerHTML;
+                    document.querySelector('#yourTime').innerHTML = `${countMove} ходов`;
                 }
             }
 

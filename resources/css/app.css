@@ -28,8 +28,10 @@
 }
 
 #start {
+    display: block;
+    align-items: flex-end;
     color: black;
-    background-color: #9c9c94;
+    /*background-color: #9c9c94;*/
 }
 
 .active {
@@ -55,6 +57,6 @@
 #theEnd {
     display: block;
     align-items: flex-end;
-    background: #9c9c94;
+    /*background: #9c9c94;*/
     border: 2px solid blue;
 }

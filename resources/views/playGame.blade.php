@@ -20,7 +20,7 @@
                 @endfor
                 </table>
 
-                <button class="btn btn-block">Start</button>
+                <button class="btn btn-block" onclick="readyToGame()">Start</button>
 
                 <p id="timer"></p>
 

@@ -2062,6 +2062,8 @@ module.exports = {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./findPair.js */ "./resources/js/findPair.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -2092,6 +2094,260 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/findPair.js":
+/*!**********************************!*\
+  !*** ./resources/js/findPair.js ***!
+  \**********************************/
+/***/ (() => {
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function readyToGame() {
+  var start = document.querySelector('#start');
+  var newGame = document.querySelector('#theEnd');
+  start.addEventListener('click', startGame);
+  newGame.addEventListener("click", goNewGame);
+
+  function startGame() {
+    var divGame = document.querySelector('#game');
+    var tds = divGame.querySelectorAll('td');
+    var timer = divGame.querySelector('#timer');
+    var colors = fillArray();
+    var obj = createObj();
+    var arrTd = [];
+    start.disabled = true;
+    timerGame();
+
+    var _iterator = _createForOfIteratorHelper(tds),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var td = _step.value;
+        td.classList.add('active');
+        td.addEventListener('click', clickMode);
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    function clickMode() {
+      this.style.background = obj[this.innerHTML];
+      arrTd.push(this);
+      matchTd(arrTd);
+
+      if (arrTd.length === 2 && arrTd[0].style.background !== arrTd[1].style.background) {
+        notMatch();
+      } else if (arrTd[0].style.background === arrTd[1].style.background) {
+        getMatch();
+      }
+    }
+
+    function getMatch() {
+      var _iterator2 = _createForOfIteratorHelper(tds),
+          _step2;
+
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var td = _step2.value;
+          td.removeEventListener('click', clickMode);
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+
+      var id = setTimeout(function () {
+        arrTd[0].style.background = 'white';
+        arrTd[1].style.background = 'white';
+        arrTd = [];
+
+        var _iterator3 = _createForOfIteratorHelper(tds),
+            _step3;
+
+        try {
+          for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+            var td = _step3.value;
+
+            if (td.classList.contains('active')) {
+              td.addEventListener('click');
+            }
+          }
+        } catch (err) {
+          _iterator3.e(err);
+        } finally {
+          _iterator3.f();
+        }
+
+        clearTimeout(id);
+      }, 300);
+    }
+
+    function notMatch() {
+      var _iterator4 = _createForOfIteratorHelper(tds),
+          _step4;
+
+      try {
+        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+          var td = _step4.value;
+          td.removeEventListener('click', clickMode);
+        }
+      } catch (err) {
+        _iterator4.e(err);
+      } finally {
+        _iterator4.f();
+      }
+
+      var id = setTimeout(function () {
+        arrTd[0].style.background = 'white';
+        arrTd[1].style.background = 'white';
+        arrTd = [];
+
+        var _iterator5 = _createForOfIteratorHelper(tds),
+            _step5;
+
+        try {
+          for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+            var td = _step5.value;
+
+            if (td.classList.contains('active')) {
+              td.addEventListener('click', clickMode);
+            }
+          }
+        } catch (err) {
+          _iterator5.e(err);
+        } finally {
+          _iterator5.f();
+        }
+
+        clearTimeout(id);
+      }, 300);
+    }
+
+    function createObj() {
+      var obj = {};
+      var set = new Set();
+
+      while (set.size !== 16) {
+        set.add(Math.ceil(Math.random() * 16));
+      }
+
+      newObj(set, obj);
+      return obj;
+    }
+
+    function newObj(arr, obj) {
+      var i = 0;
+      arr.forEach(function (elem) {
+        i++;
+        obj[i] = colors[elem];
+      });
+    }
+
+    function matchTd(arr) {
+      checkEqual(arr);
+
+      if (arr.length > 2) {
+        arr.splice(2);
+      }
+    }
+
+    function checkEqual(arr) {
+      if (arr[0] === arr[1]) {
+        arr.splice(1);
+      }
+    }
+
+    function Win() {
+      if (divGame.querySelectorAll('.active').length > 0) {
+        return true;
+      }
+    } // let Win = () => divGame.querySelectorAll('.active').length;
+
+
+    function timerGame() {
+      timer.innerHTML = "00:00:000";
+      var millisec = 0;
+      var seconds = 0;
+      var minutes = 0;
+      var time = new Date().getTime();
+      var id = setInterval(function () {
+        millisec = new Date().getTime() - time;
+
+        if (millisec > 999) {
+          time = new Date().getTime();
+          seconds++;
+        }
+
+        if (seconds > 59) {
+          seconds = 0;
+          minutes++;
+        }
+
+        if (Win()) {
+          clearInterval(id);
+          modalWindow();
+        }
+
+        timer.innerHTML = getZero(minutes) + ":" + getZero(seconds) + "." + millisec; // timer.innerHTML = `${getZero(minutes)}:${getZero(seconds)}.${millisec};
+      }, 1);
+    }
+
+    function getZero(num) {
+      if (num <= 9) {
+        return '0' + num;
+      } else {
+        return num;
+      }
+    } // const getZero = (num) => num < 10 ? `0${num}` : num;
+
+
+    function modalWindow() {
+      document.querySelector('#winner').style.display = 'grid';
+      document.querySelector('#yourTime').innerHTML = 'Time spend: ' + timer.innerHTML;
+    }
+  }
+
+  function fillArray() {
+    return ['1', 'red', 'red', 'green', 'green', 'blue', 'blue', 'black', 'black', 'yellow', 'yellow', 'hotpink', 'hotpink', 'indigo', 'indigo', 'magenta', 'magenta'];
+  }
+
+  function goNewGame() {
+    var divGame = document.querySelector('#game');
+    var timer = divGame.querySelector('#timer');
+    var tds = divGame.querySelectorAll('td');
+    timer.innerHTML = "00:00.000";
+    document.querySelector('#winner').style.display = 'none';
+    start.disabled = false;
+
+    var _iterator6 = _createForOfIteratorHelper(tds),
+        _step6;
+
+    try {
+      for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+        var td = _step6.value;
+        td.style.background = 'white';
+      }
+    } catch (err) {
+      _iterator6.e(err);
+    } finally {
+      _iterator6.f();
+    }
+  }
+}
+
+document.addEventListener("DOMContentLoaded", readyToGame);
+window.onload = readyToGame;
 
 /***/ }),
 

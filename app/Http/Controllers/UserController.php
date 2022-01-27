@@ -16,11 +16,12 @@ class UserController extends Controller
     {
         $this->nav = [
             ['url' => route('Home'), 'name' => "Home"],
-            ['url' => route('Welcome'), 'name' => trans("welcome")],
+            ['url' => route('Game'), 'name' => trans("welcome")],
             ['url' => route('Regex'), 'name' => trans("regex")],
         ];
     }
 
+    /*
     public function welcome(): string
     {
         return view('welcome', [
@@ -28,6 +29,7 @@ class UserController extends Controller
             'nav' => $this->nav,
         ]);
     }
+    */
 
     public function home()
     {
@@ -63,13 +65,5 @@ class UserController extends Controller
         $contact->save();
 
         return redirect()->route('Home')->with('success', 'Message uploaded');
-    }
-
-    public function playGame(): string
-    {
-        return view('playGame', [
-            'title' => 'Find All Pairs',
-            'nav' => $this->nav,
-        ]);
     }
 }

@@ -35,9 +35,12 @@ class UserController extends Controller
     {
         $title = Lang::get('basic.home');
 
+        $contacts = Contact::all();
+
         return view('home', [
             'title' => $title,
             'nav' => $this->nav,
+            'contacts' => $contacts
         ]);
     }
 
@@ -57,11 +60,12 @@ class UserController extends Controller
     public function create(MainRequest $request): RedirectResponse
     {
         $contact = new Contact();
-        $contact->username = $request->input('username');
+        $contact->username = $request->username;
         $contact->name = $request->name;
-        $contact->email = $request->get('email');
+        $contact->email = $request->email;
         $contact->subject = $request->subject;
         $contact->message = $request->message;
+
         $contact->save();
 
         return redirect()->route('Home')->with('success', 'Message uploaded');

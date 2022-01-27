@@ -201,4 +201,3 @@ function readyToGame() {
 }
 
 document.addEventListener("DOMContentLoaded", readyToGame);
-window.onload = readyToGame;

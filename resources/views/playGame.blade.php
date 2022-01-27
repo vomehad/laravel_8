@@ -35,69 +35,77 @@
         </div>
         <script>
             const start = document.querySelector('#start');
-            const newGame = document.querySelector('#theEnd');
-
             start.addEventListener('click', startGame);
+
+            const newGame = document.querySelector('#theEnd');
             newGame.addEventListener("click", goNewGame);
 
-            function startGame() {
-                const divGame = document.querySelector('#game');
-                const tds = divGame.querySelectorAll('td');
-                const timer = divGame.querySelector('#timer');
-                const colors = fillArray();
-                const obj = createObj();
-                let arrTd = clearArray();
+            const divGame = document.querySelector('#game');
+            const blocks = divGame.querySelectorAll('td');
+            const timer = divGame.querySelector('#timer');
 
+            const active = 'active';
+            const setDefaultColor = (elem) => elem.style.background = 'white';
+            const setNewGameColor = (elem) => elem.style.background = '#ddd';
+            const colors = fillArray();
+            const obj = createObj();
+            let arrTd = [];
+
+            // functions
+            const clearArray = () => [];
+            const disable = (elem) => elem.disabled = true;
+            const activate = (elem) => elem.classList.add(active);
+            const deactivate = (elem) => elem.classList.remove(active);
+            const isActive = (elem) => elem.classList.contains(active);
+            const initBlocks = (clickMode) => {
+                for (let block of blocks) {
+                    activate(block);
+                    block.addEventListener('click', clickMode);
+                }
+            }
+            const reInitBlock = (clickMode) => {
+                for (let block of blocks) {
+                    if (!isActive(block)) {
+                        block.removeEventListener('click', clickMode);
+                    }
+                }
+            }
+            const colorBack = (elem) => elem.style.background;
+            const Win = () => !divGame.querySelectorAll('.active').length;
+
+            function startGame() {
                 disable(start);
                 timerGame();
-
-                for (let td of tds) {
-                    td.classList.add('active');
-                    td.addEventListener('click', clickMode);
-                }
+                initBlocks(clickMode);
 
                 function clickMode() {
                     this.style.background = obj[this.innerHTML];
                     arrTd.push(this);
-                    matchTd(arrTd);
+                    correctClicks(arrTd);
 
                     if (arrTd.length === 2) {
-                        if (arrTd[0].style.background !== arrTd[1].style.background) {
-                            notMatch();
-                        } else if (arrTd[0].style.background === arrTd[1].style.background) {
-                            getMatch();
-                        }
+                        colorBack(arrTd[0]) === colorBack(arrTd[1]) ? getMatch() : notMatch();
                     }
                 }
 
                 function getMatch() {
-                    for (let td of tds) {
-                        td.removeEventListener('click', clickMode);
-                    }
-
-                    arrTd[0].classList.remove('active');
-                    arrTd[1].classList.remove('active');
-
-                    for (let td of tds) {
-                        if (td.classList.contains('active')) {
-                            td.addEventListener('click', clickMode)
-                        }
-                    }
-
+                    deactivate(arrTd[0]);
+                    deactivate(arrTd[1]);
                     arrTd = clearArray();
+                    reInitBlock(clickMode);
                 }
 
                 function notMatch() {
-                    for (let td of tds) {
+                    for (let td of blocks) {
                         td.removeEventListener('click', clickMode);
                     }
 
                     const id = setTimeout(function() {
-                        arrTd[0].style.background = 'white';
-                        arrTd[1].style.background = 'white';
-                        arrTd = [];
+                        setDefaultColor(arrTd[0]);
+                        setDefaultColor(arrTd[1]);
+                        arrTd = clearArray();
 
-                        for (let td of tds) {
+                        for (let td of blocks) {
                             if (td.classList.contains('active')) {
                                 td.addEventListener('click', clickMode);
                             }
@@ -107,51 +115,15 @@
                     }, 300);
                 }
 
-                function createObj() {
-                    const obj = {};
-                    const set = new Set();
-
-                    while (set.size !== 16) {
-                        set.add(Math.ceil(Math.random() * 16));
+                function correctClicks(blocks) {
+                    if (blocks[0] === blocks[1]) {
+                        blocks.splice(1);
                     }
 
-                    newObj(set, obj);
-
-                    return obj;
-                }
-
-                function newObj(arr, obj) {
-                    let i = 0;
-
-                    arr.forEach((elem) => {
-                        i++;
-                        obj[i] = colors[elem];
-                    })
-                }
-
-                function matchTd(arr) {
-                    checkEqual(arr);
-
-                    if (arr.length > 2) {
-                        arr.splice(2);
+                    if (blocks.length > 2) {
+                        blocks.splice(2);
                     }
                 }
-
-                function checkEqual(arr) {
-                    if (arr[0] === arr[1]) {
-                        arr.splice(1);
-                    }
-                }
-
-                function Win() {
-                    if (divGame.querySelectorAll('.active').length === 0) {
-                        return true;
-                    }
-
-                    return false;
-                }
-
-                // let Win = () => divGame.querySelectorAll('.active').length;
 
                 function timerGame() {
                     timer.innerHTML = "00:00:000";
@@ -179,23 +151,25 @@
                             modalWindow();
                         }
 
-                        timer.innerHTML = getZero(minutes) + ":" + getZero(seconds) + "." + millisec;
-                        // timer.innerHTML = `${getZero(minutes)}:${getZero(seconds)}.${millisec};
+                        timer.innerHTML = `${getZero(minutes)}:${getZero(seconds)}.${millisec}`;
                     }, 1);
                 }
 
-                function getZero(num) {
-                    if (num <= 9) {
-                        return '0' + num;
-                    } else {
-                        return num;
-                    }
-                }
-                // const getZero = (num) => num < 10 ? `0${num}` : num;
+                const getZero = (num) => num < 10 ? `0${num}` : num;
 
                 function modalWindow() {
                     document.querySelector('#winner').style.display = 'grid';
                     document.querySelector('#yourTime').innerHTML = 'Time spend: ' + timer.innerHTML;
+                }
+            }
+
+            function goNewGame() {
+                timer.innerHTML = "00:00.000";
+                document.querySelector('#winner').style.display = 'none';
+                start.disabled = false;
+
+                for (let block of blocks) {
+                    setNewGameColor(block);
                 }
             }
 
@@ -221,23 +195,26 @@
                 ];
             }
 
-            function goNewGame() {
-                const divGame = document.querySelector('#game');
-                const timer = divGame.querySelector('#timer');
-                const tds = divGame.querySelectorAll('td');
+            function createObj() {
+                const obj = {};
+                const set = new Set();
 
-                timer.innerHTML = "00:00.000";
-                document.querySelector('#winner').style.display = 'none';
-                start.disabled = false;
-
-                for (let td of tds) {
-                    td.style.background = 'white';
+                while (set.size !== 16) {
+                    set.add(Math.ceil(Math.random() * 16));
                 }
+
+                newObj(set, obj);
+
+                return obj;
             }
 
-            const clearArray = () => [];
-            const disable = (elem) => {
-                elem.disabled = true;
+            function newObj(arr, obj) {
+                let i = 0;
+
+                arr.forEach((elem) => {
+                    i++;
+                    obj[i] = colors[elem];
+                })
             }
         </script>
     @endsection

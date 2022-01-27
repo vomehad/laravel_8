@@ -167,6 +167,7 @@
             }
 
             function goNewGame() {
+                countMove = 0;
                 timer.innerHTML = "00:00.000";
                 document.querySelector('#winner').style.display = 'none';
                 start.disabled = false;

@@ -160,6 +160,8 @@
 
                         timer.innerHTML = `${getZero(minutes)}:${getZero(seconds)}.${millisec}`;
                     }, 1);
+                    const resultTime = new Date().getTime() - time;
+                    console.log(resultTime);
                 }
 
                 const getZero = (num) => num < 10 ? `0${num}` : num;

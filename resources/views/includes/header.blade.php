@@ -4,16 +4,21 @@
             <span class="fs-4">Vomehad</span>
         </a>
 
-        @if(isset($nav) && !empty($nav))
-            <nav class="my-2 my-md-0 mr-md-3 nav-content">
+        <nav class="my-2 my-md-0 mr-md-3 nav-content">
+            @if(isset($nav) && !empty($nav))
                 @foreach($nav as $link)
-                    <a class="p-2 text-dark text-decoration-none"
-                       href="{{ $link['url'] }}"
-                    >{{ $link['name'] }}</a>
+                    <a class="p-2 text-dark text-decoration-none" href="{{ $link['url'] }}">{{ $link['name'] }}</a>
                 @endforeach
-                    <a class="btn btn-outline-primary" href="#">Sign up</a>
-            </nav>
-        @endif
+            @endif
+            @if(!Illuminate\Support\Facades\Auth::check())
+                <a href="{{ route('Login') }}" class="btn btn-outline-primary">Login</a>
+                <a class="btn btn-outline-primary" href="{{ route('SignUp') }}">Sign up</a>
+            @else
+                <a href="{{ route('Account') }}" class="btn btn-outline-primary">Account</a>
+                <a href="{{ route('Logout') }}" class="btn btn-outline-prim">Logout</a>
+            @endif
+        </nav>
+
     </div>
 
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">

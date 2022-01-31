@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MainRequest;
 use App\Models\Contact;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Route;
 
 class UserController extends Controller
 {
@@ -20,16 +17,6 @@ class UserController extends Controller
             ['url' => route('Regex'), 'name' => trans("regex")],
         ];
     }
-
-    /*
-    public function welcome(): string
-    {
-        return view('welcome', [
-            'title' => Route::getCurrentRoute()->getName(),
-            'nav' => $this->nav,
-        ]);
-    }
-    */
 
     public function home()
     {
@@ -57,17 +44,8 @@ class UserController extends Controller
         ]);
     }
 
-    public function create(MainRequest $request): RedirectResponse
+    public function account()
     {
-        $contact = new Contact();
-        $contact->username = $request->username;
-        $contact->name = $request->name;
-        $contact->email = $request->email;
-        $contact->subject = $request->subject;
-        $contact->message = $request->message;
-
-        $contact->save();
-
-        return redirect()->route('Home')->with('success', 'Message uploaded');
+        dd('account');
     }
 }

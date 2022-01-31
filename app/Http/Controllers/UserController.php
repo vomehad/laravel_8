@@ -12,7 +12,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->nav = [
-            ['url' => route('Home'), 'name' => "Home"],
+//            ['url' => route('Home'), 'name' => "Home"],
             ['url' => route('Game'), 'name' => trans("welcome")],
             ['url' => route('Regex'), 'name' => trans("regex")],
         ];

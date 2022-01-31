@@ -24,9 +24,11 @@ class MainRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'username' => 'required',
             'name' => 'required',
             'email' => 'required|email',
             'subject' => 'required',
+            'message' => 'required'
         ];
     }
 

@@ -5,13 +5,6 @@
 @section('content')
 
 <div class="home-content">
-    @if ($errors->any())
-        @php
-            $nameFault = $errors->first('name');
-            $emailFault = $errors->first('email');
-            $subjectFault = $errors->first('subject');
-        @endphp
-    @endif
     <div class="form-wrap">
         <form action="{{ route('Create') }}" method="post" class="row g-3 needs-validation" novalidate>
 
@@ -22,79 +15,90 @@
                 <div class="input-group has-validation">
                     <span class="input-group-text" id="inputGroupPrepend">@</span>
                     <input type="text"
-                           class="form-control"
+                           class="form-control @error('username'){{ "border-danger" }}@enderror"
                            id="validationCustomUsername"
                            aria-describedby="inputGroupPrepend"
                            name="username"
                     >
-                    <div class="invalid-feedback">
-                        Please choose a username.
-                    </div>
                 </div>
+                @error('username')
+                    <div class="alert alert-danger">
+                        <span>{{ $message }}</span>
+                    </div>
+                @enderror
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text"
-                           class="form-control {{ !empty($nameFault) ? "border-danger" : "" }}"
+                           class="form-control @error('name'){{ "border-danger" }}@enderror"
                            name="name"
                            placeholder="input name"
                            id="name"
                     >
                 </div>
-                @if (!empty($nameFault))
+                @error('name')
                     <div class="alert alert-danger">
-                        <div class="">
-                            <span>{{ $nameFault }}</span>
-                        </div>
+                        <span>{{ $message }}</span>
                     </div>
-                @endif
+                @enderror
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="email">email</label>
                     <input type="text"
-                           class="form-control {{ !empty($emailFault) ? "border-danger" : "" }}"
+                           class="form-control @error('email'){{ "border-danger" }}@enderror"
                            name="email"
                            placeholder="input email"
                            id="email"
                     >
                 </div>
-                @if (!empty($emailFault))
+                @error('email')
                     <div class="alert alert-danger">
                         <div class="">
-                            <span>{{ $emailFault }}</span>
+                            <span>{{ $message }}</span>
                         </div>
                     </div>
-                @endif
+                @enderror
             </div>
 
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="subject">subject</label>
                     <input type="text"
-                           class="form-control {{ !empty($subjectFault) ? "border-danger" : "" }}"
                            name="subject"
+                           class="form-control @error('subject'){{ "border-danger" }}@enderror"
                            placeholder="input subject"
                            id="subject"
                     >
                 </div>
-                @if (!empty($subjectFault))
+                @error('subject')
                     <div class="alert alert-danger">
                         <div class="">
-                            <span>{{ $subjectFault }}</span>
+                            <span>{{ $message }}</span>
                         </div>
                     </div>
-                @endif
+                @enderror
             </div>
 
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="message">Message</label>
-                    <textarea class="form-control" name="message" placeholder="Edit it" id="message"></textarea>
+                    <textarea class="form-control @error('message'){{ "border-danger" }}@enderror"
+                              name="message"
+                              placeholder="Edit it"
+                              id="message"
+                    ></textarea>
                 </div>
+                @error('message')
+                <div class="alert alert-danger">
+                    <div class="">
+                        <span>{{ $message }}</span>
+                    </div>
+                </div>
+                @enderror
             </div>
 
             <div class="ml-5">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 
 class UserController extends Controller
@@ -46,6 +47,12 @@ class UserController extends Controller
 
     public function account()
     {
-        dd('account');
+        $title = 'Account';
+//        $title .= Auth::user();
+
+        return view('account', [
+            'title' => $title,
+            'nav' => $this->nav,
+        ]);
     }
 }

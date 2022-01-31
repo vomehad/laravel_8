@@ -2,5 +2,5 @@
     <div class="aside">
         <h4>ASIDE</h4>
         <p>aside panel</p>
-        @show
     </div>
+@show

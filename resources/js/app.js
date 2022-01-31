@@ -1,2 +1,2 @@
 require('./bootstrap');
-// require('./findPair.js');
+require('./findPair.js');

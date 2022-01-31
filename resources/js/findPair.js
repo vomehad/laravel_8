@@ -12,7 +12,7 @@ const active = 'active';
 const setDefaultColor = (elem) => elem.style.background = 'white';
 const setNewGameColor = (elem) => elem.style.background = '#ddd';
 const colors = fillArray();
-const obj = createObj();
+let obj = createObj();
 let arrTd = [];
 let countMove = 0;
 
@@ -115,7 +115,6 @@ function startGame() {
             if (Win()) {
                 clearInterval(id);
                 modalWindow();
-                // $.ajax()
             }
 
             timer.innerHTML = `${getZero(minutes)}:${getZero(seconds)}.${millisec}`;
@@ -131,6 +130,8 @@ function startGame() {
 }
 
 function goNewGame() {
+    countMove = 0;
+    obj = createObj();
     timer.innerHTML = "00:00.000";
     document.querySelector('#winner').style.display = 'none';
     start.disabled = false;

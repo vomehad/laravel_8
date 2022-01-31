@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
-@section('title')"{{ $title }}"@endsection
-
+@section('title'){{ $title }}@endsection
 @section('content')
 
 <div class="home-content">

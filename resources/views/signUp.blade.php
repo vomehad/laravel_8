@@ -21,6 +21,7 @@
             <label for="email" class="col-form-label-lg">Email</label>
             <input type="text"
                    class="form-control @error('email'){{ "border-danger" }}@enderror"
+                   name="email"
                    id="email"
                    value=""
                    placeholder="Email"
@@ -34,6 +35,7 @@
             <label for="password" class="col-form-label-lg">Password</label>
             <input type="password"
                    class="form-control @error('password'){{ "border-danger" }}@enderror"
+                   name="password"
                    id="password"
                    value=""
                    placeholder="Password"

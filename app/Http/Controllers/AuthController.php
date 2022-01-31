@@ -34,7 +34,6 @@ class AuthController extends Controller
 
     public function create(LoginRequest $request)
     {
-        dd($request->all());
         if (Auth::check()) {
             return redirect(route('Account'));
         }

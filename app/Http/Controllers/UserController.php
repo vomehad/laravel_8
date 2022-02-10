@@ -13,7 +13,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->nav = [
-//            ['url' => route('Home'), 'name' => "Home"],
+            ['url' => route('Cookie'), 'name' => 'Testing page'],
             ['url' => route('Game'), 'name' => trans("welcome")],
             ['url' => route('Regex'), 'name' => trans("regex")],
         ];
@@ -32,17 +32,19 @@ class UserController extends Controller
         ]);
     }
 
-    public function useRegex(?string $word = ""): string
+    public function testingPage(): string
     {
-        $title = Lang::get('basic.regex');
+        $title = 'Testing page';
 
-        $splitWord = preg_replace('/(.)/', "$1 ", $word);
-
-        return view('regex', [
+        return view('testing-page', [
             'title' => $title,
             'nav' => $this->nav,
-            'regex' => $splitWord,
         ]);
+    }
+
+    public function processWord()
+    {
+        return 0;
     }
 
     public function account()

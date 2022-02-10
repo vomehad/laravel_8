@@ -29,3 +29,8 @@ Route::group(['prefix' => '/game'], function() {
     Route::get('/', [GameController::class, 'playGame'])->name('Game');
     Route::post('/create', [UserController::class, 'createRecord']);
 });
+
+Route::name('Test.')->prefix('test')->group(function() {
+    Route::get('/page', [UserController::class, 'testingPage'])->name('main');
+    Route::post('/word', [UserController::class, 'processWord'])->name('word');
+});

@@ -16,3 +16,6 @@ yarn-error.log
 
 .docker/data/*
 .docker/logs/*
+public/js/
+public/css/
+public/mix-manifest.json

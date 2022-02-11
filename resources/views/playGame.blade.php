@@ -1,5 +1,7 @@
 @extends('layouts.app')
-@section('title')"{{ $title }}@endsection
+
+@section('title', $title)
+
 @section('content')
 
     <div class="game-content">
@@ -28,6 +30,10 @@
         </div>
     </div>
 
+@endsection
+
+@section('body')
+    <script src="{{ mix('/js/find-pairs.js') }}"></script>
 @endsection
 
 

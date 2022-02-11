@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AjaxRequest;
 use App\Models\Contact;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 
 class UserController extends Controller
@@ -13,9 +13,8 @@ class UserController extends Controller
     public function __construct()
     {
         $this->nav = [
-            ['url' => route('Cookie'), 'name' => 'Testing page'],
+            ['url' => route('Test.main'), 'name' => 'Testing page'],
             ['url' => route('Game'), 'name' => trans("welcome")],
-            ['url' => route('Regex'), 'name' => trans("regex")],
         ];
     }
 
@@ -40,6 +39,13 @@ class UserController extends Controller
             'title' => $title,
             'nav' => $this->nav,
         ]);
+    }
+
+    public function addCookie(AjaxRequest $request): string
+    {
+        $cookieNumber = $request->number;
+
+        return '';
     }
 
     public function processWord()

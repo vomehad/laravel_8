@@ -2,33 +2,33 @@ version: "3.7"
 
 services:
     nginx:
-        ports:
-            - ${HTTP_PORT}:80
         build:
-            context: .docker/containers/nginx
-            dockerfile: Dockerfile
+            context: ./.docker/containers/nginx
+            dockerfile: ./Dockerfile
             args:
                 USER_ID: $USER_ID
                 GROUP_ID: $GROUP_ID
-                DOCUMENT_ROOT: $DOCUMENT_ROOT
-                CORS_HEADERS: $CORS_HEADERS
         container_name: ${APP_NAME}_nginx
+        ports:
+            - ${HTTP_PORT}:80
         depends_on:
             - php
         volumes:
             - ./:/var/www/html
-            - .docker/logs/nginx:/var/log/nginx
+            - ./.docker/logs/nginx:/var/log/nginx
         links:
             - php
         restart: unless-stopped
+#        env_file:
+#            - .env
         networks:
             default:
                 aliases:
                     - site.root
     php:
         build:
-            context: .docker/containers/php
-            dockerfile: Dockerfile
+            context: ./.docker/containers/php
+            dockerfile: ./Dockerfile
             args:
                 USER_ID: $USER_ID
                 GROUP_ID: $GROUP_ID
@@ -36,16 +36,16 @@ services:
         container_name: ${APP_NAME}_php
         volumes:
             - ./:/var/www/html
-            - .docker/logs/php:/var/logs/php
-            - .docker/data/sessions:/var/www/sessions
+            - ./.docker/logs/php:/var/logs/php
+            - ./.docker/data/sessions:/var/www/sessions
         links:
             -   mysql
         restart: unless-stopped
         environment:
-            APP_ENV: $APP_ENV
-            MYSQL_DATABASE: ${MYSQL_DATABASE}
-            MYSQL_USER: ${MYSQL_USER}
-            MYSQL_PASSWORD: $MYSQL_PASSWORD}
+            APP_ENV: ${APP_ENV}
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
             DB_CONNECTION: ${DB_CONNECTION}
             DB_HOST: ${DB_HOST}
             DB_PORT: ${DB_PORT}
@@ -55,8 +55,8 @@ services:
 
     mysql:
         build:
-            context: .docker/containers/mysql
-            dockerfile: Dockerfile
+            context: ./.docker/containers/mysql
+            dockerfile: ./Dockerfile
             args:
                 USER_ID: ${USER_ID}
                 GROUP_ID: ${GROUP_ID}
@@ -64,6 +64,8 @@ services:
         container_name: ${APP_NAME}_mysql
         ports:
             - ${DB_PORT}:3306
+#        env_file:
+#            - .env
         environment:
             MYSQL_DATABASE: ${DB_DATABASE}
 #            MYSQL_USER: ${DB_USERNAME}
@@ -71,5 +73,5 @@ services:
             MYSQL_ROOT_PASSWORD: root
         restart: unless-stopped
         volumes:
-            - .docker/logs/mysql:/var/log/mysql
-            - .docker/data/mysql:/var/lib/mysql
+            - ./.docker/logs/mysql:/var/log/mysql
+            - ./.docker/data/mysql:/var/lib/mysql

@@ -10,7 +10,7 @@
     <title>@yield('title')</title>
     @include('includes.assets.css')
     @include('includes.assets.fonts')
-    @include('includes.assets.js')
+{{--    @include('includes.assets.js')--}}
     @yield('head')
 </head>
 <body class="container body-content">
@@ -26,6 +26,7 @@
             </div>
         </div>
     </div>
+    @include('includes.assets.js')
     @include('includes.footer')
     @yield('body')
 </body>

@@ -5,8 +5,8 @@
 @section('content')
 
     <div class="test-content">
-        <div class="js-ajax-send-form">
-            <form action="{{ route('Test.cookie') }}" class="form-inline">
+        <div class="">
+            <form class="form-inline js-ajax-send-form" id="cookie-form">
 
                 @csrf
 
@@ -20,7 +20,7 @@
                     />
                 </div>
 
-                <button type="submit" class="btn btn-success mb-2">Send</button>
+                <button class="btn btn-success mb-2">Send</button>
 
             </form>
         </div>

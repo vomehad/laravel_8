@@ -44,8 +44,10 @@ class UserController extends Controller
     public function addCookie(AjaxRequest $request): string
     {
         $cookieNumber = $request->number;
+        file_put_contents("1.txt", json_encode($cookieNumber).PHP_EOL, FILE_APPEND);
+        dd($cookieNumber);
 
-        return '';
+        return response()->json($cookieNumber);
     }
 
     public function processWord()

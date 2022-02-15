@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\CustomCookie;
 use App\Http\Requests\AjaxRequest;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Lang;
@@ -43,7 +44,8 @@ class UserController extends Controller
 
     public function addCookie(AjaxRequest $request): string
     {
-        $cookieNumber = $request->number;
+        $cookieNumber = $request->input('number');
+        CustomCookie::flushQueuedCookies();
 
         return response()->json($cookieNumber);
     }

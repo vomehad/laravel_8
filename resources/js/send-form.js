@@ -5,21 +5,18 @@ const form = $('#cookie-form');
 form.on('submit', (event) => {
     event.preventDefault();
 
-    const number = $('#int').val();
-    console.log(number);
+    const data = {
+        _token: $('input[name="_token"]').val(),
+        number: $('input[name="int"]').val(),
+    };
 
     $.ajax({
         url: "/test/add-cookie",
         method: "POST",
-        data: {
-            // "_token": "{{ csrf_token() }}",
-            number
-        },
-        success: (response) => {
-            console.log(response);
-        },
-        fail: (error) => {
-            console.log(error);
-        }
+        data,
+    }).done((response) => {
+        console.log('response', response);
+    }).fail((error) => {
+        console.log('error', error);
     })
 })

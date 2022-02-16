@@ -21,7 +21,7 @@ RUN chmod +x /usr/local/bin/install-php-extensions
 
 RUN install-php-extensions mysqli intl gd zip mcrypt imagick memcached memcache pdo_mysql
 
-ADD conf/php.ini /usr/local/etc/php/php.ini
+#ADD conf/php.ini /usr/local/etc/php/php.ini
 ADD conf/php.ini /usr/local/etc/php/php.ini
 ADD conf/www.conf /usr/local/etc/php-fpm.d/www.conf
 RUN sed -i -e "s/www-data:x:82:82:Linux User,,,:\/home\/www-data:\/sbin\/nologin/www-data:x:${USER_ID}:${GROUP_ID}:Linux User,,,:\/home\/www-data:\/bin\/bash/g" /etc/passwd

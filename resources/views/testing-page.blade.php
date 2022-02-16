@@ -23,6 +23,7 @@
                 <button class="btn btn-success mb-2">Send</button>
 
             </form>
+            <div class="cookie-content">{{ "Cookie here:" }} {{ $cookie }}</div>
         </div>
         <br>
         <hr>

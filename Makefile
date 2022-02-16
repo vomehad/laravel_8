@@ -26,8 +26,11 @@ mysql-bash:
 migrate-up:
 	docker exec -it $(php_container) sh -c "php artisan migrate"
 
-yarn-dev:
+dev:
 	yarn dev
 
 yarn:
 	yarn watch
+
+prod:
+	yarn prod

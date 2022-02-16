@@ -36,18 +36,21 @@ class UserController extends Controller
     {
         $title = 'Testing page';
 
+        $cookie = CustomCookie::getCookie('TEST');
+
         return view('testing-page', [
             'title' => $title,
             'nav' => $this->nav,
+            'cookie' => $cookie ?? 'no set',
         ]);
     }
 
     public function addCookie(AjaxRequest $request): string
     {
         $cookieNumber = $request->input('number');
-        CustomCookie::flushQueuedCookies();
+        $response = CustomCookie::setCookie('TEST', $cookieNumber);
 
-        return response()->json($cookieNumber);
+        return response()->json($response, 211);
     }
 
     public function processWord()

@@ -1,6 +1,7 @@
 import $ from './jquery-3.6.0.min'
 
 const form = $('#cookie-form');
+console.log($('.js-ajax-send-form'))
 
 form.on('submit', (event) => {
     event.preventDefault();

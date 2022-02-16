@@ -13,3 +13,4 @@ mix.js('resources/js/find-pairs.js', 'public/js/')
 // }
 
 mix.browserSync('http://backend.family.local/');
+// mix.browserSync();

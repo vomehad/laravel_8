@@ -1,23 +1,27 @@
 import $ from './jquery-3.6.0.min'
 
-const form = $('#cookie-form');
-console.log($('.js-ajax-send-form'))
+const form = $('.js-send-form');
+const button = $('.js-send-form button');
+const showNewCookie = (number) => $('.php').text('Cookie: test php cookie = ' + number);
 
 form.on('submit', (event) => {
     event.preventDefault();
 
-    const data = {
-        _token: $('input[name="_token"]').val(),
-        number: $('input[name="int"]').val(),
-    };
+    button.prop('disabled', true);
+
+    const data = form.serializeArray();
 
     $.ajax({
-        url: "/test/add-cookie",
+        url: form.attr('action'),
         method: "POST",
         data,
-    }).done((response) => {
-        console.log('response', response);
+    }).done(() => {
+        button.prop('disabled', false);
+
+        $.ajax('/test/get-cookie').done((cookieNumber) => showNewCookie(cookieNumber));
     }).fail((error) => {
+        button.prop('disabled', false);
+
         console.log('error', error);
     })
-})
+});

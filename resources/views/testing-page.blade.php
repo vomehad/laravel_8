@@ -4,9 +4,10 @@
 
 @section('content')
 
-    <div class="test-content">
-        <div class="">
-            <form class="form-inline js-ajax-send-form" id="cookie-form">
+    <div class="test">
+
+        <div class="test-content">
+            <form action="{{ route('Test.cookie') }}" class="test-content__form form-inline js-send-form">
 
                 @csrf
 
@@ -15,7 +16,7 @@
                     <input type="text"
                            class="form-control"
                            id="int"
-                           name="int"
+                           name="number"
                            placeholder="Enter number for Site"
                     />
                 </div>
@@ -23,7 +24,9 @@
                 <button class="btn btn-success mb-2">Send</button>
 
             </form>
-            <div class="cookie-content">{{ "Cookie here:" }} {{ $cookie }}</div>
+
+            <div class="alert alert-success php">Cookie {{ $cookie }}</div>
+
         </div>
         <br>
         <hr>

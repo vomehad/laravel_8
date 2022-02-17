@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Lang;
 class UserController extends Controller
 {
     private array $nav;
+    private string $nameCookie = 'user_cookie';
 
     public function __construct()
     {
@@ -36,21 +37,31 @@ class UserController extends Controller
     {
         $title = 'Testing page';
 
-        $cookie = CustomCookie::getCookie('TEST');
+        $cookie = CustomCookie::incrementCookie($this->nameCookie) ? CustomCookie::getCookie($this->nameCookie) : "not set";
 
         return view('testing-page', [
             'title' => $title,
             'nav' => $this->nav,
-            'cookie' => $cookie ?? 'no set',
+            'cookie' => $cookie,
         ]);
     }
 
-    public function addCookie(AjaxRequest $request): string
+    public function addCookie(AjaxRequest $request): void
     {
         $cookieNumber = $request->input('number');
-        $response = CustomCookie::setCookie('TEST', $cookieNumber);
 
-        return response()->json($response, 211);
+        CustomCookie::setCookie($this->nameCookie, $cookieNumber, 60);
+    }
+
+    public function getCookie(): string
+    {
+        $cookie = CustomCookie::getCookie($this->nameCookie);
+        $allCookie = cookie($this->nameCookie);
+        $content = $cookie . " - " . $allCookie . PHP_EOL;
+
+        file_put_contents("1.txt", $content, FILE_APPEND);
+
+        return $cookie;
     }
 
     public function processWord()

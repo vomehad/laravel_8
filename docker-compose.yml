@@ -37,7 +37,7 @@ services:
         volumes:
             - ./:/var/www/html
             - ./.docker/logs/php:/var/logs/php
-            - ./.docker/data/sessions:/var/www/sessions
+            - ./.docker/data/sessions:/var/www/html/storage/framework/sessions
         links:
             -   mysql
         restart: unless-stopped

@@ -2,34 +2,68 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Request;
+use Illuminate\Session\SessionManager as Session;
 use Illuminate\Cookie\CookieJar;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Cookie;
 
 class CustomCookieService extends CookieJar
 {
-    private int $lifeTime = 5;
+    private Request $request;
 
-    public function setLifeTime(int $minutes): void
+    private Session $session;
+
+    public function __construct(Request $request)
     {
-        $this->lifeTime = $minutes;
+        $this->request = $request;
+        $this->session = session();
     }
 
-    public function getLifeTime(): int
+    public function setCookie(string $name, string $value, int $minutes = 5): string
     {
-        return $this->lifeTime;
+        Cookie::queue($name, $value, $minutes);
+
+        return 'queued';
     }
 
-    public function setCookie(string $name, string $value): Response
+    public function getCookie(string $name): ?string
     {
-        $response = new Response([$name, $value, Url::current()], 202);
-        $response->withCookie(cookie($name, $value, $this->lifeTime, null, Url::current()));
-
-        return $response;
+        return $this->request->cookie($name);
     }
 
-    public function getCookie(string $name)
+    public function incrementCookie(string $name): bool
     {
-        return cookie($name);
+        $cookieNumber = $this->request->cookie($name);
+
+        if (!is_numeric($cookieNumber)) {
+            return false;
+        }
+
+        $cookieNumber = intval($cookieNumber);
+
+        return !!$this->setCookie($name, ++$cookieNumber);
+    }
+
+    public function setSessionCookie(string $name, string $value): string
+    {
+        $this->session->put([$name => $value]);
+
+        return $this->session->get($name);
+    }
+
+    public function getSessionCookie(string $name): string
+    {
+        return $this->session->get($name) ?? '';
+    }
+
+    public function incrementSessionCookie(string $name): string
+    {
+        if (!$this->session->has($name)) {
+            $this->session->put([$name => 0]);
+        }
+
+        $this->session->increment($name);
+
+        return $this->session->get($name);
     }
 }

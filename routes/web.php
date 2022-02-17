@@ -33,6 +33,7 @@ Route::group(['prefix' => '/game'], function() {
 
 Route::name('Test.')->prefix('test')->group(function() {
     Route::post('/add-cookie', [UserController::class, 'addCookie'])->name('cookie');
+    Route::get('/get-cookie', [UserController::class, 'getCookie'])->name('cookie-value');
     Route::get('/page', [UserController::class, 'testingPage'])->name('main');
     Route::post('/word', [UserController::class, 'processWord'])->name('word');
 });

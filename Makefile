@@ -3,6 +3,10 @@
 php_container := $(APP_NAME)_php
 mysql_container := $(APP_NAME)_mysql
 
+rebuild-up:
+	@docker-compose up -d --build --remove-orphans
+	@echo -e "Make: rebuild and up containers.\n"
+
 build:
 	docker-compose build
 	@echo -e "Make: Build containers.\n"
@@ -15,7 +19,7 @@ down:
 	@docker-compose down
 
 stop:
-	@docker-commpose stop
+	@docker-compose stop
 
 php-bash:
 	docker exec -it --user www-data $(php_container) bash

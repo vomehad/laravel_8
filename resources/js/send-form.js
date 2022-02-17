@@ -17,6 +17,7 @@ const showNewCookie = (numbers) => {
         messageForever.text(`Cookie set forever is "${cookie_forever.toString()}"`);
     }
 
+    cleanForm();
     button.prop('disabled', false);
 }
 const alertErrorMessages = (json) => {
@@ -40,9 +41,13 @@ const alertErrorMessages = (json) => {
 
     button.prop('disabled', false);
 }
-
-messageHourly.removeClass('alert-danger').addClass('alert-success');
-messageForever.removeClass('alert-danger').addClass('alert-success');
+const cleanForm = () => {
+    form[0].reset();
+    inputHourly.removeClass('border-danger');
+    inputForever.removeClass('border-danger');
+    messageHourly.removeClass('alert-danger').addClass('alert-success');
+    messageForever.removeClass('alert-danger').addClass('alert-success');
+}
 
 form.on('submit', (event) => {
     event.preventDefault();
@@ -70,3 +75,5 @@ inputForever.on('input', () => {
         messageForever.text(' ');
     }
 });
+
+cleanForm();

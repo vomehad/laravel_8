@@ -10,7 +10,10 @@ use Illuminate\Support\Facades\Lang;
 class UserController extends Controller
 {
     private array $nav;
-    private string $nameCookie = 'user_cookie';
+
+    private string $hourlyCookie = 'hourly_cookie';
+
+    private string $foreverCookie = 'forever_cookie';
 
     public function __construct()
     {
@@ -37,31 +40,40 @@ class UserController extends Controller
     {
         $title = 'Testing page';
 
-        $cookie = CustomCookie::incrementCookie($this->nameCookie) ? CustomCookie::getCookie($this->nameCookie) : "not set";
+        $cookies = [
+            'cookie_hourly' => $this->incrementCookie($this->hourlyCookie),
+            'cookie_forever' => $this->incrementCookie($this->foreverCookie),
+        ];
 
         return view('testing-page', [
             'title' => $title,
             'nav' => $this->nav,
-            'cookie' => $cookie,
+            'cookies' => $cookies,
         ]);
     }
 
     public function addCookie(AjaxRequest $request): void
     {
-        $cookieNumber = $request->input('number');
+        $hourly = $request->input('numberHourly');
+        $forever = $request->input('numberForever');
 
-        CustomCookie::setCookie($this->nameCookie, $cookieNumber, 60);
+        if ($hourly) {
+            $oneHour = 60;
+
+            CustomCookie::setCookie($this->hourlyCookie, $hourly, $oneHour);
+        }
+
+        if ($forever) {
+            CustomCookie::setCookie($this->foreverCookie, $forever);
+        }
     }
 
-    public function getCookie(): string
+    public function getCookie(): array
     {
-        $cookie = CustomCookie::getCookie($this->nameCookie);
-        $allCookie = cookie($this->nameCookie);
-        $content = $cookie . " - " . $allCookie . PHP_EOL;
-
-        file_put_contents("1.txt", $content, FILE_APPEND);
-
-        return $cookie;
+        return [
+            'cookie_hourly' => CustomCookie::getCookie($this->hourlyCookie),
+            'cookie_forever' => CustomCookie::getCookie($this->foreverCookie)
+        ];
     }
 
     public function processWord()
@@ -78,5 +90,10 @@ class UserController extends Controller
             'title' => $title,
             'nav' => $this->nav,
         ]);
+    }
+
+    private function incrementCookie(string $name): string
+    {
+        return CustomCookie::incrementCookie($name) ? CustomCookie::getCookie($name) : "not set";
     }
 }

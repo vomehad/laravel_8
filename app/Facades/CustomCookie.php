@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static void setLifeTime(int $minutes)
  * @method static int getLifeTime()
- * @method static string setCookie(string $name, string $value, int $minutes)
+ * @method static string setCookie(string $name, string $value, int $minutes = 0)
  * @method static null|string getCookie(string $name)
  * @method static bool incrementCookie(string $name)
  * @method static string setSessionCookie(string $name, string $value)

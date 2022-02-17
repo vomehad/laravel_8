@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AjaxRequest extends FormRequest
 {
@@ -24,7 +25,20 @@ class AjaxRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'number' => 'required|int|max:255'
+            'numberHourly' => [
+                'bail',
+                'nullable',
+                Rule::requiredIf(empty($this->numberForever)),
+                'int',
+                'max:255',
+            ],
+            'numberForever' => [
+                'bail',
+                'nullable',
+                Rule::requiredIf(empty($this->numberHourly)),
+                'int',
+                'max:255',
+            ],
         ];
     }
 }

@@ -11,13 +11,19 @@
 
                 @csrf
 
-                <div class="form-group mx-sm-3 mb-2">
-                    <label for="int" class="sr-only">Enter number for Site</label>
+                <div class="form-group mx-sm-4 mb-1">
                     <input type="text"
                            class="form-control"
-                           id="int"
-                           name="number"
-                           placeholder="Enter number for Site"
+                           name="numberHourly"
+                           placeholder="{{ __('test.cookieHourlyPlaceHolder') }}"
+                    />
+                </div>
+
+                <div class="form-group mx-sm-4 mb-1">
+                    <input type="text"
+                           class="form-control"
+                           name="numberForever"
+                           placeholder="{{ __('test.cookieForeverPlaceHolder') }}"
                     />
                 </div>
 
@@ -25,7 +31,15 @@
 
             </form>
 
-            <div class="alert alert-success php">Cookie {{ $cookie }}</div>
+            <div class="row">
+                @foreach($cookies as $class => $cookie)
+
+                <div
+                    class="alert alert-success {{ $class }} col-5 mr-5 test-content__cookie"
+                >Cookie set {{ $class === "cookie_hourly" ? "by 1 hour" : "forever" }} is "{{ $cookie }}"</div>
+
+                @endforeach
+            </div>
 
         </div>
         <br>

@@ -19,7 +19,7 @@ class CustomCookieService extends CookieJar
         $this->session = session();
     }
 
-    public function setCookie(string $name, string $value, int $minutes = 5): string
+    public function setCookie(string $name, string $value, int $minutes = 0): string
     {
         Cookie::queue($name, $value, $minutes);
 

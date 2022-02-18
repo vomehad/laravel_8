@@ -7,7 +7,7 @@
     <div class="test">
 
         <div class="test-content">
-            <form action="{{ route('Test.cookie') }}" class="test-content__form form-inline js-send-form">
+            <form action="{{ route('Test.cookie') }}" class="test-content__form form-inline js-send-form" id="cookie-form">
 
                 @csrf
 
@@ -15,7 +15,7 @@
                     <input type="text"
                            class="form-control"
                            name="numberHourly"
-                           placeholder="{{ __('test.cookieHourlyPlaceHolder') }}"
+                           placeholder="{{ __('test.cookie.placeholder.hourly') }}"
                     />
                 </div>
 
@@ -23,7 +23,7 @@
                     <input type="text"
                            class="form-control"
                            name="numberForever"
-                           placeholder="{{ __('test.cookieForeverPlaceHolder') }}"
+                           placeholder="{{ __('test.cookie.placeholder.forever') }}"
                     />
                 </div>
 
@@ -31,7 +31,7 @@
 
             </form>
 
-            <div class="row">
+            <div class="row js-cookies">
                 @foreach($cookies as $class => $cookie)
 
                 <div
@@ -42,31 +42,77 @@
             </div>
 
         </div>
-        <br>
         <hr>
-        <div class="form-wrap">
-            <form action="{{ route('Test.word') }}" class="row g-3">
+        <div class="test-content">
+            <form action="{{ route('Test.word') }}" class="test-content__form js-send-form" id="split-form">
 
                 @csrf
 
-                <div class="col-md-12">
-                    <label for="word-split" class="form-label">Enter a word and it will split</label>
+                <div class="row">
+                <div class="form-group col-10">
                     <input type="text"
-                           class="form-control @error('word-split'){{ "border-danger" }}@enderror"
-                           id="word-split"
-                           name="word-split"
+                           class="form-control"
+                           name="wordSplit"
+                           placeholder="{{ __('test.word.placeholder') }}"
                     />
-                </div>
-                @error('word-split')
-                    <div class="alert alert-danger">
-                        <span>{{ $message }}</span>
-                    </div>
-                @enderror
+                    @isset($splitWord)
+                        <div class="row">
+                            <div
+                                class="alert alert-success test-content__word col-5 mr-5"
+                            >Cookie set {{ $class === "cookie_hourly" ? "by 1 hour" : "forever" }} is "{{ $splitWord }}"</div>
+                        </div>
+                    @endisset
 
-                <div class="ml-5">
-                    <button type="button" class="btn btn-success">Send</button>
                 </div>
+
+                <button type="button" class="btn btn-success col-2">{{ __('test.word.button') }}</button>
+                </div>
+
             </form>
+
+            @isset($splitWord)
+            <div class="row">
+                    <div
+                        class="alert alert-success test-content__word col-5 mr-5"
+                    >Cookie set {{ $class === "cookie_hourly" ? "by 1 hour" : "forever" }} is "{{ $splitWord }}"</div>
+            </div>
+            @endisset
+        </div>
+        <hr>
+        <div class="test-content">
+            <form action="{{ route('Test.word') }}" class="test-content__form js-send-form" id="text-form">
+
+                @csrf
+
+                <div class="row">
+                    <div class="form-group col-10">
+                        <input type="text"
+                               class="form-control"
+                               name="wordSplit"
+                               placeholder="{{ __('test.word.placeholder') }}"
+                        />
+                        @isset($splitWord)
+                            <div class="row">
+                                <div
+                                    class="alert alert-success test-content__word col-5 mr-5"
+                                >Cookie set {{ $class === "cookie_hourly" ? "by 1 hour" : "forever" }} is "{{ $splitWord }}"</div>
+                            </div>
+                        @endisset
+
+                    </div>
+
+                    <button type="button" class="btn btn-success col-2">{{ __('test.word.button') }}</button>
+                </div>
+
+            </form>
+
+            @isset($splitWord)
+                <div class="row">
+                    <div
+                        class="alert alert-success test-content__word col-5 mr-5"
+                    >Cookie set {{ $class === "cookie_hourly" ? "by 1 hour" : "forever" }} is "{{ $splitWord }}"</div>
+                </div>
+            @endisset
         </div>
 
     </div>

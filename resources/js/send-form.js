@@ -1,79 +1,86 @@
 import $ from './jquery-3.6.0.min'
 
 const getCookieUrl = '/test/get-cookie';
-const form = $('.js-send-form');
-const button = $('.js-send-form button');
-const inputHourly = $('.js-send-form input[name="numberHourly"]');
-const inputForever = $('.js-send-form input[name="numberForever"]');
-const messageHourly = $('.cookie_hourly');
-const messageForever = $('.cookie_forever');
-const showNewCookie = (numbers) => {
-    const {cookie_hourly, cookie_forever} = numbers;
+const contentBlock = $('.test-content');
+const splitForm = $('#split-form');
+const textForm = $('#text-form');
 
-    if (cookie_hourly) {
-        messageHourly.text(`Cookie set by 1 hour is "${cookie_hourly.toString()}"`);
-    }
-    if (cookie_forever) {
-        messageForever.text(`Cookie set forever is "${cookie_forever.toString()}"`);
+// function
+const showNewCookie = (numbers, form) => {
+    for (const [className, value] of Object.entries(numbers)) {
+        let period = '';
+
+        if (className === 'cookie_hourly') {
+            period = 'by 1 hour';
+        }
+
+        if (className === 'cookie_forever') {
+            period = 'forever';
+        }
+
+        $(`.js-cookies .${className}`).text(`Cookie set ${period} is "${value.toString()}"`);
     }
 
-    cleanForm();
-    button.prop('disabled', false);
-}
-const alertErrorMessages = (json) => {
+    cleanForm(form);
+    form.children('button').prop('disabled', false);
+};
+const alertErrorMessages = (json, form) => {
     if (!json.hasOwnProperty('errors')) {
-        return
+        return;
     }
 
-    Object.keys(json.errors).forEach((input) => {
-        if (input === 'numberHourly') {
-            inputHourly.addClass('border-danger');
-            messageHourly.removeClass('alert-success').addClass('alert-danger');
-            messageHourly.text(json.errors[input].shift());
+    Object.keys(json.errors).forEach((inputName) => {
+        const message = json.errors[inputName].shift();
+        let messageClass;
+
+        if (inputName === 'numberHourly') {
+            messageClass = 'cookie_hourly';
+        }
+        if (inputName === 'numberForever') {
+            messageClass = 'cookie_forever';
         }
 
-        if (input === 'numberForever') {
-            inputForever.addClass('border-danger');
-            messageForever.removeClass('alert-success').addClass('alert-danger');
-            messageForever.text(json.errors[input].shift());
-        }
+        showErrors(message, form, inputName, messageClass);
     });
 
-    button.prop('disabled', false);
-}
-const cleanForm = () => {
+    form.children('button').prop('disabled', false);
+};
+const showErrors = (errorMessage, form, inputName, messageClass) => {
+    const message = contentBlock.find(`div.${messageClass}`);
+    const input = form.find(`input[name="${inputName}"]`);
+
+    form.find(`input[name="${inputName}"]`).addClass('border-danger');
+    message.removeClass('alert-success').addClass('alert-danger');
+    message.text(errorMessage);
+
+    input.on('input', () => restore(input, message));
+};
+const cleanForm = (form) => {
     form[0].reset();
-    inputHourly.removeClass('border-danger');
-    inputForever.removeClass('border-danger');
-    messageHourly.removeClass('alert-danger').addClass('alert-success');
-    messageForever.removeClass('alert-danger').addClass('alert-success');
-}
 
-form.on('submit', (event) => {
+    form.find('.border-danger').removeClass('border-danger');
+    $('.test-content__cookie').each(function() {
+        $(this).removeClass('alert-danger').addClass('alert-success');
+    });
+};
+const restore = (input, message) => {
+    if (message.hasClass('alert-danger')) {
+        message.removeClass('alert-danger').addClass('alert-success');
+        message.text(' ');
+    }
+
+    input.removeClass('border-danger');
+};
+
+// ----------- cookie form ---------------------------------
+
+const cookieForm = contentBlock.find('form#cookie-form');
+
+cookieForm.on('submit', (event) => {
     event.preventDefault();
-    button.prop('disabled', true);
+    cookieForm.children('button').prop('disabled', true);
 
-    const data = form.serializeArray();
-
-    $.ajax({url: form.attr('action'), method: "POST", data})
-        .done(() => $.ajax(getCookieUrl).done((cookies) => showNewCookie(cookies)))
-        .fail((error) => alertErrorMessages(error.responseJSON));
+    $.ajax({url: cookieForm.attr('action'), method: "POST", data: cookieForm.serializeArray()})
+        .done(() => $.ajax(getCookieUrl).done((cookies) => showNewCookie(cookies, cookieForm)))
+        .fail((error) => alertErrorMessages(error.responseJSON, cookieForm));
 });
-
-inputHourly.on('input', () => {
-    if (messageHourly.hasClass('alert-danger')) {
-        inputHourly.removeClass('border-danger');
-        messageHourly.removeClass('alert-danger').addClass('alert-success');
-        messageHourly.text(' ');
-    }
-});
-
-inputForever.on('input', () => {
-    if (messageForever.hasClass('alert-danger')) {
-        inputForever.removeClass('border-danger');
-        messageForever.removeClass('alert-danger').addClass('alert-success');
-        messageForever.text(' ');
-    }
-});
-
-cleanForm();

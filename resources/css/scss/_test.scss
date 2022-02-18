@@ -9,4 +9,12 @@
         padding: 2%;
         height: 4.2rem;
     }
+    &__split {
+        height: 4.2rem;
+        width: 100%;
+    }
+
+    button {
+        max-height: 3rem;
+    }
 }

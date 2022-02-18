@@ -44,29 +44,22 @@
         </div>
         <hr>
         <div class="test-content">
-            <form action="{{ route('Test.word') }}" class="test-content__form js-send-form" id="split-form">
+            <form action="{{ route('Test.word') }}" class="test-content__form js-send-form row" id="split-form">
 
                 @csrf
 
-                <div class="row">
                 <div class="form-group col-10">
                     <input type="text"
                            class="form-control"
                            name="wordSplit"
                            placeholder="{{ __('test.word.placeholder') }}"
                     />
-                    @isset($splitWord)
-                        <div class="row">
-                            <div
-                                class="alert alert-success test-content__word col-5 mr-5"
-                            >Cookie set {{ $class === "cookie_hourly" ? "by 1 hour" : "forever" }} is "{{ $splitWord }}"</div>
-                        </div>
-                    @endisset
+                    <div class="alert alert-success test-content__split mt-lg-2"></div>
+
 
                 </div>
 
-                <button type="button" class="btn btn-success col-2">{{ __('test.word.button') }}</button>
-                </div>
+                <button class="btn btn-success col-2">{{ __('test.word.button') }}</button>
 
             </form>
 

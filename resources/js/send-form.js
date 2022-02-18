@@ -2,7 +2,6 @@ import $ from './jquery-3.6.0.min'
 
 const getCookieUrl = '/test/get-cookie';
 const contentBlock = $('.test-content');
-const splitForm = $('#split-form');
 const textForm = $('#text-form');
 
 // function
@@ -39,6 +38,9 @@ const alertErrorMessages = (json, form) => {
         if (inputName === 'numberForever') {
             messageClass = 'cookie_forever';
         }
+        if (inputName === 'wordSplit') {
+            messageClass = 'test-content__split';
+        }
 
         showErrors(message, form, inputName, messageClass);
     });
@@ -72,8 +74,7 @@ const restore = (input, message) => {
     input.removeClass('border-danger');
 };
 
-// ----------- cookie form ---------------------------------
-
+// ----------- ----------- cookie form ----------- -----------
 const cookieForm = contentBlock.find('form#cookie-form');
 
 cookieForm.on('submit', (event) => {
@@ -84,3 +85,22 @@ cookieForm.on('submit', (event) => {
         .done(() => $.ajax(getCookieUrl).done((cookies) => showNewCookie(cookies, cookieForm)))
         .fail((error) => alertErrorMessages(error.responseJSON, cookieForm));
 });
+// ----------- ----------- end cookie form ----------- -----------
+
+// ----------- ----------- split form ---------------- -----------
+const splitForm = contentBlock.find('form#split-form');
+
+splitForm.on('submit', (event) => {
+    event.preventDefault();
+    splitForm.children('button').prop('disabled', true);
+
+    $.ajax({url: splitForm.attr('action'), method: "POST", data: splitForm.serializeArray()})
+        .done((word) => {
+            $('.test-content__split').text(word);
+            splitForm.children('button').prop('disabled', false);
+        })
+        .fail((error) => {
+            alertErrorMessages(error.responseJSON, splitForm);
+        });
+});
+// ----------- ----------- end split form ------------ -----------

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Facades\CustomCookie;
 use App\Http\Requests\AjaxRequest;
+use App\Http\Requests\SplitRequest;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Lang;
 
@@ -36,6 +37,11 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Start Page with forms
+     *
+     * @return string
+     */
     public function testingPage(): string
     {
         $title = 'Testing page';
@@ -52,6 +58,12 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Set cookie value
+     *
+     * @param \App\Http\Requests\AjaxRequest $request
+     * @return void
+     */
     public function addCookie(AjaxRequest $request): void
     {
         $hourly = $request->input('numberHourly');
@@ -68,6 +80,11 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Get new cookie`s value
+     *
+     * @return array
+     */
     public function getCookie(): array
     {
         return [
@@ -76,9 +93,22 @@ class UserController extends Controller
         ];
     }
 
-    public function processWord()
+    /**
+     * "Whitespaced" word
+     *
+     * @param \App\Http\Requests\SplitRequest $request
+     * @return string
+     */
+    public function processWord(SplitRequest $request): string
     {
-        return 0;
+        $split = '';
+        $wordSplit = $request->input('wordSplit');
+
+        for ($char = 0; $char < mb_strlen($wordSplit); $char++) {
+            $split .= mb_substr($wordSplit, $char, 1) . ' ';
+        }
+
+        return $split;
     }
 
     public function account()

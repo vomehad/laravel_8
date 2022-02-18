@@ -2,7 +2,6 @@ import $ from './jquery-3.6.0.min'
 
 const getCookieUrl = '/test/get-cookie';
 const contentBlock = $('.test-content');
-const textForm = $('#text-form');
 
 // function
 const showNewCookie = (numbers, form) => {
@@ -21,7 +20,7 @@ const showNewCookie = (numbers, form) => {
     }
 
     cleanForm(form);
-    form.children('button').prop('disabled', false);
+    enableButton(form);
 };
 const alertErrorMessages = (json, form) => {
     if (!json.hasOwnProperty('errors')) {
@@ -45,7 +44,7 @@ const alertErrorMessages = (json, form) => {
         showErrors(message, form, inputName, messageClass);
     });
 
-    form.children('button').prop('disabled', false);
+    enableButton(form);
 };
 const showErrors = (errorMessage, form, inputName, messageClass) => {
     const message = contentBlock.find(`div.${messageClass}`);
@@ -73,13 +72,15 @@ const restore = (input, message) => {
 
     input.removeClass('border-danger');
 };
+const disableButton = (form) => form.children('button').prop('disabled', true);
+const enableButton = (form) => form.children('button').prop('disabled', false);
 
 // ----------- ----------- cookie form ----------- -----------
 const cookieForm = contentBlock.find('form#cookie-form');
 
 cookieForm.on('submit', (event) => {
     event.preventDefault();
-    cookieForm.children('button').prop('disabled', true);
+    disableButton(cookieForm);
 
     $.ajax({url: cookieForm.attr('action'), method: "POST", data: cookieForm.serializeArray()})
         .done(() => $.ajax(getCookieUrl).done((cookies) => showNewCookie(cookies, cookieForm)))
@@ -92,15 +93,29 @@ const splitForm = contentBlock.find('form#split-form');
 
 splitForm.on('submit', (event) => {
     event.preventDefault();
-    splitForm.children('button').prop('disabled', true);
+    disableButton(splitForm);
 
     $.ajax({url: splitForm.attr('action'), method: "POST", data: splitForm.serializeArray()})
         .done((word) => {
             $('.test-content__split').text(word);
             splitForm.children('button').prop('disabled', false);
         })
-        .fail((error) => {
-            alertErrorMessages(error.responseJSON, splitForm);
-        });
+        .fail((error) => alertErrorMessages(error.responseJSON, splitForm));
 });
 // ----------- ----------- end split form ------------ -----------
+
+// ----------- ----------- text form ---------------- ------------
+const textForm = contentBlock.find('form#text-form');
+
+textForm.on('submit', (event) => {
+    event.preventDefault();
+    disableButton(textForm);
+
+    $.ajax({url: textForm.attr('action'), method: "POST", data: textForm.serializeArray()})
+        .done((text) => {
+            enableButton(textForm);
+            console.log(text)
+        })
+        .fail((error) => alertErrorMessages(error.responseJSON, textForm));
+});
+// ----------- ----------- end text form ------------ ------------

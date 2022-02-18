@@ -27,7 +27,7 @@
                     />
                 </div>
 
-                <button class="btn btn-success mb-2">Send</button>
+                <button class="btn btn-success mb-2">{{ __('test.cookie.button') }}</button>
 
             </form>
 
@@ -62,50 +62,22 @@
                 <button class="btn btn-success col-2">{{ __('test.word.button') }}</button>
 
             </form>
-
-            @isset($splitWord)
-            <div class="row">
-                    <div
-                        class="alert alert-success test-content__word col-5 mr-5"
-                    >Cookie set {{ $class === "cookie_hourly" ? "by 1 hour" : "forever" }} is "{{ $splitWord }}"</div>
-            </div>
-            @endisset
         </div>
         <hr>
         <div class="test-content">
-            <form action="{{ route('Test.word') }}" class="test-content__form js-send-form" id="text-form">
+            <form action="{{ route('Test.text') }}" class="test-content__form js-send-form row" id="text-form">
 
                 @csrf
 
-                <div class="row">
-                    <div class="form-group col-10">
-                        <input type="text"
-                               class="form-control"
-                               name="wordSplit"
-                               placeholder="{{ __('test.word.placeholder') }}"
-                        />
-                        @isset($splitWord)
-                            <div class="row">
-                                <div
-                                    class="alert alert-success test-content__word col-5 mr-5"
-                                >Cookie set {{ $class === "cookie_hourly" ? "by 1 hour" : "forever" }} is "{{ $splitWord }}"</div>
-                            </div>
-                        @endisset
-
-                    </div>
-
-                    <button type="button" class="btn btn-success col-2">{{ __('test.word.button') }}</button>
+                <div class="form-group col-10">
+                    <textarea class="form-control" name="text">{{ __('test.text.placeholder') }}</textarea>
+                    <div class="alert alert-success test-content__text mt-lg-2"></div>
                 </div>
+
+                <button class="btn btn-success col-2">{{ __('test.text.button') }}</button>
+
 
             </form>
-
-            @isset($splitWord)
-                <div class="row">
-                    <div
-                        class="alert alert-success test-content__word col-5 mr-5"
-                    >Cookie set {{ $class === "cookie_hourly" ? "by 1 hour" : "forever" }} is "{{ $splitWord }}"</div>
-                </div>
-            @endisset
         </div>
 
     </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Facades\CustomCookie;
 use App\Http\Requests\AjaxRequest;
 use App\Http\Requests\SplitRequest;
+use App\Http\Requests\TextRequest;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Lang;
 
@@ -109,6 +110,13 @@ class UserController extends Controller
         }
 
         return $split;
+    }
+
+    public function switchDates(TextRequest $request)
+    {
+        $text = $request->input('text');
+
+        return $text;
     }
 
     public function account()

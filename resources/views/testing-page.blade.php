@@ -70,7 +70,7 @@
                 @csrf
 
                 <div class="form-group col-10">
-                    <textarea class="form-control" name="text">{{ __('test.text.placeholder') }}</textarea>
+                    <textarea class="form-control" name="text"></textarea>
                     <div class="alert alert-success test-content__text mt-lg-2"></div>
                 </div>
 

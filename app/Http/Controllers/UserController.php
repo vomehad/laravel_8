@@ -115,7 +115,7 @@ class UserController extends Controller
     public function switchDates(TextRequest $request)
     {
         $text = $request->input('text');
-        $pattern = '/(\d{2}\).(\d{2}\).(\d{4})/g';
+        $pattern = '/(\d{2}\).(\d{2}\).(\d{4})/';
         $replacement = '$1.$3.$2';
 
         return preg_replace($pattern, $replacement, $text);

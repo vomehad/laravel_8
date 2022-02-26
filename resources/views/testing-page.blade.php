@@ -76,7 +76,6 @@
 
                 <button class="btn btn-success col-2">{{ __('test.text.button') }}</button>
 
-
             </form>
         </div>
 

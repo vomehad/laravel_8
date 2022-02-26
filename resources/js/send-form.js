@@ -114,6 +114,7 @@ textForm.on('submit', (event) => {
     $.ajax({url: textForm.attr('action'), method: "POST", data: textForm.serializeArray()})
         .done((text) => {
             enableButton(textForm);
+            $('.test-content__text').text(text);
             console.log(text)
         })
         .fail((error) => alertErrorMessages(error.responseJSON, textForm));

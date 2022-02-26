@@ -62,7 +62,7 @@ class UserController extends Controller
     /**
      * Set cookie value
      *
-     * @param \App\Http\Requests\AjaxRequest $request
+     * @param AjaxRequest $request
      * @return void
      */
     public function addCookie(AjaxRequest $request): void
@@ -97,7 +97,7 @@ class UserController extends Controller
     /**
      * "Whitespaced" word
      *
-     * @param \App\Http\Requests\SplitRequest $request
+     * @param SplitRequest $request
      * @return string
      */
     public function processWord(SplitRequest $request): string
@@ -115,8 +115,10 @@ class UserController extends Controller
     public function switchDates(TextRequest $request)
     {
         $text = $request->input('text');
+        $pattern = '/(\d{2}\).(\d{2}\).(\d{4})/g';
+        $replacement = '$1.$3.$2';
 
-        return $text;
+        return preg_replace($pattern, $replacement, $text);
     }
 
     public function account()

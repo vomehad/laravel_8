@@ -3,8 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\NoteController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [UserController::class, 'home'])->name('Home');
@@ -32,5 +32,6 @@ Route::group(['prefix' => '/game'], function() {
 });
 
 Route::name('Test.')->prefix('test')->group(function() {
-    Route::get('/page', [UserController::class, 'testingPage'])->name('main');
+    Route::get('/page', [UserController::class, 'testingPage'])->name('Main');
+    Route::get('/notes', [NoteController::class, 'index'])->name('Notes');
 });

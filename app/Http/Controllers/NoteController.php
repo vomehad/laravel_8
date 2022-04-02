@@ -8,6 +8,25 @@ use Illuminate\Http\Request;
 
 class NoteController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->nav = [
+            ['url' => route('Test.Main'), 'name' => 'Testing page'],
+            ['url' => route('Test.Note'), 'name' => trans('notes')],
+            ['url' => route('Game'), 'name' => trans("welcome")],
+        ];
+    }
+
+    public function index()
+    {
+        $notes = Note::all();
+
+        return view('index', [
+            'notes' => $notes,
+        ]);
+    }
+
     public function create(NoteRequest $request): string
     {
         $note = new Note();

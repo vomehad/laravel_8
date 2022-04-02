@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Lang;
 
 class UserController extends Controller
 {
-    private array $nav;
-
     private string $hourlyCookie = 'hourly_cookie';
 
     private string $foreverCookie = 'forever_cookie';

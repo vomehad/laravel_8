@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 class GameController extends Controller
 {
-    private array $nav;
-
     public function __construct()
     {
         $this->nav = [
             ['url' => route('Test.main'), 'name' => 'Testing page'],
+            ['url' => route('Test.Notes'), 'name' => trans('notes')],
             ['url' => route('Game'), 'name' => trans("welcome")],
         ];
     }

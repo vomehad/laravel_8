@@ -13,7 +13,7 @@ class NoteController extends Controller
     {
         $this->nav = [
             ['url' => route('Test.Main'), 'name' => 'Testing page'],
-            ['url' => route('Test.Note'), 'name' => trans('notes')],
+            ['url' => route('Test.Notes'), 'name' => trans('notes')],
             ['url' => route('Game'), 'name' => trans("welcome")],
         ];
     }
@@ -22,7 +22,7 @@ class NoteController extends Controller
     {
         $notes = Note::all();
 
-        return view('index', [
+        return view('note-index', [
             'notes' => $notes,
         ]);
     }

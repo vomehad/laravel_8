@@ -19,6 +19,7 @@ class UserController extends Controller
     {
         $this->nav = [
             ['url' => route('Test.main'), 'name' => 'Testing page'],
+            ['url' => route('Test.Notes'), 'name' => trans('notes')],
             ['url' => route('Game'), 'name' => trans("welcome")],
         ];
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Note;
 use App\Http\Requests\NoteRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class NoteController extends Controller
@@ -18,7 +19,7 @@ class NoteController extends Controller
         ];
     }
 
-    public function index()
+    public function index(): string
     {
         $notes = Note::all();
 
@@ -40,7 +41,7 @@ class NoteController extends Controller
         ]);
     }
 
-    public function store(NoteRequest $request): string
+    public function store(NoteRequest $request): RedirectResponse
     {
         $note = new Note();
 
@@ -81,7 +82,7 @@ class NoteController extends Controller
         ]);
     }
 
-    public function delete(int $id): string
+    public function delete(int $id): RedirectResponse
     {
         $note = Note::find($id);
         $note->delete();

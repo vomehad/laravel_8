@@ -42,6 +42,6 @@ Route::name('Test.')->prefix('test')->group(function() {
         Route::get('/update', [NoteController::class, 'update'])->name('Update');
         Route::get('/{id}', [NoteController::class, 'read'])->name('View');
         Route::post('/store', [NoteController::class, 'store'])->name('Store');
-        Route::post('/delete', [NoteController::class, 'delete'])->name('Delete');
+        Route::delete('/delete', [NoteController::class, 'delete'])->name('Delete');
     });
 });

@@ -1,7 +1,9 @@
 @extends('layouts.app')
 @section('title', $title)
 @section('content')
-    <a href="{{ route('Test.Note.Create') }}" class="btn btn-success">Create Note</a>
+    <a href="{{ route('Test.Note.Create') }}"
+       class="btn btn-success"
+    >Create Note</a>
 
     @foreach($notes as $note)
         <div class="list-group">

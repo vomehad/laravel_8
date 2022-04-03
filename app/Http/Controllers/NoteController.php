@@ -49,41 +49,43 @@ class NoteController extends Controller
 
         $note->save();
 
-        return redirect()->route('Test.Note', [
+        return redirect()->route('Test.Note.View', [
             'id' => $note->id,
         ]);
     }
 
-    public function read(Request $request): string
+    public function read(int $id): string
     {
-        $note = Note::where($request->input('id'))->orderBy('updated_at', 'desc');
+        $note = Note::find($id);
 
-        return view('note', [
+        return view('note-view', [
             'title' => $note->name,
             'note' => $note,
             'nav' => $this->nav,
         ]);
     }
 
-    public function update(NoteRequest $request): string
+    public function update(int $id, NoteRequest $request): string
     {
-        $note = Note::where($request->input('id'));
+        $note = Note::find($id);
 
         $note->name = $request->input('name');
         $note->content = $request->input('content');
 
         $note->save();
 
-        return view('note', [
+        return view('note-create', [
+            'title' => 'Update - ' . $note->name,
             'note' => $note,
+            'nav' => $this->nav,
         ]);
     }
 
-    public function delete(Request $request): string
+    public function delete(int $id): string
     {
-        $note = Note::where($request->input('id'));
+        $note = Note::find($id);
         $note->delete();
 
-        return view('note');
+        return redirect()->route('Test.Note.All');
     }
 }

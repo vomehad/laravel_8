@@ -39,6 +39,7 @@ Route::name('Test.')->prefix('test')->group(function() {
     Route::name('Note.')->prefix('notes')->group(function () {
         Route::get('/', [NoteController::class, 'index'])->name('All');
         Route::get('/create', [NoteController::class, 'create'])->name('Create');
+        Route::get('/{id}', [NoteController::class, 'read'])->name('View');
         Route::post('/store', [NoteController::class, 'store'])->name('Store');
     });
 });

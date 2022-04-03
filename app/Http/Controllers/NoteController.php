@@ -49,19 +49,19 @@ class NoteController extends Controller
 
         $note->save();
 
-        return view('note-view', [
-            'title' => 'View Note',
-            'nav' => $this->nav,
-            'note' => $note,
+        return redirect()->route('Test.Note', [
+            'id' => $note->id,
         ]);
     }
 
     public function read(Request $request): string
     {
-        $note = Note::where($request->input('id'));
+        $note = Note::where($request->input('id'))->orderBy('updated_at', 'desc');
 
         return view('note', [
+            'title' => $note->name,
             'note' => $note,
+            'nav' => $this->nav,
         ]);
     }
 

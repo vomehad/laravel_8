@@ -12,8 +12,8 @@ class NoteController extends Controller
     public function __construct()
     {
         $this->nav = [
-            ['url' => route('Test.Main'), 'name' => 'Testing page'],
-            ['url' => route('Test.Notes'), 'name' => trans('notes')],
+            ['url' => route('Test.Main.Page'), 'name' => 'Testing page'],
+            ['url' => route('Test.Note.All'), 'name' => trans('notes')],
             ['url' => route('Game'), 'name' => trans("welcome")],
         ];
     }
@@ -29,18 +29,30 @@ class NoteController extends Controller
         ]);
     }
 
-    public function create(NoteRequest $request): string
+    public function create(): string
     {
         $note = new Note();
+
+        return view('note-create', [
+            'title' => 'create note',
+            'note' => $note,
+            'nav' => $this->nav,
+        ]);
+    }
+
+    public function store(NoteRequest $request): string
+    {
+        $note = new Note();
+
         $note->name = $request->input('name');
         $note->content = $request->input('content');
 
         $note->save();
 
-        return view('note', [
-            'title' => 'create note',
-            'note' => $note,
+        return view('note-view', [
+            'title' => 'View Note',
             'nav' => $this->nav,
+            'note' => $note,
         ]);
     }
 

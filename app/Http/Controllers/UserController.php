@@ -12,14 +12,13 @@ use Illuminate\Support\Facades\Lang;
 class UserController extends Controller
 {
     private string $hourlyCookie = 'hourly_cookie';
-
     private string $foreverCookie = 'forever_cookie';
 
     public function __construct()
     {
         $this->nav = [
-            ['url' => route('Test.Main'), 'name' => 'Testing page'],
-            ['url' => route('Test.Notes'), 'name' => trans('notes')],
+            ['url' => route('Test.Main.Page'), 'name' => 'Testing page'],
+            ['url' => route('Test.Note.All'), 'name' => trans('notes')],
             ['url' => route('Game'), 'name' => trans("welcome")],
         ];
     }
@@ -33,7 +32,7 @@ class UserController extends Controller
         return view('home', [
             'title' => $title,
             'nav' => $this->nav,
-            'contacts' => $contacts
+            'contacts' => $contacts,
         ]);
     }
 

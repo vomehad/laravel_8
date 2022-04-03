@@ -7,11 +7,12 @@ class GameController extends Controller
     public function __construct()
     {
         $this->nav = [
-            ['url' => route('Test.Main'), 'name' => 'Testing page'],
-            ['url' => route('Test.Notes'), 'name' => trans('notes')],
+            ['url' => route('Test.Main.Page'), 'name' => 'Testing page'],
+            ['url' => route('Test.Note.All'), 'name' => trans('notes')],
             ['url' => route('Game'), 'name' => trans("welcome")],
         ];
     }
+
     public function playGame(): string
     {
         $rows = 4;

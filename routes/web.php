@@ -32,6 +32,13 @@ Route::group(['prefix' => '/game'], function() {
 });
 
 Route::name('Test.')->prefix('test')->group(function() {
-    Route::get('/page', [UserController::class, 'testingPage'])->name('Main');
-    Route::get('/notes', [NoteController::class, 'index'])->name('Notes');
+    Route::name('Main')->prefix('page')->group(function () {
+        Route::get('/', [UserController::class, 'testingPage'])->name('Page');
+    });
+
+    Route::name('Note')->prefix('notes')->group(function () {
+        Route::get('/', [NoteController::class, 'index'])->name('All');
+        Route::post('/create', [NoteController::class, 'create'])->name('Create');
+    });
+
 });

@@ -23,7 +23,9 @@ class NoteController extends Controller
         $notes = Note::all();
 
         return view('note-index', [
+            'title' => 'notes',
             'notes' => $notes,
+            'nav' => $this->nav,
         ]);
     }
 
@@ -35,7 +37,11 @@ class NoteController extends Controller
 
         $note->save();
 
-        return view('note');
+        return view('note', [
+            'title' => 'create note',
+            'note' => $note,
+            'nav' => $this->nav,
+        ]);
     }
 
     public function read(Request $request): string

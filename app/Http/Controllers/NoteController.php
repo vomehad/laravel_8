@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Models\Note;
 use App\Http\Requests\NoteRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 
 class NoteController extends Controller
 {
@@ -13,18 +14,21 @@ class NoteController extends Controller
     public function __construct()
     {
         $this->nav = [
-            ['url' => route('Test.Main.Page'), 'name' => 'Testing page'],
-            ['url' => route('Test.Note.All'), 'name' => trans('notes')],
-            ['url' => route('Game'), 'name' => trans("welcome")],
+            ['url' => route('Test.Main'), 'name' => Lang::get('Test.Menu.Top')],
+            ['url' => route('Test.Note.All'), 'name' => Lang::get('Note.Menu.Top')],
+            ['url' => route('Article.Main'), 'name' => Lang::get('Article.Menu.Top')],
+            ['url' => route('Game'), 'name' => Lang::get('Game.Menu.Top')],
         ];
     }
 
     public function index(): string
     {
+        $title = Lang::get(Helper::getAction());
+
         $notes = Note::all();
 
         return view('note-index', [
-            'title' => 'notes',
+            'title' => $title,
             'notes' => $notes,
             'nav' => $this->nav,
         ]);
@@ -32,10 +36,12 @@ class NoteController extends Controller
 
     public function create(): string
     {
+        $title = Lang::get(Helper::getAction());
+
         $note = new Note();
 
         return view('note-create', [
-            'title' => 'create note',
+            'title' => $title,
             'note' => $note,
             'nav' => $this->nav,
         ]);
@@ -57,26 +63,24 @@ class NoteController extends Controller
 
     public function read(int $id): string
     {
+        $title = Lang::get(Helper::getAction());
+
         $note = Note::find($id);
 
         return view('note-view', [
-            'title' => $note->name,
+            'title' => $title . ' - ' . $note->name,
             'note' => $note,
             'nav' => $this->nav,
         ]);
     }
 
-    public function update(int $id, NoteRequest $request): string
+    public function update(int $id): string
     {
+        $title = Lang::get(Helper::getAction());
         $note = Note::find($id);
 
-        $note->name = $request->input('name');
-        $note->content = $request->input('content');
-
-        $note->save();
-
         return view('note-create', [
-            'title' => 'Update - ' . $note->name,
+            'title' => $title . ' - ' . $note->name,
             'note' => $note,
             'nav' => $this->nav,
         ]);

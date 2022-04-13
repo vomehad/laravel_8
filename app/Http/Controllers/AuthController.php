@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 
 class AuthController extends Controller
 {
@@ -15,7 +17,7 @@ class AuthController extends Controller
         }
 
         return view('login', [
-            'title' => 'login',
+            'title' => Lang::get('Auth.' . Helper::getAction()),
 //            'nav' => $this->nav,
         ]);
     }
@@ -33,7 +35,7 @@ class AuthController extends Controller
         }
 
         return redirect(route('Login'))->withErrors([
-            'email' => 'Login Fault(',
+            'email' => 'Login Fault',
         ]);
     }
 
@@ -43,9 +45,8 @@ class AuthController extends Controller
             return redirect(route('Account'));
         }
 
-        return view('signUp', [
-            'title' => 'Registration',
-//            'nav' => $this->nav,
+        return view('sign-up', [
+            'title' => Lang::get('Auth.' . Helper::getAction()),
         ]);
     }
 
@@ -65,14 +66,14 @@ class AuthController extends Controller
         $user->username = $request->input('username');
         $user->email = $request->input('email');
         $user->password = $request->input('password');
-//        $user->save();
+
         if ($user->save()) {
             Auth::login($user);
 
             return redirect(route('Account'))->with('success', 'Login!1');
         }
 
-        return redirect(route('SignUp'))->withErrors([
+        return redirect(route('Login'))->withErrors([
             'sign' => 'Аунтификация не удалась',
         ]);
     }

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use App\Models\Article;
 use Illuminate\Support\Facades\Lang;
 
-class GameController extends Controller
+class ArticleController extends Controller
 {
     public function __construct()
     {
@@ -17,22 +18,27 @@ class GameController extends Controller
         ];
     }
 
-    public function playGame(): string
+    public function index()
     {
-        $title = Lang::get(Helper::getAction() . '.Title');
-        $rows = 4;
-        $startItem = 1;
+        $title = Lang::get(Helper::getAction());
+        $articles = Article::all();
 
-        return view('play-game', [
+        return view('article-index', [
             'title' => $title,
+            'articles' => $articles,
             'nav' => $this->nav,
-            'rows' => $rows,
-            'item' => $startItem
         ]);
     }
 
-    public function createRecord()
+    public function create()
     {
+        $title = Lang::get(Helper::getAction());
+        $article = new Article();
 
+        return view('article-create', [
+            'title' => $title,
+            'nav' => $this->nav,
+            'model' => $article,
+        ]);
     }
 }

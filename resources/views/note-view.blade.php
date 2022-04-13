@@ -3,10 +3,10 @@
 @section('content')
     <a href="{{ route('Test.Note.Update', ['id' => $note->id]) }}"
        class="btn btn-primary"
-    >Update Note</a>
+    >{{ __('Note.Button.Update') }}</a>
     <a href="{{ route('Test.Note.Delete', ['id' => $note->id]) }}"
        class="btn btn-danger js-delete"
-    >Delete Note</a>
+    >{{ __('Note.Button.Delete') }}</a>
 
     <main role="main" class="container">
 

@@ -7,12 +7,13 @@
                 @csrf
 
                 <div class="col-md-12">
-                    <label for="name" class="form-label">Name</label>
+                    <label for="name" class="form-label">{{ __('Note.Label.Name') }}</label>
                     <input type="text"
-                           class="form-control @error('name'){{ "border-danger" }}@enderror"
+                           class="form-control @error('name') border-danger @enderror"
                            name="name"
-                           placeholder="input Name"
+                           placeholder="{{ __('Note.Placeholder.Name') }}"
                            id="name"
+                           value="{{$note->name}}"
                     >
                 </div>
                 @error('name')
@@ -22,14 +23,14 @@
                 @enderror
 
                 <div class="col-md-12">
-                    <label for="content" class="form-label">Content</label>
-                    <textarea class="form-control @error('content'){{ "border-danger" }}@enderror"
+                    <label for="content" class="form-label">{{ __('Note.Label.Content') }}</label>
+                    <textarea class="form-control @error('content') border-danger @enderror"
                               name="content"
-                              placeholder="Edit it"
+                              placeholder="{{ __('Note.Placeholder.Content') }}"
                               id="content"
                               cols="30"
                               rows="10"
-                    ></textarea>
+                    >{{$note->content}}</textarea>
                 </div>
                 @error('content')
                 <div class="alert alert-danger">
@@ -38,7 +39,7 @@
                 @enderror
 
                 <div class="ml-5">
-                    <button type="submit" class="btn btn-success">Send</button>
+                    <button type="submit" class="btn btn-success">{{ __('Note.Button.Save') }}</button>
                 </div>
             </form>
         </div>

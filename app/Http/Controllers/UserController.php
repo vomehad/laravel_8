@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Facades\CustomCookie;
+use App\Helpers\Helper;
 use App\Http\Requests\AjaxRequest;
 use App\Http\Requests\SplitRequest;
 use App\Http\Requests\TextRequest;
@@ -17,16 +18,16 @@ class UserController extends Controller
     public function __construct()
     {
         $this->nav = [
-            ['url' => route('Test.Main.Page'), 'name' => 'Testing page'],
-            ['url' => route('Test.Note.All'), 'name' => trans('notes')],
-            ['url' => route('Game'), 'name' => trans("welcome")],
+            ['url' => route('Test.Main'), 'name' => Lang::get('Test.Menu.Top')],
+            ['url' => route('Test.Note.All'), 'name' => Lang::get('Note.Menu.Top')],
+            ['url' => route('Article.Main'), 'name' => Lang::get('Article.Menu.Top')],
+            ['url' => route('Game'), 'name' => Lang::get('Game.Menu.Top')],
         ];
     }
 
     public function home()
     {
-        $title = Lang::get('basic.home');
-
+        $title = Lang::get('Main.' . Helper::getAction());
         $contacts = Contact::all();
 
         return view('home', [
@@ -43,14 +44,14 @@ class UserController extends Controller
      */
     public function testingPage(): string
     {
-        $title = 'Testing page';
+        $title = Lang::get(Helper::getAction());
 
         $cookies = [
             'cookie_hourly' => $this->incrementCookie($this->hourlyCookie),
             'cookie_forever' => $this->incrementCookie($this->foreverCookie),
         ];
 
-        return view('testing-page', [
+        return view('cookie-index', [
             'title' => $title,
             'nav' => $this->nav,
             'cookies' => $cookies,
@@ -121,7 +122,7 @@ class UserController extends Controller
 
     public function account()
     {
-        $title = 'Account';
+        $title = Lang::get('Account');
 //        $title .= Auth::user();
 
         return view('account', [

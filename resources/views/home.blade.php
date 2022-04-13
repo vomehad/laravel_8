@@ -9,15 +9,16 @@
             @csrf
 
             <div class="col-md-12">
-                <label for="validationCustomUsername" class="form-label">Username</label>
+                <label for="validationCustomUsername" class="form-label">{{ __('Auth.Label.Username') }}</label>
                 <div class="input-group has-validation">
                     <span class="input-group-text" id="inputGroupPrepend">@</span>
                     <input type="text"
-                           class="form-control @error('username'){{ "border-danger" }}@enderror"
+                           class="form-control @error('username') border-danger @enderror"
                            id="validationCustomUsername"
                            aria-describedby="inputGroupPrepend"
                            name="username"
-                    >
+                           placeholder="{{ __('Auth.Placeholder.Username') }}"
+                    />
                 </div>
                 @error('username')
                     <div class="alert alert-danger">
@@ -28,11 +29,11 @@
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="name">Name</label>
+                    <label for="name">{{ __('Auth.Label.Name') }}</label>
                     <input type="text"
-                           class="form-control @error('name'){{ "border-danger" }}@enderror"
+                           class="form-control @error('name') border-danger @enderror"
                            name="name"
-                           placeholder="input name"
+                           placeholder="{{ __('Auth.Placeholder.Name') }}"
                            id="name"
                     >
                 </div>
@@ -45,13 +46,13 @@
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="email">email</label>
+                    <label for="email">{{ __('Auth.Label.Email') }}</label>
                     <input type="text"
-                           class="form-control @error('email'){{ "border-danger" }}@enderror"
+                           class="form-control @error('email') border-danger @enderror"
                            name="email"
-                           placeholder="input email"
+                           placeholder="{{ __('Auth.Placeholder.Email') }}"
                            id="email"
-                    >
+                    />
                 </div>
                 @error('email')
                     <div class="alert alert-danger">
@@ -64,11 +65,11 @@
 
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="subject">subject</label>
+                    <label for="subject">{{ __('Auth.Label.Subject') }}</label>
                     <input type="text"
                            name="subject"
-                           class="form-control @error('subject'){{ "border-danger" }}@enderror"
-                           placeholder="input subject"
+                           class="form-control @error('subject') border-danger @enderror"
+                           placeholder="{{ __('Auth.Placeholder.Subject') }}"
                            id="subject"
                     >
                 </div>
@@ -83,11 +84,12 @@
 
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea class="form-control @error('message'){{ "border-danger" }}@enderror"
+                    <label for="message">{{ __('Auth.Label.Message') }}</label>
+                    <textarea class="form-control @error('message') border-danger @enderror"
                               name="message"
-                              placeholder="Edit it"
+                              placeholder="{{ __('Auth.Placeholder.Message') }}"
                               id="message"
+                              rows="12"
                     ></textarea>
                 </div>
                 @error('message')
@@ -100,7 +102,7 @@
             </div>
 
             <div class="ml-5">
-                <button type="submit" class="btn btn-success">Send</button>
+                <button type="submit" class="btn btn-success">{{ __('Auth.Send.Offer') }}</button>
             </div>
 
         </form>

@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('title', $title)
-
 @section('content')
 
     <div class="game-content">
@@ -18,14 +16,14 @@
 
             </table>
 
-            <button id="start" class="btn btn-success">Start</button>
+            <button id="start" class="btn btn-success">{{ __('Game.Start') }}</button>
 
             <p id="timer"></p>
 
             <div id="winner">
-                <p id="youWin">You Win</p>
-                <p id="yourTime">Just a second</p>
-                <button id="theEnd" class="btn btn-danger">Play New Game</button>
+                <p id="youWin">{{ __('Game.Win') }}</p>
+                <p id="yourTime">{{ __('Game.Your-time') }}</p>
+                <button id="theEnd" class="btn btn-danger">{{ __('Game.New-game') }}</button>
             </div>
         </div>
     </div>

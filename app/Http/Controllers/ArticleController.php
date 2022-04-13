@@ -24,7 +24,7 @@ class ArticleController extends Controller
     public function index()
     {
         $title = Lang::get(Helper::getActionName());
-        $articles = Article::all();
+        $articles = Article::paginate(12);
 
         return view('article-index', [
             'title' => $title,

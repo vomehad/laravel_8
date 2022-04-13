@@ -25,7 +25,7 @@ class NoteController extends Controller
     {
         $title = Lang::get(Helper::getActionName());
 
-        $notes = Note::all();
+        $notes = Note::paginate(20);
 
         return view('note-index', [
             'title' => $title,

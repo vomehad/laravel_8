@@ -73,4 +73,16 @@ class ArticleController extends Controller
             'nav' => $this->nav,
         ]);
     }
+
+    public function update(int $id)
+    {
+        $title = Lang::get(Helper::getActionName());
+        $model = Article::find($id);
+
+        return view('article-create', [
+            'title' => $title . ' - ' . $model->name,
+            'model' => $model,
+            'nav' => $this->nav,
+        ]);
+    }
 }

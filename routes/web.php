@@ -35,17 +35,16 @@ Route::group(['prefix' => '/game'], function() {
 Route::name('Test.')->prefix('/test')->group(function() {
     Route::get('/', [UserController::class, 'testingPage'])->name('Main');
 
-    Route::name('Note.')->prefix('notes')->group(function () {
+    Route::name('Note.')->prefix('/notes')->group(function () {
         Route::get('/', [NoteController::class, 'index'])->name('All');
         Route::get('/create', [NoteController::class, 'create'])->name('Create');
+        Route::post('/store', [NoteController::class, 'store'])->name('Store');
 
         Route::prefix('{id}')->group(function () {
             Route::get('/', [NoteController::class, 'read'])->name('View');
             Route::get('/update/', [NoteController::class, 'update'])->name('Update');
+            Route::delete('/delete', [NoteController::class, 'delete'])->name('Delete');
         });
-
-        Route::post('/store', [NoteController::class, 'store'])->name('Store');
-        Route::delete('/delete', [NoteController::class, 'delete'])->name('Delete');
     });
 });
 

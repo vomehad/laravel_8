@@ -54,7 +54,7 @@
 @push('scripts')
     <script>
         $('#text').summernote({
-            placeholder: 'Hello Bootstrap 4',
+            placeholder: 'Start writing an article here',
             tabsize: 2,
             height: 400
         });

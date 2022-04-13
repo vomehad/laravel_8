@@ -23,7 +23,7 @@ class NoteController extends Controller
 
     public function index(): string
     {
-        $title = Lang::get(Helper::getAction());
+        $title = Lang::get(Helper::getActionName());
 
         $notes = Note::all();
 
@@ -36,7 +36,7 @@ class NoteController extends Controller
 
     public function create(): string
     {
-        $title = Lang::get(Helper::getAction());
+        $title = Lang::get(Helper::getActionName());
 
         $note = new Note();
 
@@ -63,7 +63,7 @@ class NoteController extends Controller
 
     public function read(int $id): string
     {
-        $title = Lang::get(Helper::getAction());
+        $title = Lang::get(Helper::getActionName());
 
         $note = Note::find($id);
 
@@ -76,7 +76,7 @@ class NoteController extends Controller
 
     public function update(int $id): string
     {
-        $title = Lang::get(Helper::getAction());
+        $title = Lang::get(Helper::getActionName());
         $note = Note::find($id);
 
         return view('note-create', [

@@ -6,7 +6,7 @@ use Illuminate\Support\Arr;
 
 class Helper
 {
-    public static function getAction(string $param = 'as'): string
+    public static function getActionName(string $param = 'as'): string
     {
         return Arr::get(request()->route()->action, $param);
     }

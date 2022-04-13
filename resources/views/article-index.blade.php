@@ -14,14 +14,14 @@
     </div>
 
     <div class="content">
-    @foreach($articles as $article)
+    @foreach($models as $article)
         <div class="list-group">
             <a href="{{ route('Test.Note.View', ['id' => $article->id]) }}" class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{ $note->title }}</h5>
-                    <small>{{ $note->updated_at }}</small>
+                    <h5 class="mb-1">{{ $article->title }}</h5>
+                    <small>{{ $article->updated_at }}</small>
                 </div>
-                <p class="mb-1">{{ $note->text }}</p>
+                <p class="mb-1">{!! $article->text !!}</p>
                 <small>mi</small>
             </a>
         </div>

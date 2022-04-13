@@ -17,7 +17,7 @@ class AuthController extends Controller
         }
 
         return view('login', [
-            'title' => Lang::get('Auth.' . Helper::getAction()),
+            'title' => Lang::get('Auth.' . Helper::getActionName()),
 //            'nav' => $this->nav,
         ]);
     }
@@ -46,7 +46,7 @@ class AuthController extends Controller
         }
 
         return view('sign-up', [
-            'title' => Lang::get('Auth.' . Helper::getAction()),
+            'title' => Lang::get('Auth.' . Helper::getActionName()),
         ]);
     }
 

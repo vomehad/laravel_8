@@ -27,7 +27,7 @@ class UserController extends Controller
 
     public function home()
     {
-        $title = Lang::get('Main.' . Helper::getAction());
+        $title = Lang::get('Main.' . Helper::getActionName());
         $contacts = Contact::all();
 
         return view('home', [
@@ -44,7 +44,7 @@ class UserController extends Controller
      */
     public function testingPage(): string
     {
-        $title = Lang::get(Helper::getAction());
+        $title = Lang::get(Helper::getActionName());
 
         $cookies = [
             'cookie_hourly' => $this->incrementCookie($this->hourlyCookie),

@@ -5,6 +5,8 @@ return [
         'Top' => 'Articles',
     ],
     'Main' => 'Articles',
+    'New' => 'Creating',
+    'View' => 'Article',
     'Label' => [
         'Title' => 'Title',
         'Text' => 'Text',
@@ -17,5 +19,7 @@ return [
         'Save' => 'Save',
         'Search' => 'Search',
         'Create' => 'Create',
-    ]
+        'Update' => 'Update',
+        'Delete' => 'Delete',
+    ],
 ];

@@ -53,4 +53,7 @@ Route::name('Article.')->prefix('article')->group(function() {
     Route::get('/', [ArticleController::class, 'index'])->name('Main');
     Route::get('/create', [ArticleController::class, 'create'])->name('New');
     Route::post('/store', [ArticleController::class, 'store'])->name('Store');
+    Route::get('/{id}', [ArticleController::class, 'view'])->name('View');
+    Route::get('/{id}/update', [ArticleController::class, 'update'])->name('Update');
+    Route::delete('/{id}/delete', [ArticleController::class, 'delete'])->name('Delete');
 });

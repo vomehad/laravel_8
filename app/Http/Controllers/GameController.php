@@ -19,7 +19,7 @@ class GameController extends Controller
 
     public function playGame(): string
     {
-        $title = Lang::get(Helper::getAction() . '.Title');
+        $title = Lang::get(Helper::getActionName() . '.Title');
         $rows = 4;
         $startItem = 1;
 

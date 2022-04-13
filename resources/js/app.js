@@ -1,2 +1,2 @@
 require('./send-form');
-require('./main.js')
+require('./main.js');

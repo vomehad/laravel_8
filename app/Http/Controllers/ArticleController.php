@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Helper;
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Lang;
 
@@ -51,7 +52,7 @@ class ArticleController extends Controller
         $article->title = $request->get('title');
         $article->preview = $request->get('title');
         $article->text = $request->get('text');
-        $article->created_by = 3;
+        $article->created_by = User::first()->id;
         $article->disk = '';
 
         $article->save();

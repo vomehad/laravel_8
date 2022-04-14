@@ -3,7 +3,7 @@
 @section('content')
     <a href="{{ route('Test.Note.Create') }}"
        class="btn btn-success"
-    >{{ __('Note.Create') }}</a>
+    >{{ __('Note.Button.Create') }}</a>
 
     @foreach($notes as $note)
         <div class="list-group">

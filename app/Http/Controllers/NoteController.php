@@ -86,11 +86,11 @@ class NoteController extends Controller
         ]);
     }
 
-    public function delete(int $id): RedirectResponse
+    public function delete(int $id): string
     {
         $note = Note::find($id);
         $note->delete();
 
-        return redirect()->route('Test.Note.All');
+        return Helper::getActionName();
     }
 }

@@ -85,4 +85,12 @@ class ArticleController extends Controller
             'nav' => $this->nav,
         ]);
     }
+
+    public function delete(int $id): string
+    {
+        $note = Article::find($id);
+        $note->delete();
+
+        return Helper::getActionName();
+    }
 }

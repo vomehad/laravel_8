@@ -4,9 +4,11 @@
     <a href="{{ route('Article.Update', ['id' => $model->id]) }}"
        class="btn btn-primary"
     >{{ __('Article.Button.Update') }}</a>
-    <a href="{{ route('Article.Delete', ['id' => $model->id]) }}"
-       class="btn btn-danger js-delete"
-    >{{ __('Article.Button.Delete') }}</a>
+    <button class="btn btn-danger js-delete"
+            data-ref="{{ route('Article.Delete', ['id' => $model->id]) }}"
+            data-csrf="{{ csrf_token() }}"
+            data-redirect="{{ route("Article.Main") }}"
+    >{{ __('Article.Button.Delete') }}</button>
 
     <main role="main" class="container">
 

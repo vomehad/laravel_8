@@ -25,8 +25,6 @@ Route::group(['prefix' => '/kinsman'], function() {
     Route::get('/account', [UserController::class, 'account'])->middleware('auth')->name('Account');
 });
 
-//Route::get('/useRegex/{word?}', [UserController::class, 'useRegex'])->name('Regex');
-
 Route::group(['prefix' => '/game'], function() {
     Route::get('/', [GameController::class, 'playGame'])->name('Game');
     Route::post('/create', [UserController::class, 'createRecord']);

@@ -53,4 +53,5 @@ Route::name('Article.')->prefix('article')->group(function() {
     Route::get('/{id}', [ArticleController::class, 'view'])->name('View');
     Route::get('/{id}/update', [ArticleController::class, 'update'])->name('Update');
     Route::delete('/{id}/delete', [ArticleController::class, 'delete'])->name('Delete');
+    Route::post('/search', [ArticleController::class, 'search'])->name('Search');
 });

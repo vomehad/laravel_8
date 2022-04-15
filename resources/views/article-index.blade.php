@@ -2,12 +2,13 @@
 @section('title', $title)
 @section('content')
 
-    <div class="input">
+    <form class="input" action="{{ route('Article.Search') }}" method="post">
+        @csrf
         <div class="form-outline">
-            <input type="search" id="search-input" class="form-control" />
+            <input type="search" name="search" id="search-input" class="form-control" />
         </div>
-        <button type="button" class="btn btn-primary">{{ __('Article.Button.Search') }}</button>
-    </div>
+        <button type="submit" class="btn btn-primary">{{ __('Article.Button.Search') }}</button>
+    </form>
 
     <div class="control">
         <a href="{{route('Article.New')}}" class="btn btn-success">{{__('Article.Button.Create')}}</a>

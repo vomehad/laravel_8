@@ -7,6 +7,7 @@ use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 
 class ArticleController extends Controller
@@ -93,5 +94,13 @@ class ArticleController extends Controller
         $note->delete();
 
         return Helper::getActionName();
+    }
+
+    public function search(Request $request)
+    {
+        $string = $request->get('search');
+
+        $search = Article::search($string)->get();
+        dd($search);
     }
 }

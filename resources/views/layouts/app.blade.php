@@ -15,20 +15,20 @@
     @yield('head')
 </head>
 <body class="container body-content">
-    @include('includes.header')
-    <div class="container">
-        @include('includes.assets.messages')
-        <div class="row">
-            <div class="col-8">
-                @yield('content')
-            </div>
-            <div class="col-4">
-                @include('includes.aside')
-            </div>
+@include('includes.header')
+<div class="container">
+    @include('includes.assets.messages')
+    <div class="row">
+        <div class="col-10">
+            @yield('content')
+        </div>
+        <div class="col-2">
+            @include('includes.aside')
         </div>
     </div>
-    @include('includes.assets.js')
-    @include('includes.footer')
-    @yield('body')
+</div>
+@include('includes.assets.js')
+@include('includes.footer')
+@yield('body')
 </body>
 </html>

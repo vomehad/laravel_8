@@ -11,6 +11,10 @@
     <div class="form-wrap">
         <form action="{{ route('Article.Store') }}" method="post" class="row">
             @csrf
+            <input type="hidden"
+                   name="id"
+                   value="{{ $model->id }}"
+            />
 
             <div class="col-md-12">
                 <label for="title" class="form-label">{{ __('Article.Label.Title') }}</label>

@@ -14,19 +14,21 @@
     </div>
 
     <div class="content">
-    @foreach($models as $article)
-        <div class="list-group">
-            <a href="{{ route('Article.View', ['id' => $article->id]) }}" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{ $article->title }}</h5>
-                    <small>{{ $article->updated_at }}</small>
-                </div>
-{{--                <p class="mb-1">{!! mb_substr($article->text, 0, 128) !!}</p>--}}
-                <p class="mb-1">{{ $article->previw }}</p>
-                <small>mi</small>
-            </a>
-        </div>
-    @endforeach
+        @foreach($models as $article)
+            <div class="list-group">
+                <a href="{{ route('Article.View', ['id' => $article->id]) }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ $article->title }}</h5>
+                        <small>{{ $article->updated_at }}</small>
+                    </div>
+                    {{--                <p class="mb-1">{!! mb_substr($article->text, 0, 128) !!}</p>--}}
+                    <p class="mb-1">{{ $article->previw }}</p>
+                    <small>mi</small>
+                </a>
+            </div>
+        @endforeach
     </div>
+
+    {{ $models->onEachSide(5)->links() }}
 
 @endsection

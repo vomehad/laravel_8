@@ -13,7 +13,6 @@
     <main role="main" class="container">
 
         <div class="starter-template">
-            <h1>{{ $model->title }}</h1>
             <div>{!! $model->text !!}</div>
         </div>
 

@@ -6,6 +6,7 @@ return [
     ],
     'Main' => 'Articles',
     'New' => 'Creating',
+    'Update' => 'Update',
     'View' => 'Article',
     'Label' => [
         'Title' => 'Title',

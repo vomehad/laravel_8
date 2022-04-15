@@ -17,4 +17,6 @@
             </a>
         </div>
     @endforeach
+
+    {{ $notes->onEachSide(5)->links() }}
 @endsection

@@ -3,10 +3,10 @@
         <a href="<?= route('Home') ?>" class="my-0 mr-md-auto font-weight-normal text-decoration-none">
             <span class="fs-4">Vomehad</span>
         </a>
-{{--        <div class="col">--}}
-{{--            <a href="{{ route(\App\Helpers\Helper::getAction(), ['locale' => 'RU']) }}" class="btn btn-default">RU</a>--}}
-{{--            <a href="{{ route(\App\Helpers\Helper::getAction(), ['locale' => 'EN']) }}" class="btn btn-default">EN</a>--}}
-{{--        </div>--}}
+        {{--        <div class="col">--}}
+        {{--            <a href="{{ route(\App\Helpers\Helper::getAction(), ['locale' => 'RU']) }}" class="btn btn-default">RU</a>--}}
+        {{--            <a href="{{ route(\App\Helpers\Helper::getAction(), ['locale' => 'EN']) }}" class="btn btn-default">EN</a>--}}
+        {{--        </div>--}}
 
         <nav class="my-2 my-md-0 mr-md-3 nav-content">
             @isset($nav)
@@ -28,7 +28,7 @@
 
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
         @isset($title)
-        <h1 class="display-4 fw-normal">{{ $title }}</h1>
+            <h1 class="display-4 fw-normal">{{ $title }}</h1>
         @endisset
     </div>
 </header>

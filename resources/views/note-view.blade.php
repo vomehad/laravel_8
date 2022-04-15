@@ -13,7 +13,6 @@
     <main role="main" class="container">
 
         <div class="starter-template">
-            <h1>{{ $note->name }}</h1>
             <p class="lead">{{ $note->content }}</p>
         </div>
 

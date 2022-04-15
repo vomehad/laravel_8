@@ -24,7 +24,7 @@ class ArticleController extends Controller
     public function index()
     {
         $title = Lang::get(Helper::getActionName());
-        $articles = Article::paginate(12);
+        $articles = Article::paginate (8);
 
         return view('article-index', [
             'title' => $title,
@@ -47,7 +47,7 @@ class ArticleController extends Controller
 
     public function store(ArticleRequest $request): RedirectResponse
     {
-        $article = new Article();
+        $article = $request->id ? Article::find($request->id) : new Article();
 
         $article->title = $request->get('title');
         $article->preview = $request->get('title');
@@ -64,11 +64,11 @@ class ArticleController extends Controller
 
     public function view(int $id): string
     {
-        $title = Lang::get(Helper::getActionName());
+//        $title = Lang::get(Helper::getActionName());
         $article = Article::find($id);
 
         return view('article-view', [
-            'title' => $title . ' - ' . $article->title,
+            'title' => $article->title,
             'model' => $article,
             'nav' => $this->nav,
         ]);
@@ -80,7 +80,7 @@ class ArticleController extends Controller
         $model = Article::find($id);
 
         return view('article-create', [
-            'title' => $title . ' - ' . $model->name,
+            'title' => $title . ' - ' . $model->title,
             'model' => $model,
             'nav' => $this->nav,
         ]);

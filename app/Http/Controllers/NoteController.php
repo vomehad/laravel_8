@@ -25,7 +25,7 @@ class NoteController extends Controller
     {
         $title = Lang::get(Helper::getActionName());
 
-        $notes = Note::paginate(20);
+        $notes = Note::simplePaginate (20);
 
         return view('note-index', [
             'title' => $title,
@@ -63,12 +63,12 @@ class NoteController extends Controller
 
     public function read(int $id): string
     {
-        $title = Lang::get(Helper::getActionName());
+//        $title = Lang::get(Helper::getActionName());
 
         $note = Note::find($id);
 
         return view('note-view', [
-            'title' => $title . ' - ' . $note->name,
+            'title' => $note->name,
             'note' => $note,
             'nav' => $this->nav,
         ]);

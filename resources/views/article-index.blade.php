@@ -16,7 +16,10 @@
     <div class="content">
         @foreach($models as $article)
             <div class="list-group">
-                <a href="{{ route('Article.View', ['id' => $article->id]) }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                <a href="{{ route('Article.View', ['id' => $article->id]) }}"
+                   class="list-group-item list-group-item-action flex-column align-items-start"
+                   title="{{ $article->getPreview() }}"
+                >
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">{{ $article->title }}</h5>
                         <small>{{ $article->updated_at }}</small>

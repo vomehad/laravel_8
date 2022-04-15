@@ -20,6 +20,7 @@ class CreateArticlesTable extends Migration
             $table->text('text');
 
             $table->fullText('text');
+            $table->tinyText('link');
 
             $table->foreignId('created_by')
                 ->nullable(false)

@@ -13,6 +13,7 @@
     <main role="main" class="container">
 
         <div class="starter-template">
+            <span class="link"><a href="{{ $model->link }}">{{ $model->link }}</a></span>
             <div>{!! $model->text !!}</div>
         </div>
 

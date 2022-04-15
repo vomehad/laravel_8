@@ -4,7 +4,6 @@
     <div class="auth form-wrap">
     <form action="{{ route('Create') }}" class="col-6 offset-2 border rounded" method="POST">
         @csrf
-
         <div class="form-group">
             <label for="email" class="col-form-label-lg">{{ __('Auth.Label.Name') }}</label>
             <input type="text"

@@ -47,6 +47,17 @@
             </div>
             @enderror
 
+            <div class="col-md-12">
+                <label for="link">{{ __('Article.Label.Link') }}</label>
+                <input type="text"
+                       class="form-control"
+                       name="link"
+                       placeholder="{{ __('Article.Placeholder.Link') }}"
+                       id="link"
+                       value="{{ $model->link }}"
+                />
+            </div>
+
             <div class="ml-5">
                 <button type="submit" class="btn btn-success">{{ __('Article.Button.Save') }}</button>
             </div>

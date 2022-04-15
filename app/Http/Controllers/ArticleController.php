@@ -52,6 +52,7 @@ class ArticleController extends Controller
         $article->title = $request->get('title');
         $article->preview = $request->get('title');
         $article->text = $request->get('text');
+        $article->link = $request->get('link');
         $article->created_by = User::first()->id;
         $article->disk = '';
 

@@ -21,10 +21,9 @@
                         <h5 class="mb-1">{{ $article->title }}</h5>
                         <small>{{ $article->updated_at }}</small>
                     </div>
-                    {{--                <p class="mb-1">{!! mb_substr($article->text, 0, 128) !!}</p>--}}
                     <p class="mb-1">{{ $article->previw }}</p>
-                    <small>mi</small>
                 </a>
+                <small><a href="{{ $article->link }}">{{ $article->link }}</a></small>
             </div>
         @endforeach
     </div>

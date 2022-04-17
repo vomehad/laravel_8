@@ -8,7 +8,7 @@
     </div>
     <div class="content">
         @foreach($models as $category)
-            {{ $category->name }}
+            <div class="btn btn-default">{{ $category->name }}</div>
         @endforeach
     </div>
 @endsection

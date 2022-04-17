@@ -15,6 +15,8 @@ class CreateNoteCategoryTable extends Migration
     {
         Schema::create('note_category', function (Blueprint $table) {
             $table->id();
+            $table->integer('note_id');
+            $table->integer('category_id');
             $table->timestamps();
         });
     }

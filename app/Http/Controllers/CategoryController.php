@@ -53,6 +53,7 @@ class CategoryController extends Controller
             'id' => $category->id,
         ]);
     }
+
     public function view(int $id): string
     {
         $category = Category::find($id);
@@ -62,5 +63,25 @@ class CategoryController extends Controller
             'model' => $category,
             'nav' => $this->nav,
         ]);
+    }
+
+    public function update(int $id)
+    {
+        $title = Lang::get(Helper::getActionName());
+        $category = Category::find($id);
+
+        return view('category.create', [
+            'title' => $title,
+            'model' => $category,
+            'nav' => $this->nav,
+        ]);
+    }
+
+    public function delete(int $id): string
+    {
+        $category = Category::find($id);
+        $category->delete();
+
+        return Helper::getActionName();
     }
 }

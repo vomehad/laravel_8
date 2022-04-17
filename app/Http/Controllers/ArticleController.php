@@ -85,8 +85,8 @@ class ArticleController extends Controller
 
     public function delete(int $id): string
     {
-        $note = Article::find($id);
-        $note->delete();
+        $article = Article::find($id);
+        $article->delete();
 
         return Helper::getActionName();
     }

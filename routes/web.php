@@ -52,6 +52,8 @@ Route::name('Test.')->prefix('/test')->group(function() {
         Route::get('/create', [CategoryController::class, 'create'])->name('New');
         Route::post('/store', [CategoryController::class, 'store'])->name('Store');
         Route::get('/{id}', [CategoryController::class, 'view'])->name('View');
+        Route::get('/{id}/update', [CategoryController::class, 'update'])->name('Update');
+        Route::delete('/{id}/delete', [CategoryController::class, 'delete'])->name('Delete');
     });
 });
 

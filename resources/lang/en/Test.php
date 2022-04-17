@@ -29,5 +29,6 @@ return [
         'Create' => 'Create new note',
         'All' => 'Notes',
         'View' => 'Note',
+        'Search' => 'Found notes',
     ]
 ];

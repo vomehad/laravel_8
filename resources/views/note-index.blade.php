@@ -1,11 +1,21 @@
 @extends('layouts.app')
 @section('title', $title)
 @section('content')
-    <a href="{{ route('Test.Note.Create') }}"
-       class="btn btn-success"
-    >{{ __('Note.Button.Create') }}</a>
+    <form class="input" action="{{ route('Test.Note.Search') }}" method="post">
+        @csrf
+        <div class="form-outline">
+            <input type="search" name="search" id="search-input" class="form-control" value="{{ $string ?? '' }}" />
+        </div>
+        <button type="submit" class="btn btn-primary">{{ __('Note.Button.Search') }}</button>
+    </form>
 
-    @foreach($notes as $note)
+    <div class="control">
+        <a href="{{ route('Test.Note.Create') }}" class="btn btn-success">{{ __('Note.Button.Create') }}</a>
+    </div>
+
+    <div class="content">
+        <span>{{ __('Test.Note.Search-result') }} - {{ $models->count() }}</span>
+    @foreach($models as $note)
         <div class="list-group">
             <a href="{{ route('Test.Note.View', ['id' => $note->id]) }}" class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
@@ -17,6 +27,7 @@
             </a>
         </div>
     @endforeach
+    </div>
 
-    {{ $notes->onEachSide(5)->links() }}
+    {{ $models->onEachSide(5)->links() }}
 @endsection

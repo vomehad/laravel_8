@@ -6,6 +6,7 @@ use App\Helpers\Helper;
 use App\Models\Note;
 use App\Http\Requests\NoteRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 
 class NoteController extends Controller
@@ -24,12 +25,11 @@ class NoteController extends Controller
     public function index(): string
     {
         $title = Lang::get(Helper::getActionName());
-
-        $notes = Note::simplePaginate (20);
+        $notes = $this->getNotes();
 
         return view('note-index', [
             'title' => $title,
-            'notes' => $notes,
+            'models' => $notes,
             'nav' => $this->nav,
         ]);
     }
@@ -37,7 +37,6 @@ class NoteController extends Controller
     public function create(): string
     {
         $title = Lang::get(Helper::getActionName());
-
         $note = new Note();
 
         return view('note-create', [
@@ -63,8 +62,6 @@ class NoteController extends Controller
 
     public function read(int $id): string
     {
-//        $title = Lang::get(Helper::getActionName());
-
         $note = Note::find($id);
 
         return view('note-view', [
@@ -92,5 +89,31 @@ class NoteController extends Controller
         $note->delete();
 
         return Helper::getActionName();
+    }
+
+    public function search(Request $request)
+    {
+        $string = $request->get('search') ?? $request->query->get('query') ?? '';
+        $title = Lang::get(Helper::getActionName());
+        $notes = $this->getNotes($string);
+
+        return view('note-index', [
+            'title' => $title,
+            'models' => $notes,
+            'nav' => $this->nav,
+            'string' => $string,
+        ]);
+    }
+
+    private function getNotes(string $search = '')
+    {
+        $model = new Note();
+        $perPage = 10;
+
+        if ($search) {
+            $model = $model->search($search);
+        }
+
+        return $model->paginate($perPage);
     }
 }

@@ -37,6 +37,7 @@ Route::name('Test.')->prefix('/test')->group(function() {
         Route::get('/', [NoteController::class, 'index'])->name('All');
         Route::get('/create', [NoteController::class, 'create'])->name('Create');
         Route::post('/store', [NoteController::class, 'store'])->name('Store');
+        Route::match(['get', 'post'],'/search', [NoteController::class, 'search'])->name('Search');
 
         Route::prefix('{id}')->group(function () {
             Route::get('/', [NoteController::class, 'read'])->name('View');
@@ -50,8 +51,8 @@ Route::name('Article.')->prefix('article')->group(function() {
     Route::get('/', [ArticleController::class, 'index'])->name('Main');
     Route::get('/create', [ArticleController::class, 'create'])->name('New');
     Route::post('/store', [ArticleController::class, 'store'])->name('Store');
+    Route::match(['get', 'post'],'/search', [ArticleController::class, 'search'])->name('Search');
     Route::get('/{id}', [ArticleController::class, 'view'])->name('View');
     Route::get('/{id}/update', [ArticleController::class, 'update'])->name('Update');
     Route::delete('/{id}/delete', [ArticleController::class, 'delete'])->name('Delete');
-    Route::post('/search', [ArticleController::class, 'search'])->name('Search');
 });

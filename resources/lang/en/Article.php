@@ -8,6 +8,7 @@ return [
     'New' => 'Creating',
     'Update' => 'Update',
     'View' => 'Article',
+    'Search' => 'Found articles',
     'Label' => [
         'Title' => 'Title',
         'Text' => 'Text',

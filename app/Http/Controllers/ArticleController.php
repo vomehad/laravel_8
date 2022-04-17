@@ -25,7 +25,7 @@ class ArticleController extends Controller
     public function index()
     {
         $title = Lang::get(Helper::getActionName());
-        $articles = Article::paginate (8);
+        $articles = $this->getArticleList();
 
         return view('article-index', [
             'title' => $title,
@@ -66,7 +66,6 @@ class ArticleController extends Controller
 
     public function view(int $id): string
     {
-//        $title = Lang::get(Helper::getActionName());
         $article = Article::find($id);
 
         return view('article-view', [
@@ -98,9 +97,27 @@ class ArticleController extends Controller
 
     public function search(Request $request)
     {
-        $string = $request->get('search');
+        $string = $request->get('search') ?? $request->query->get('query') ?? '';
+        $title = Lang::get(Helper::getActionName());
+        $articles = $this->getArticleList($string);
 
-        $search = Article::search($string)->get();
-        dd($search);
+        return view('article-index', [
+            'title' => $title,
+            'models' => $articles,
+            'nav' => $this->nav,
+            'string' => $string,
+        ]);
+    }
+
+    private function getArticleList(string $search = '')
+    {
+        $model = new Article();
+        $perPage = 8;
+
+        if ($search) {
+            $model = $model->search($search);
+        }
+
+        return $model->paginate($perPage);
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\NoteController;
@@ -33,7 +34,7 @@ Route::group(['prefix' => '/game'], function() {
 Route::name('Test.')->prefix('/test')->group(function() {
     Route::get('/', [UserController::class, 'testingPage'])->name('Main');
 
-    Route::name('Note.')->prefix('/notes')->group(function () {
+    Route::name('Note.')->prefix('/notes')->group(function() {
         Route::get('/', [NoteController::class, 'index'])->name('All');
         Route::get('/create', [NoteController::class, 'create'])->name('Create');
         Route::post('/store', [NoteController::class, 'store'])->name('Store');
@@ -44,6 +45,10 @@ Route::name('Test.')->prefix('/test')->group(function() {
             Route::get('/update/', [NoteController::class, 'update'])->name('Update');
             Route::delete('/delete', [NoteController::class, 'delete'])->name('Delete');
         });
+    });
+
+    Route::name('Category.')->prefix('categories')->group(function() {
+        Route::get('/', [CategoryController::class, 'list'])->name('List');
     });
 });
 

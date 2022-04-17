@@ -11,15 +11,15 @@ use Illuminate\Support\Facades\Lang;
 
 class NoteController extends Controller
 {
-
     public function __construct()
     {
-        $this->nav = [
-            ['url' => route('Test.Main'), 'name' => Lang::get('Test.Menu.Top')],
-            ['url' => route('Test.Note.All'), 'name' => Lang::get('Note.Menu.Top')],
-            ['url' => route('Article.Main'), 'name' => Lang::get('Article.Menu.Top')],
-            ['url' => route('Game'), 'name' => Lang::get('Game.Menu.Top')],
-        ];
+        parent::__construct();
+//        $this->nav = [
+//            ['url' => route('Test.Main'), 'name' => Lang::get('Test.Menu.Top')],
+//            ['url' => route('Test.Note.All'), 'name' => Lang::get('Note.Menu.Top')],
+//            ['url' => route('Article.Main'), 'name' => Lang::get('Article.Menu.Top')],
+//            ['url' => route('Game'), 'name' => Lang::get('Game.Menu.Top')],
+//        ];
     }
 
     public function index(): string

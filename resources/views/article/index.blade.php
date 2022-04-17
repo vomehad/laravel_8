@@ -4,13 +4,20 @@
     <form class="input" action="{{ route('Article.Search') }}" method="post">
         @csrf
         <div class="form-outline">
-            <input type="search" name="search" id="search-input" class="form-control" value="{{ $string ?? '' }}" />
+            <input type="search"
+                   name="search"
+                   id="search-input"
+                   class="form-control"
+                   value="{{ $string ?? '' }}"
+            />
         </div>
         <button type="submit" class="btn btn-primary">{{ __('Article.Button.Search') }}</button>
     </form>
 
     <div class="control">
-        <a href="{{ route('Article.New') }}" class="btn btn-success">{{ __('Article.Button.Create') }}</a>
+        <a href="{{ route('Article.New') }}"
+           class="btn btn-success"
+        >{{ __('Article.Button.Create') }}</a>
     </div>
 
     <div class="content">

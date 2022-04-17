@@ -8,6 +8,7 @@ use App\Models\Article;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Lang;
 
 class ArticleController extends Controller
@@ -15,12 +16,6 @@ class ArticleController extends Controller
     public function __construct()
     {
         parent::__construct();
-//        $this->nav = [
-//            ['url' => route('Test.Main'), 'name' => Lang::get('Test.Menu.Top')],
-//            ['url' => route('Test.Note.All'), 'name' => Lang::get('Note.Menu.Top')],
-//            ['url' => route('Article.Main'), 'name' => Lang::get('Article.Menu.Top')],
-//            ['url' => route('Game'), 'name' => Lang::get('Game.Menu.Top')],
-//        ];
     }
 
     public function index()
@@ -28,7 +23,7 @@ class ArticleController extends Controller
         $title = Lang::get(Helper::getActionName());
         $articles = $this->getArticleList();
 
-        return view('article-index', [
+        return view('article.index', [
             'title' => $title,
             'models' => $articles,
             'nav' => $this->nav,
@@ -40,7 +35,7 @@ class ArticleController extends Controller
         $title = Lang::get(Helper::getActionName());
         $article = new Article();
 
-        return view('article-create', [
+        return view('article.create', [
             'title' => $title,
             'nav' => $this->nav,
             'model' => $article,
@@ -69,7 +64,7 @@ class ArticleController extends Controller
     {
         $article = Article::find($id);
 
-        return view('article-view', [
+        return view('article.view', [
             'title' => $article->title,
             'model' => $article,
             'nav' => $this->nav,
@@ -81,7 +76,7 @@ class ArticleController extends Controller
         $title = Lang::get(Helper::getActionName());
         $model = Article::find($id);
 
-        return view('article-create', [
+        return view('article.create', [
             'title' => $title . ' - ' . $model->title,
             'model' => $model,
             'nav' => $this->nav,
@@ -102,7 +97,7 @@ class ArticleController extends Controller
         $title = Lang::get(Helper::getActionName());
         $articles = $this->getArticleList($string);
 
-        return view('article-index', [
+        return view('article.index', [
             'title' => $title,
             'models' => $articles,
             'nav' => $this->nav,
@@ -110,7 +105,7 @@ class ArticleController extends Controller
         ]);
     }
 
-    private function getArticleList(string $search = '')
+    private function getArticleList(string $search = ''): LengthAwarePaginator
     {
         $model = new Article();
         $perPage = 8;

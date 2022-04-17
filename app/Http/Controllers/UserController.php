@@ -18,12 +18,6 @@ class UserController extends Controller
     public function __construct()
     {
         parent::__construct();
-//        $this->nav = [
-//            ['url' => route('Test.Main'), 'name' => Lang::get('Test.Menu.Top')],
-//            ['url' => route('Test.Note.All'), 'name' => Lang::get('Note.Menu.Top')],
-//            ['url' => route('Article.Main'), 'name' => Lang::get('Article.Menu.Top')],
-//            ['url' => route('Game'), 'name' => Lang::get('Game.Menu.Top')],
-//        ];
     }
 
     public function home()
@@ -52,10 +46,10 @@ class UserController extends Controller
             'cookie_forever' => $this->incrementCookie($this->foreverCookie),
         ];
 
-        return view('cookie-index', [
+        return view('cookie.index', [
             'title' => $title,
-            'nav' => $this->nav,
             'cookies' => $cookies,
+            'nav' => $this->nav,
         ]);
     }
 
@@ -124,9 +118,8 @@ class UserController extends Controller
     public function account()
     {
         $title = Lang::get('Account');
-//        $title .= Auth::user();
 
-        return view('account', [
+        return view('auth.account', [
             'title' => $title,
             'nav' => $this->nav,
         ]);

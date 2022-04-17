@@ -49,6 +49,8 @@ Route::name('Test.')->prefix('/test')->group(function() {
 
     Route::name('Category.')->prefix('categories')->group(function() {
         Route::get('/', [CategoryController::class, 'list'])->name('List');
+        Route::get('/create', [CategoryController::class, 'create'])->name('New');
+        Route::post('/store', [CategoryController::class, 'store'])->name('Store');
     });
 });
 

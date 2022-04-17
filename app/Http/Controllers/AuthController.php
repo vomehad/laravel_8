@@ -16,7 +16,7 @@ class AuthController extends Controller
             return redirect(route('Account'));
         }
 
-        return view('login', [
+        return view('auth.login', [
             'title' => Lang::get('Auth.' . Helper::getActionName()),
 //            'nav' => $this->nav,
         ]);
@@ -45,7 +45,7 @@ class AuthController extends Controller
             return redirect(route('Account'));
         }
 
-        return view('sign-up', [
+        return view('auth.sign-up', [
             'title' => Lang::get('Auth.' . Helper::getActionName()),
         ]);
     }

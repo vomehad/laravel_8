@@ -7,6 +7,7 @@ use App\Models\Note;
 use App\Http\Requests\NoteRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Lang;
 
 class NoteController extends Controller
@@ -14,12 +15,6 @@ class NoteController extends Controller
     public function __construct()
     {
         parent::__construct();
-//        $this->nav = [
-//            ['url' => route('Test.Main'), 'name' => Lang::get('Test.Menu.Top')],
-//            ['url' => route('Test.Note.All'), 'name' => Lang::get('Note.Menu.Top')],
-//            ['url' => route('Article.Main'), 'name' => Lang::get('Article.Menu.Top')],
-//            ['url' => route('Game'), 'name' => Lang::get('Game.Menu.Top')],
-//        ];
     }
 
     public function index(): string
@@ -27,7 +22,7 @@ class NoteController extends Controller
         $title = Lang::get(Helper::getActionName());
         $notes = $this->getNotes();
 
-        return view('note-index', [
+        return view('note.index', [
             'title' => $title,
             'models' => $notes,
             'nav' => $this->nav,
@@ -39,7 +34,7 @@ class NoteController extends Controller
         $title = Lang::get(Helper::getActionName());
         $note = new Note();
 
-        return view('note-create', [
+        return view('note.create', [
             'title' => $title,
             'note' => $note,
             'nav' => $this->nav,
@@ -64,7 +59,7 @@ class NoteController extends Controller
     {
         $note = Note::find($id);
 
-        return view('note-view', [
+        return view('note.view', [
             'title' => $note->name,
             'note' => $note,
             'nav' => $this->nav,
@@ -76,7 +71,7 @@ class NoteController extends Controller
         $title = Lang::get(Helper::getActionName());
         $note = Note::find($id);
 
-        return view('note-create', [
+        return view('note.create', [
             'title' => $title . ' - ' . $note->name,
             'note' => $note,
             'nav' => $this->nav,
@@ -97,7 +92,7 @@ class NoteController extends Controller
         $title = Lang::get(Helper::getActionName());
         $notes = $this->getNotes($string);
 
-        return view('note-index', [
+        return view('note.index', [
             'title' => $title,
             'models' => $notes,
             'nav' => $this->nav,
@@ -105,7 +100,7 @@ class NoteController extends Controller
         ]);
     }
 
-    private function getNotes(string $search = '')
+    private function getNotes(string $search = ''): LengthAwarePaginator
     {
         $model = new Note();
         $perPage = 10;

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Helper;
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -34,11 +35,13 @@ class ArticleController extends Controller
     {
         $title = Lang::get(Helper::getActionName());
         $article = new Article();
+        $categories = Category::getAll();
 
         return view('article.create', [
             'title' => $title,
-            'nav' => $this->nav,
             'model' => $article,
+            'categories' => $categories,
+            'nav' => $this->nav,
         ]);
     }
 
@@ -75,10 +78,12 @@ class ArticleController extends Controller
     {
         $title = Lang::get(Helper::getActionName());
         $model = Article::find($id);
+        $categories = Category::getAll();
 
         return view('article.create', [
             'title' => $title . ' - ' . $model->title,
             'model' => $model,
+            'categories' => $categories,
             'nav' => $this->nav,
         ]);
     }

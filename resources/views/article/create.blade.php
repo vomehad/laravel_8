@@ -32,9 +32,31 @@
             </div>
             @enderror
 
+            <div class="row">
+                <div class="col-7">
+                    <label for="link">{{ __('Article.Label.Link') }}</label>
+                    <input type="text"
+                           class="form-control"
+                           name="link"
+                           placeholder="{{ __('Article.Placeholder.Link') }}"
+                           id="link"
+                           value="{{ $model->link }}"
+                    />
+                </div>
+
+{{--                <div class="col-5">--}}
+{{--                    <label for="category">{{ __('Article.Label.Category') }}</label>--}}
+{{--                    <select name="category[]" id="category" class="select_picker" multiple>--}}
+{{--                        @foreach($categories as $category)--}}
+{{--                            <option value="{{ $category->id }}">{{ $category->name }}</option>--}}
+{{--                        @endforeach--}}
+{{--                    </select>--}}
+{{--                </div>--}}
+            </div>
+
             <div class="col-md-12">
                 <label for="text" class="form-label">{{ __('Article.Label.Text') }}</label>
-                <textarea class="form-control @error('text') border-danger @enderror"
+                <textarea class="form-control @error('text') is-invalid @enderror"
                           name="text"
                           placeholder="{{ __('Article.Placeholder.Text') }}"
                           id="text"
@@ -46,17 +68,6 @@
                 <span>{{ $message }}</span>
             </div>
             @enderror
-
-            <div class="col-md-12">
-                <label for="link">{{ __('Article.Label.Link') }}</label>
-                <input type="text"
-                       class="form-control"
-                       name="link"
-                       placeholder="{{ __('Article.Placeholder.Link') }}"
-                       id="link"
-                       value="{{ $model->link }}"
-                />
-            </div>
 
             <div class="ml-5">
                 <button type="submit" class="btn btn-success">{{ __('Article.Button.Save') }}</button>

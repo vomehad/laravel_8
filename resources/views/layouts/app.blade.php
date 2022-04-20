@@ -19,10 +19,10 @@
 <div class="container">
     @include('includes.assets.messages')
     <div class="row">
-        <div class="col-10">
+        <div class="col-bg-10 col-md-10 col-sm-12">
             @yield('content')
         </div>
-        <div class="col-2">
+        <div class="col-bg-2 col-md-2 col-sm-0">
             @include('includes.aside')
         </div>
     </div>

@@ -16,7 +16,7 @@
                    value="{{ $model->id }}"
             />
 
-            <div class="col-md-12">
+            <div class="col-md-10 col-sm-12">
                 <label for="title" class="form-label">{{ __('Article.Label.Title') }}</label>
                 <input type="text"
                        class="form-control @error('title') border-danger @enderror"
@@ -33,7 +33,7 @@
             @enderror
 
             <div class="row">
-                <div class="col-7">
+                <div class="col-md-10 col-sm-12">
                     <label for="link">{{ __('Article.Label.Link') }}</label>
                     <input type="text"
                            class="form-control"
@@ -54,7 +54,7 @@
 {{--                </div>--}}
             </div>
 
-            <div class="col-md-12">
+            <div class="col-md-10 col-sm-12">
                 <label for="text" class="form-label">{{ __('Article.Label.Text') }}</label>
                 <textarea class="form-control @error('text') is-invalid @enderror"
                           name="text"

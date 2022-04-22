@@ -12,11 +12,6 @@ use Illuminate\Support\Facades\Lang;
 
 class NoteController extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function index(): string
     {
         $title = Lang::get(Helper::getActionName());

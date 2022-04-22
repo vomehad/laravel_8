@@ -30,5 +30,8 @@ return [
         'All' => 'Notes',
         'View' => 'Note',
         'Search' => 'Found notes',
+    ],
+    'Category' => [
+        'List' => 'Categories',
     ]
 ];

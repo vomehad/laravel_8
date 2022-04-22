@@ -14,7 +14,7 @@
     </div>
 
     <div class="content">
-        <span>{{ __('Test.Note.Search-result') }} - {{ $models->total() }}</span>
+        <span>{{ __('Test.Note.Search') }} - {{ $models->total() }}</span>
     @foreach($models as $note)
         <div class="list-group">
             <a href="{{ route('Test.Note.View', ['id' => $note->id]) }}" class="list-group-item list-group-item-action flex-column align-items-start">

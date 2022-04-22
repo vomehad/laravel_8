@@ -8,17 +8,15 @@ use App\Http\Requests\AjaxRequest;
 use App\Http\Requests\SplitRequest;
 use App\Http\Requests\TextRequest;
 use App\Models\Contact;
+use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 
 class UserController extends Controller
 {
     private string $hourlyCookie = 'hourly_cookie';
     private string $foreverCookie = 'forever_cookie';
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     public function home()
     {
@@ -51,6 +49,78 @@ class UserController extends Controller
             'cookies' => $cookies,
             'nav' => $this->nav,
         ]);
+    }
+
+    public function allUsers()
+    {
+        $title = Lang::get(Helper::getActionName());
+        $users = User::all();
+
+        return view('user.index', [
+            'title' => $title,
+            'models' => $users,
+            'nav' => $this->nav
+        ]);
+    }
+
+    public function create()
+    {
+        $title = Lang::get(Helper::getActionName());
+        $user = new User();
+
+        return view('user.create', [
+            'title' => $title,
+            'model' => $user,
+            'nav' => $this->nav,
+        ]);
+    }
+
+    public function store(Request $request): RedirectResponse
+    {
+        $user = $request->id ? User::find($request->id) : new User();
+        $user->username = $request->get('username');
+        $user->email = $request->get('email');
+
+        return redirect()->route('User.View', [
+            'id' => $user->id,
+        ]);
+    }
+
+    public function view(int $id)
+    {
+        $user = User::find($id);
+
+        return view('user.view', [
+            'title' => $user->email,
+            'model' => $user,
+            'nav' => $this->nav,
+        ]);
+    }
+
+    public function update(int $id): string
+    {
+        $title = Lang::get(Helper::getActionName());
+        $user = User::find($id);
+
+        return view('user.create', [
+            'title' => $title . ' - ' . $user->email,
+            'model' => $user,
+            'nav' => $this->nav,
+        ]);
+    }
+
+    public function delete(int $id): string
+    {
+        $tag = User::find($id);
+        $tag->delete();
+
+        return Helper::getActionName();
+    }
+
+    public function roles(int $userId, int $roleId)
+    {
+        $user = User::find($userId)->with('role')->get();
+        $user->role()->attach($roleId);
     }
 
     /**

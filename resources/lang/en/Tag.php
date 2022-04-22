@@ -2,21 +2,22 @@
 
 return [
     'Menu' => [
-        'Top' => 'Notes',
+        'Top' => 'Tags',
     ],
+    'List' => 'Tags',
+    'New' => 'New Tag',
     'Label' => [
         'Name' => 'Name',
-        'Content' => 'Content',
+        'Description' => 'Description',
     ],
     'Placeholder' => [
-        'Name' => 'Enter name',
-        'Content' => 'Enter text',
+        'Name' => 'Name',
+        'Description' => 'Description',
     ],
     'Button' => [
         'Create' => 'Create',
         'Save' => 'Save',
         'Update' => 'Update',
         'Delete' => 'Delete',
-        'Search' => 'Search',
     ]
 ];

@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\Lang;
 
 class CategoryController extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function list()
     {
         $title = Lang::get(Helper::getActionName());

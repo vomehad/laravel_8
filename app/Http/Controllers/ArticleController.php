@@ -6,6 +6,7 @@ use App\Helpers\Helper;
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,11 +15,6 @@ use Illuminate\Support\Facades\Lang;
 
 class ArticleController extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function index()
     {
         $title = Lang::get(Helper::getActionName());
@@ -36,11 +32,13 @@ class ArticleController extends Controller
         $title = Lang::get(Helper::getActionName());
         $article = new Article();
         $categories = Category::getAll();
+        $tags = Tag::all();
 
         return view('article.create', [
             'title' => $title,
             'model' => $article,
             'categories' => $categories,
+            'tag' => $tags,
             'nav' => $this->nav,
         ]);
     }

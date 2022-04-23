@@ -41,14 +41,14 @@
                     />
                 </div>
 
-{{--                <div class="col-5">--}}
-{{--                    <label for="category">{{ __('Article.Label.Category') }}</label>--}}
-{{--                    <select name="category[]" id="category" class="select_picker" multiple>--}}
-{{--                        @foreach($categories as $category)--}}
-{{--                            <option value="{{ $category->id }}">{{ $category->name }}</option>--}}
-{{--                        @endforeach--}}
-{{--                    </select>--}}
-{{--                </div>--}}
+                <div class="col-5">
+                    <label for="category">{{ __('Article.Label.Category') }}</label>
+                    <select name="category[]" id="category" class="select_picker" multiple>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
             <div class="col-md-10 col-sm-12">

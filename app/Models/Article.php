@@ -12,10 +12,12 @@ class Article extends Model
 {
     use HasFactory, Searchable;
 
-//    protected $fillable = [
-//        'title',
-//        'text',
-//    ];
+    protected $fillable = [
+        'title',
+        'link',
+        'category',
+        'text',
+    ];
 
     public function getPreview(int $long = 512): string
     {

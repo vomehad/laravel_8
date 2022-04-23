@@ -45,14 +45,21 @@ class ArticleController extends Controller
 
     public function store(ArticleRequest $request): RedirectResponse
     {
+        $data = $request->all();
         $article = $request->id ? Article::find($request->id) : new Article();
+        $article->fill($data);
+//        dump($request->all());
+//        $article->category()->sync($request->all()['category']);
+//        dd($article);
 
-        $article->title = $request->get('title');
+//        $article->title = $request->get('title');
         $article->preview = $request->get('title');
-        $article->text = $request->get('text');
-        $article->link = $request->get('link');
+//        $article->text = $request->get('text');
+//        $article->link = $request->get('link');
         $article->created_by = User::first()->id;
         $article->disk = '';
+        dd($article);
+        $article->category()->sync($request->input('category'));
 
         $article->save();
 

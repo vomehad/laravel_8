@@ -15,7 +15,7 @@ class Article extends Model
     protected $fillable = [
         'title',
         'link',
-        'category',
+//        'category',
         'text',
     ];
 

@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
 
 class ArticleController extends Controller
@@ -46,22 +47,18 @@ class ArticleController extends Controller
     public function store(ArticleRequest $request): RedirectResponse
     {
         $data = $request->all();
+
         $article = $request->id ? Article::find($request->id) : new Article();
         $article->fill($data);
-//        dump($request->all());
-//        $article->category()->sync($request->all()['category']);
-//        dd($article);
 
-//        $article->title = $request->get('title');
         $article->preview = $request->get('title');
-//        $article->text = $request->get('text');
-//        $article->link = $request->get('link');
+
         $article->created_by = User::first()->id;
         $article->disk = '';
-        dd($article);
-        $article->category()->sync($request->input('category'));
 
         $article->save();
+
+        $article->category()->attach(Arr::get($data, 'category'));
 
         return redirect()->route('Article.View', [
             'id' => $article->id,

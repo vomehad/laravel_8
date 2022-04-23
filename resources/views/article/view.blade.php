@@ -15,6 +15,9 @@
         <div class="starter-template">
             <span class="link"><a href="{{ $model->link }}">{{ $model->link }}</a></span>
             <div>{!! $model->text !!}</div>
+            @foreach($model->category as $category)
+            <div class="">{{ $category->name }}</div>
+            @endforeach
         </div>
 
     </main>

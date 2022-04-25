@@ -15,12 +15,11 @@
 
             <div class="col-md-10 col-sm-12">
                 <label for="title" class="form-label">{{ __('Article.Label.Title') }}</label>
-                <input type="text"
+                <input name="title" value="{{ old('title', $model->title) }}"
+                       type="text"
                        class="form-control @error('title') border-danger @enderror"
-                       name="title"
                        placeholder="{{ __('Article.Placeholder.Title') }}"
                        id="title"
-                       value="{{ $model->title }}"
                 >
             </div>
             @error('title')
@@ -32,12 +31,11 @@
             <div class="row">
                 <div class="col-md-10 col-sm-12">
                     <label for="link">{{ __('Article.Label.Link') }}</label>
-                    <input type="text"
-                           class="form-control"
-                           name="link"
+                    <input name="link" value="{{ $model->link }}"
+                           type="text"
+                           class="form-control @error('link') border-danger @enderror"
                            placeholder="{{ __('Article.Placeholder.Link') }}"
                            id="link"
-                           value="{{ $model->link }}"
                     />
                 </div>
 
@@ -53,12 +51,12 @@
 
             <div class="col-md-10 col-sm-12">
                 <label for="text" class="form-label">{{ __('Article.Label.Text') }}</label>
-                <textarea class="form-control @error('text') is-invalid @enderror"
-                          name="text"
+                <textarea name="text"
+                          class="form-control @error('text') is-invalid @enderror"
                           placeholder="{{ __('Article.Placeholder.Text') }}"
                           id="text"
                           rows="16"
-                >{{ $model->text }}</textarea>
+                >{{ old('text', $model->text) }}</textarea>
             </div>
             @error('text')
             <div class="alert alert-danger">

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Helper;
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class CategoryController extends Controller
             ->where(['is_deleted' => false])
             ->paginate();
 
-        return view('category.index', [
+        return view('categories.index', [
             'title' => $title,
             'models' => $categories,
             'nav' => $this->nav,

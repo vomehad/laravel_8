@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', $title)
+
 @section('content')
     <form class="input" action="{{ route('articles.search') }}" method="post">
         @csrf

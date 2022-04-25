@@ -13,6 +13,7 @@ class ArticleRequest extends FormRequest
      */
     public function authorize(): bool
     {
+//        return auth()->check();
         return true;
     }
 
@@ -24,8 +25,9 @@ class ArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required',
-            'text' => 'required',
+            'title' => 'required|min:5|max:128',
+            'text' => 'required|min:3|max:500',
+            'category.*' => 'required|integer|exists:categories,id',
         ];
     }
 }

@@ -40,14 +40,18 @@ class NoteController extends Controller
     {
         $note = new Note();
 
-        $note->name = $request->input('name');
-        $note->content = $request->input('content');
+        $data = $request->input();
+        $saved = $note->fill($data)->save();
 
-        $note->save();
-
-        return redirect()->route('test.notes.show', [
-            'note' => $note->id,
-        ]);
+        if ($saved) {
+            return redirect()
+                ->route('test.notes.show', $note->id)
+                ->with(['success' => Lang::get('Note.Message.Saved')]);
+        } else {
+            return back()
+                ->withErrors(['msg' => Lang::get('Note.Message.Error')])
+                ->withInput();
+        }
     }
 
     public function show(int $id): string
@@ -61,7 +65,7 @@ class NoteController extends Controller
         ]);
     }
 
-    public function update(int $id): string
+    public function edit(int $id): string
     {
         $title = Lang::get(Helper::getActionName());
         $note = Note::find($id);

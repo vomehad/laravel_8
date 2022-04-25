@@ -38,14 +38,14 @@ Route::name('test.')->prefix('/test')->group(function() {
 });
 
 Route::prefix('/')->group(function() {
-    Route::resource('/articles', ArticleController::class);
     Route::match(['get', 'post'], '/articles/search',[ArticleController::class, 'search'])->name('articles.search');
+    Route::resource('/articles', ArticleController::class);
 });
 
 Route::resource('tags', TagController::class);
 
 Route::prefix('/')->group(function() {
     Route::resource('/users', UserController::class);
-//    Route::match(['get', 'post'], '/users.search', [UserController::class, 'search'])->name('users.search');
+    Route::match(['get', 'post'], '/users.search', [UserController::class, 'search'])->name('users.search');
     Route::get('/users/roles/{id}', [UserController::class, 'roles'])->name('users.roles');
 });

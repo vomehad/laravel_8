@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@section('title', $title)
 @section('content')
     <div class="content">
         <div class="form-wrap">
@@ -14,7 +13,7 @@
                            name="username"
                            placeholder="{{ __('User.Placeholder.Username') }}"
                            id="username"
-                           value="{{ $model->username }}"
+                           value="{{ old('username', $model->username) }}"
                     >
                 </div>
                 @error('username')
@@ -30,7 +29,7 @@
                            name="email"
                            placeholder="{{ __('User.Placeholder.Email') }}"
                            id="email"
-                           value="{{ $model->email }}"
+                           value="{{ old('email', $model->email) }}"
                     >
                 </div>
                 @error('email')

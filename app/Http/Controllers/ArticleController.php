@@ -18,11 +18,9 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $title = Lang::get(Helper::getActionName());
         $articles = $this->getArticleList();
 
-        return view('article.index', [
-            'title' => $title,
+        return view('articles.index', [
             'models' => $articles,
             'nav' => $this->nav,
         ]);
@@ -30,13 +28,11 @@ class ArticleController extends Controller
 
     public function create()
     {
-        $title = Lang::get(Helper::getActionName());
         $article = new Article();
         $categories = Category::getAll();
         $tags = Tag::all();
 
-        return view('article.create', [
-            'title' => $title,
+        return view('articles.edit', [
             'model' => $article,
             'categories' => $categories,
             'tag' => $tags,
@@ -60,16 +56,14 @@ class ArticleController extends Controller
 
         $article->category()->attach(Arr::get($data, 'category'));
 
-        return redirect()->route('articles.show', [
-            'article' => $article->id,
-        ]);
+        return redirect()->route('articles.show', $article->id);
     }
 
     public function show(int $id): string
     {
         $article = Article::find($id);
 
-        return view('article.view', [
+        return view('articles.show', [
             'title' => $article->title,
             'model' => $article,
             'nav' => $this->nav,
@@ -78,12 +72,11 @@ class ArticleController extends Controller
 
     public function edit(int $id)
     {
-        $title = Lang::get(Helper::getActionName());
         $model = Article::find($id);
         $categories = Category::getAll();
 
-        return view('article.create', [
-            'title' => $title . ' - ' . $model->title,
+        return view('articles.create', [
+            'title' => $model->title,
             'model' => $model,
             'categories' => $categories,
             'nav' => $this->nav,
@@ -101,11 +94,9 @@ class ArticleController extends Controller
     public function search(Request $request)
     {
         $string = $request->get('search') ?? $request->query->get('query') ?? '';
-        $title = Lang::get(Helper::getActionName());
         $articles = $this->getArticleList($string);
 
-        return view('article.index', [
-            'title' => $title,
+        return view('articles.index', [
             'models' => $articles,
             'nav' => $this->nav,
             'string' => $string,

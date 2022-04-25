@@ -117,6 +117,20 @@ class UserController extends Controller
         return Helper::getActionName();
     }
 
+    public function search(Request $request)
+    {
+//        $string = $request->get('search') ?? $request->query->get('query') ?? '';
+//        $title = Lang::get(Helper::getActionName());
+//        $articles = $this->getArticleList($string);
+//
+//        return view('user.index', [
+//            'title' => $title,
+//            'models' => $articles,
+//            'nav' => $this->nav,
+//            'string' => $string,
+//        ]);
+    }
+
 //    public function roles(int $id)
 //    {
 //        $user = User::find($id)->with('role')->get();

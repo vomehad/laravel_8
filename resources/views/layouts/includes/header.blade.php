@@ -27,8 +27,8 @@
     </div>
 
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-        @isset($title)
-            <h1 class="display-4 fw-normal">{{ $title }}</h1>
-        @endisset
+
+            <h1 class="display-4 fw-normal">{{ $title ?? __('Titles' . '.' . \App\Helpers\Helper::getActionName()) }}</h1>
+
     </div>
 </header>

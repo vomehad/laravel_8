@@ -2,7 +2,7 @@
 @section('title', $title)
 @section('content')
     <div class="control">
-        <a href="{{ route('Test.Category.New') }}"
+        <a href="{{ route('test.categories.create') }}"
            class="btn btn-success"
         >{{ __('Category.Button.Create') }}</a>
     </div>

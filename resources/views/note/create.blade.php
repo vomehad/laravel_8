@@ -3,7 +3,7 @@
 @section('content')
     <div class="note-content">
         <div class="form-wrap">
-            <form action="{{ route('Test.Note.Store') }}" method="post" class="row">
+            <form action="{{ route('test.notes.store') }}" method="post" class="row">
                 @csrf
 
                 <div class="col-md-12">

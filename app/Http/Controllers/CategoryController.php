@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Lang;
 
 class CategoryController extends Controller
 {
-    public function list()
+    public function index()
     {
         $title = Lang::get(Helper::getActionName());
         $categories = Category::where(['is_active' => true])
@@ -49,7 +49,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function view(int $id): string
+    public function show(int $id): string
     {
         $category = Category::find($id);
 
@@ -60,7 +60,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function update(int $id)
+    public function edit(int $id)
     {
         $title = Lang::get(Helper::getActionName());
         $category = Category::find($id);
@@ -72,7 +72,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function delete(int $id): string
+    public function destroy(int $id): string
     {
         $category = Category::find($id);
         $category->delete();

@@ -60,12 +60,12 @@ class ArticleController extends Controller
 
         $article->category()->attach(Arr::get($data, 'category'));
 
-        return redirect()->route('Article.View', [
-            'id' => $article->id,
+        return redirect()->route('articles.show', [
+            'article' => $article->id,
         ]);
     }
 
-    public function view(int $id): string
+    public function show(int $id): string
     {
         $article = Article::find($id);
 
@@ -76,7 +76,7 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function update(int $id)
+    public function edit(int $id)
     {
         $title = Lang::get(Helper::getActionName());
         $model = Article::find($id);
@@ -90,7 +90,7 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function delete(int $id): string
+    public function destroy(int $id): string
     {
         $article = Article::find($id);
         $article->delete();

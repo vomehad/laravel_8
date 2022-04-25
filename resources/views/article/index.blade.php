@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', $title)
 @section('content')
-    <form class="input" action="{{ route('Article.Search') }}" method="post">
+    <form class="input" action="{{ route('articles.search') }}" method="post">
         @csrf
         <div class="form-outline">
             <input type="search"
@@ -15,7 +15,7 @@
     </form>
 
     <div class="control">
-        <a href="{{ route('Article.New') }}"
+        <a href="{{ route('articles.create') }}"
            class="btn btn-success"
         >{{ __('Article.Button.Create') }}</a>
     </div>
@@ -24,7 +24,7 @@
         <span>{{ __('Article.Search') }} - {{ $models->total() }}</span>
         @foreach($models as $article)
             <div class="list-group">
-                <a href="{{ route('Article.View', ['id' => $article->id]) }}"
+                <a href="{{ route('articles.show', ['article' => $article->id]) }}"
                    class="list-group-item list-group-item-action flex-column align-items-start"
                    title="{{ $article->getPreview() }}"
                 >
@@ -32,7 +32,6 @@
                         <h5 class="mb-1">{{ $article->title }}</h5>
                         <small>{{ $article->updated_at }}</small>
                     </div>
-{{--                    <small><a href="{{ $article->link }}">{{ $article->link }}</a></small>--}}
                 </a>
             </div>
         @endforeach

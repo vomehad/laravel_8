@@ -45,12 +45,12 @@ class NoteController extends Controller
 
         $note->save();
 
-        return redirect()->route('Test.Note.View', [
-            'id' => $note->id,
+        return redirect()->route('test.notes.show', [
+            'note' => $note->id,
         ]);
     }
 
-    public function read(int $id): string
+    public function show(int $id): string
     {
         $note = Note::find($id);
 
@@ -73,7 +73,7 @@ class NoteController extends Controller
         ]);
     }
 
-    public function delete(int $id): string
+    public function destroy(int $id): string
     {
         $note = Note::find($id);
         $note->delete();

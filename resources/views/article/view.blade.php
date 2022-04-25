@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('title', $title)
 @section('content')
-    <a href="{{ route('Article.Update', ['id' => $model->id]) }}"
+    <a href="{{ route('articles.edit', ['article' => $model->id]) }}"
        class="btn btn-primary"
     >{{ __('Article.Button.Update') }}</a>
     <button class="btn btn-danger js-delete"
-            data-ref="{{ route('Article.Delete', ['id' => $model->id]) }}"
+            data-ref="{{ route('articles.destroy', ['article' => $model->id]) }}"
             data-csrf="{{ csrf_token() }}"
-            data-redirect="{{ route("Article.Main") }}"
+            data-redirect="{{ route("articles.index") }}"
     >{{ __('Article.Button.Delete') }}</button>
 
     <main role="main" class="container">

@@ -10,25 +10,25 @@
 
     @yield('meta')
     <title>@yield('title')</title>
-    @include('includes.assets.css')
-    @include('includes.assets.fonts')
+    @include('layouts.includes.assets.css')
+    @include('layouts.includes.assets.fonts')
     @yield('head')
 </head>
 <body class="container body-content">
-@include('includes.header')
+@include('layouts.includes.header')
 <div class="container">
-    @include('includes.assets.messages')
+    @include('layouts.includes.assets.messages')
     <div class="row">
         <div class="col-bg-9 col-md-10 col-sm-12">
             @yield('content')
         </div>
         <div class="col-bg-3 col-md-2 col-sm-0">
-            @include('includes.aside')
+            @include('layouts.includes.aside')
         </div>
     </div>
 </div>
-@include('includes.assets.js')
-@include('includes.footer')
+@include('layouts.includes.assets.js')
+@include('layouts.includes.footer')
 @yield('body')
 </body>
 </html>

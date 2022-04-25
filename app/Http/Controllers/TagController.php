@@ -42,12 +42,12 @@ class TagController extends Controller
 
         $tag->save();
 
-        return redirect()->route('Tag.View', [
-            'id' => $tag->id,
+        return redirect()->route('tags.show', [
+            'tag' => $tag->id,
         ]);
     }
 
-    public function view(int $id): string
+    public function show(int $id): string
     {
         $tag = Tag::find($id);
 
@@ -70,7 +70,7 @@ class TagController extends Controller
         ]);
     }
 
-    public function delete(int $id): string
+    public function destroy(int $id): string
     {
         $tag = Tag::find($id);
         $tag->delete();

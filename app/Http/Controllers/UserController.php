@@ -51,7 +51,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function allUsers()
+    public function index()
     {
         $title = Lang::get(Helper::getActionName());
         $users = User::all();
@@ -86,7 +86,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function view(int $id)
+    public function show(int $id)
     {
         $user = User::find($id);
 
@@ -97,7 +97,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(int $id): string
+    public function edit(int $id): string
     {
         $title = Lang::get(Helper::getActionName());
         $user = User::find($id);
@@ -109,7 +109,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function delete(int $id): string
+    public function destroy(int $id): string
     {
         $tag = User::find($id);
         $tag->delete();
@@ -117,11 +117,11 @@ class UserController extends Controller
         return Helper::getActionName();
     }
 
-    public function roles(int $userId, int $roleId)
-    {
-        $user = User::find($userId)->with('role')->get();
-        $user->role()->attach($roleId);
-    }
+//    public function roles(int $id)
+//    {
+//        $user = User::find($id)->with('role')->get();
+////        $user->role()->attach($roleId);
+//    }
 
     /**
      * Set cookie value

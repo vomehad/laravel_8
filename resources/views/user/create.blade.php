@@ -3,7 +3,7 @@
 @section('content')
     <div class="content">
         <div class="form-wrap">
-            <form action="{{ route('User.Store') }}" method="post" class="row">
+            <form action="{{ route('users.store') }}" method="post" class="row">
                 @csrf
                 <input type="hidden" name="id" value="{{ $model->id }}" />
 

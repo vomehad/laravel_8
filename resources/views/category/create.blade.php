@@ -3,7 +3,7 @@
 @section('content')
     <div class="content">
         <div class="form-wrap">
-            <form action="{{ route('Test.Category.Store') }}" method="post" class="row">
+            <form action="{{ route('test.categories.store') }}" method="post" class="row">
                 @csrf
 
                 <div class="col-md-12">

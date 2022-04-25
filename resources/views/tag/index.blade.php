@@ -2,7 +2,7 @@
 @section('title', $title)
 @section('content')
     <div class="control">
-        <a href="{{ route('Tag.New') }}" class="btn btn-success">{{ __('Tag.Button.Create') }}</a>
+        <a href="{{ route('tags.create') }}" class="btn btn-success">{{ __('Tag.Button.Create') }}</a>
     </div>
     <div class="content">
         @foreach($models as $tag)

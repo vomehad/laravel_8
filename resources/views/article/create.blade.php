@@ -9,7 +9,7 @@
 @section('title', $title)
 @section('content')
     <div class="form-wrap">
-        <form action="{{ route('Article.Store') }}" method="post" class="row">
+        <form action="{{ route('articles.store') }}" method="post" class="row">
             @csrf
             <input type="hidden" name="id" value="{{ $model->id }}" />
 

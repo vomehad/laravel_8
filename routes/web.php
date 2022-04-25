@@ -26,71 +26,26 @@ Route::group(['prefix' => '/game'], function() {
     Route::post('/create', [UserController::class, 'createRecord']);
 });
 
-Route::name('Test.')->prefix('/test')->group(function() {
-    Route::get('/', [UserController::class, 'testingPage'])->name('Main');
+Route::name('test.')->prefix('/test')->group(function() {
+    Route::get('/', [UserController::class, 'testingPage'])->name('main');
 
-    Route::name('Note.')->prefix('/notes')->group(function() {
-        Route::get('/', [NoteController::class, 'index'])->name('All');
-        Route::get('/create', [NoteController::class, 'create'])->name('Create');
-        Route::post('/store', [NoteController::class, 'store'])->name('Store');
-        Route::match(['get', 'post'],'/search', [NoteController::class, 'search'])->name('Search');
-
-        Route::prefix('/{id}')->group(function () {
-            Route::get('/', [NoteController::class, 'read'])->name('View');
-            Route::get('/update/', [NoteController::class, 'update'])->name('Update');
-            Route::delete('/delete', [NoteController::class, 'delete'])->name('Delete');
-        });
+    Route::prefix('/')->group(function() {
+        Route::resource('notes', NoteController::class);
+        Route::match(['get', 'post'],'/notes/search', [NoteController::class, 'search'])->name('notes.search');
     });
 
-    Route::name('Category.')->prefix('categories')->group(function() {
-        Route::get('/', [CategoryController::class, 'list'])->name('List');
-        Route::get('/create', [CategoryController::class, 'create'])->name('New');
-        Route::post('/store', [CategoryController::class, 'store'])->name('Store');
-
-        Route::prefix('/{id}')->group(function() {
-            Route::get('/', [CategoryController::class, 'view'])->name('View');
-            Route::get('/update', [CategoryController::class, 'update'])->name('Update');
-            Route::delete('/delete', [CategoryController::class, 'delete'])->name('Delete');
-        });
-    });
+    Route::resource('categories', CategoryController::class);
 });
 
-Route::name('Article.')->prefix('article')->group(function() {
-    Route::get('/', [ArticleController::class, 'index'])->name('Main');
-    Route::get('/create', [ArticleController::class, 'create'])->name('New');
-    Route::post('/store', [ArticleController::class, 'store'])->name('Store');
-    Route::match(['get', 'post'],'/search', [ArticleController::class, 'search'])->name('Search');
-
-    Route::prefix('/{id}')->group(function() {
-        Route::get('/', [ArticleController::class, 'view'])->name('View');
-        Route::get('/update', [ArticleController::class, 'update'])->name('Update');
-        Route::delete('/delete', [ArticleController::class, 'delete'])->name('Delete');
-    });
+Route::prefix('/')->group(function() {
+    Route::resource('/articles', ArticleController::class);
+    Route::match(['get', 'post'], '/articles/search',[ArticleController::class, 'search'])->name('articles.search');
 });
 
-Route::name('Tag.')->prefix('tag')->group(function() {
-    Route::get('/', [TagController::class, 'index'])->name('List');
-    Route::get('/create', [TagController::class, 'create'])->name('New');
-    Route::post('/store', [TagController::class, 'store'])->name('Store');
-    Route::match(['get', 'post'], '/search', [TagController::class, 'search'])->name('Search');
+Route::resource('tags', TagController::class);
 
-    Route::prefix('/{id}')->group(function() {
-        Route::get('/', [TagController::class, 'view'])->name('View');
-        Route::get('/update', [TagController::class, 'update'])->name('Update');
-        Route::delete('/delete', [TagController::class, 'delete'])->name('Delete');
-    });
-});
-
-Route::name('User.')->prefix('user')->group(function() {
-    Route::get('/', [UserController::class, 'allUsers'])->name('List');
-    Route::get('/create', [UserController::class, 'create'])->name('New');
-    Route::post('/store', [UserController::class, 'store'])->name('Store');
-    Route::match(['get', 'post'], '/search', [UserController::class, 'search'])->name('Search');
-
-    Route::prefix('/{id}')->group(function() {
-        Route::get('/', [UserController::class, 'view'])->name('View');
-        Route::get('/update', [UserController::class, 'update'])->name('Update');
-        Route::delete('/delete', [UserController::class, 'delete'])->name('Delete');
-        Route::get('/role', [UserController::class, 'roles'])->name('Roles');
-    });
+Route::prefix('/')->group(function() {
+    Route::resource('/users', UserController::class);
+//    Route::match(['get', 'post'], '/users.search', [UserController::class, 'search'])->name('users.search');
+    Route::get('/users/roles/{id}', [UserController::class, 'roles'])->name('users.roles');
 });

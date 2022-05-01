@@ -17,6 +17,8 @@ class CreateNotesTable extends Migration
             $table->id();
             $table->tinyText('name')->nullable(false);
             $table->text('content')->nullable(true);
+            $table->boolean('is_active')->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

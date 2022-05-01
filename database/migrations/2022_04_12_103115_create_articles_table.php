@@ -30,6 +30,7 @@ class CreateArticlesTable extends Migration
 
             $table->index(['created_by', 'created_at', 'updated_at']);
             $table->string('disk');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

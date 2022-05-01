@@ -17,7 +17,6 @@ class CreateNoteCategoryTable extends Migration
             $table->id();
             $table->integer('note_id');
             $table->integer('category_id');
-            $table->timestamps();
         });
     }
 

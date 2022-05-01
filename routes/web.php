@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [UserController::class, 'home'])->name('Home');
+Route::get('/', [UserController::class, 'home'])->name('home');
 
 Route::group(['prefix' => '/kinsman'], function() {
     Route::get('/create', [AuthController::class, 'signup'])->name('SignUp');

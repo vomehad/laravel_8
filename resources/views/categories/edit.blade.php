@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', $title)
 @section('content')
+    @php /** @var \App\Models\Category $model */ @endphp
     <div class="content">
         <div class="form-wrap">
             <form action="{{ route('test.categories.store') }}" method="post" class="row">

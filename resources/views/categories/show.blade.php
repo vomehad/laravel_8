@@ -1,11 +1,11 @@
 @extends('layouts.app')
-@section('title', $title)
 @section('content')
-    <a href="{{ route('test.categories.edit', ['category' => $model->id]) }}"
+    @php /** @var \App\Models\Category $model */ @endphp
+    <a href="{{ route('test.categories.edit', $model->id) }}"
        class="btn btn-primary"
     >{{ __('Category.Button.Update') }}</a>
     <button class="btn btn-danger js-delete"
-            data-ref="{{ route('test.categories.destroy', ['category' => $model->id]) }}"
+            data-ref="{{ route('test.categories.destroy', $model->id) }}"
             data-csrf="{{ csrf_token() }}"
             data-redirect="{{ route('test.categories.index') }}"
     >{{ __('Category.Button.Delete') }}</button>

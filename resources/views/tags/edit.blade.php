@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', $title)
 @section('content')
+    @php /** @var \App\Models\Tag $model */ @endphp
     <div class="content">
         <div class="form-wrap">
             <form action="{{ route('tags.store') }}" method="post" class="row">
@@ -30,7 +30,7 @@
                            name="description"
                            placeholder="{{ __('Tag.Placeholder.Description') }}"
                            id="name"
-                           value="{{$model->name}}"
+                           value="{{$model->description}}"
                     >
                 </div>
                 @error('description')

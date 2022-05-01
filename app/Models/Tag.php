@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 /**
  * Class Tag
  * @package App\Models
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $description
  */
 class Tag extends Model
 {

@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', $title)
 @section('content')
+    @php /** @var \App\Models\Tag $model */ @endphp
     <a href="{{ route('tags.edit', ['tag' => $model->id]) }}"
        class="btn btn-primary"
     >{{ __('Tag.Button.Update') }}</a>

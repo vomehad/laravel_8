@@ -12,7 +12,9 @@ use Laravel\Scout\Searchable;
  * Class Category
  * @package App\Models
  *
+ * @property string $id
  * @property string $name
+ * @property string $content
  *
  */
 class Category extends Model

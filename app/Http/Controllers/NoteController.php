@@ -67,6 +67,7 @@ class NoteController extends Controller
         $note = Note::find($id);
 
         return view('notes.edit', [
+            'title' => $note->name,
             'model' => $note,
             'nav' => $this->nav,
         ]);
@@ -74,6 +75,7 @@ class NoteController extends Controller
 
     public function destroy(int $id): string
     {
+        /** @var Note $note */
         $note = Note::find($id);
         $note->delete();
 

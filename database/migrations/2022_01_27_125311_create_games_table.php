@@ -18,8 +18,8 @@ class CreateGamesTable extends Migration
             $table->integer('user_id');
             $table->integer('moves');
             $table->string('record');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

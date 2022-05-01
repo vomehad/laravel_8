@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    @php /* @var \App\Models\Note $model @endphp
+    @php /** @var \App\Models\Note $model */ @endphp
     <div class="note-content">
         <div class="form-wrap">
             <form action="{{ route('test.notes.store') }}" method="post" class="row">

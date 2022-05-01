@@ -21,5 +21,9 @@ return [
             'create' => 'Create',
             'search' => 'Found',
         ]
+    ],
+    'users' => [
+        'index' => 'Users',
+        'edit' => 'Edit'
     ]
 ];

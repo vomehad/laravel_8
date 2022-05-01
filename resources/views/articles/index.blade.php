@@ -3,8 +3,7 @@
     <form class="input" action="{{ route('articles.search') }}" method="post">
         @csrf
         <div class="form-outline">
-            <input type="search"
-                   name="search"
+            <input type="search" name="search"
                    id="search-input"
                    class="form-control"
                    value="{{ $string ?? '' }}"

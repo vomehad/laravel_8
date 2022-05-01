@@ -16,6 +16,7 @@ use phpDocumentor\Reflection\Types\Mixed_;
  * @package App\Models
  *
  * @property string $username
+ * @property string $name
  * @property string $email
  * @property string $password
  *

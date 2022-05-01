@@ -35,15 +35,12 @@ class UserController extends Controller
      */
     public function testingPage(): string
     {
-        $title = Lang::get(Helper::getActionName());
-
         $cookies = [
             'cookie_hourly' => $this->incrementCookie($this->hourlyCookie),
             'cookie_forever' => $this->incrementCookie($this->foreverCookie),
         ];
 
         return view('cookie.index', [
-            'title' => $title,
             'cookies' => $cookies,
             'nav' => $this->nav,
         ]);
@@ -51,11 +48,9 @@ class UserController extends Controller
 
     public function index()
     {
-        $title = Lang::get(Helper::getActionName());
         $users = User::all();
 
         return view('user.index', [
-            'title' => $title,
             'models' => $users,
             'nav' => $this->nav
         ]);
@@ -63,11 +58,9 @@ class UserController extends Controller
 
     public function create()
     {
-        $title = Lang::get(Helper::getActionName());
         $user = new User();
 
         return view('user.create', [
-            'title' => $title,
             'model' => $user,
             'nav' => $this->nav,
         ]);
@@ -86,10 +79,11 @@ class UserController extends Controller
 
     public function show(int $id)
     {
+        /** @var User $user */
         $user = User::find($id);
 
         return view('user.view', [
-            'title' => $user->email,
+            'title' => $user->name,
             'model' => $user,
             'nav' => $this->nav,
         ]);
@@ -97,11 +91,11 @@ class UserController extends Controller
 
     public function edit(int $id): string
     {
-        $title = Lang::get(Helper::getActionName());
+        /** @var User $user */
         $user = User::find($id);
 
         return view('user.create', [
-            'title' => $title . ' - ' . $user->email,
+            'title' => $user->name,
             'model' => $user,
             'nav' => $this->nav,
         ]);

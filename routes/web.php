@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\NoteController;
-use App\Http\Controllers\TagController;
+use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 

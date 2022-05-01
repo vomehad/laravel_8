@@ -3,21 +3,30 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Scout\Searchable;
+use phpDocumentor\Reflection\Types\Mixed_;
 
+/**
+ * Class User
+ * @package App\Models
+ *
+ * @property string $username
+ * @property string $email
+ * @property string $password
+ *
+ * @method static first()
+ * @method static where(string $attribute, string $value)
+ * @method static find(int $id)
+ */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Searchable, SoftDeletes;
 
-    protected $table = 'users';
-
-    public static function tableName(): string
-    {
-        return 'users';
-    }
     /**
      * The attributes that are mass assignable.
      *

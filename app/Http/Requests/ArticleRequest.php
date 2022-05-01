@@ -4,6 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class ArticleRequest
+ * @package App\Http\Requests
+ *
+ * @property int $id
+ */
 class ArticleRequest extends FormRequest
 {
     /**

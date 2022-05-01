@@ -20,13 +20,11 @@ class UserController extends Controller
 
     public function home()
     {
-        $title = Lang::get('Main.' . Helper::getActionName());
         $contacts = Contact::all();
 
         return view('home', [
-            'title' => $title,
+            'models' => $contacts,
             'nav' => $this->nav,
-            'contacts' => $contacts,
         ]);
     }
 

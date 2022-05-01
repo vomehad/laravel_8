@@ -17,6 +17,8 @@ use Laravel\Scout\Searchable;
  * @property string $preview
  * @property string $created_by
  * @property string $disk
+ * @property string $category
+ * @property string $updated_at
  *
  * @method static find(string $column)
  */
@@ -27,7 +29,6 @@ class Article extends Model
     protected $fillable = [
         'title',
         'link',
-//        'category',
         'text',
     ];
 

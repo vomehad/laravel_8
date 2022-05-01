@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Lang;
 /**
  * Class Controller
  * @package App\Http\Controllers
+ *
+ * @property array $nav
  */
 class Controller extends BaseController
 {

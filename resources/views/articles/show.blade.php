@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', $title)
 @section('content')
+    @php /** @var \App\Models\Article $model */ @endphp
     <a href="{{ route('articles.edit', ['article' => $model->id]) }}"
        class="btn btn-primary"
     >{{ __('Article.Button.Update') }}</a>
@@ -15,8 +15,10 @@
         <div class="starter-template">
             <span class="link"><a href="{{ $model->link }}">{{ $model->link }}</a></span>
             <div>{!! $model->text !!}</div>
+
             @foreach($model->category as $category)
-            <div class="">{{ $category->name }}</div>
+                @php /** @var \App\Models\Category $category */ @endphp
+                <div class="">{{ $category->name }}</div>
             @endforeach
         </div>
 

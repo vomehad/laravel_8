@@ -12,9 +12,10 @@ use Laravel\Scout\Searchable;
  * Class Note
  * @package App\Models
  *
- * @property string $name
- * @property string $content
- * @property string $updated_at
+ * @property int        $id
+ * @property string     $name
+ * @property string     $content
+ * @property string     $updated_at
  *
  * @method static find(int $id)
  */

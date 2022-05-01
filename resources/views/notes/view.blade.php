@@ -1,13 +1,12 @@
 @extends('layouts.app')
-@section('title', $title)
 @section('content')
-    @php /* @var \App\Models\Note $note @endphp
-    <a href="{{ route('test.notes.edit', ['note' => $note->id]) }}"
+    @php /* @var \App\Models\Note $model @endphp
+    <a href="{{ route('test.notes.edit', ['note' => $model->id]) }}"
        class="btn btn-primary"
     >{{ __('Note.Button.Update') }}</a>
 
     <button class="btn btn-danger js-delete"
-            data-ref="{{ route('test.notes.destroy', ['note' => $note->id]) }}"
+            data-ref="{{ route('test.notes.destroy', ['note' => $model->id]) }}"
             data-csrf="{{ csrf_token() }}"
             data-redirect="{{ route('test.notes.index') }}"
     >{{ __('Note.Button.Delete') }}</button>
@@ -27,7 +26,7 @@
         @endif
 
         <div class="starter-template">
-            <p class="lead">{{ old('content', $note->content) }}</p>
+            <p class="lead">{{ old('content', $model->content) }}</p>
         </div>
 
     </main>

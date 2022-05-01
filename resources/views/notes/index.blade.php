@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', $title)
 @section('content')
+    @php /** @var \App\Models\Note[] $models */ @endphp
     <form class="input" action="{{ route('test.notes.search') }}" method="post">
         @csrf
         <div class="form-outline">

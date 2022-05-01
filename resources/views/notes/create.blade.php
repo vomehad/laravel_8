@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', $title)
 @section('content')
+    @php /* @var \App\Models\Note $model @endphp
     <div class="note-content">
         <div class="form-wrap">
             <form action="{{ route('test.notes.store') }}" method="post" class="row">
@@ -13,7 +13,7 @@
                            name="name"
                            placeholder="{{ __('Note.Placeholder.Name') }}"
                            id="name"
-                           value="{{$note->name}}"
+                           value="{{$model->name}}"
                     >
                 </div>
                 @error('name')
@@ -30,7 +30,7 @@
                               id="content"
                               cols="30"
                               rows="10"
-                    >{{$note->content}}</textarea>
+                    >{{$model->content}}</textarea>
                 </div>
                 @error('content')
                 <div class="alert alert-danger">

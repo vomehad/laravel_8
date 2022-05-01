@@ -75,7 +75,7 @@ class ArticleController extends Controller
         $model = Article::find($id);
         $categories = Category::getAll();
 
-        return view('articles.create', [
+        return view('articles.edit', [
             'title' => $model->title,
             'model' => $model,
             'categories' => $categories,

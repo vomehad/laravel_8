@@ -14,7 +14,7 @@ class CreateContactsTable extends Migration
      */
     public function up()
     {
-        Schema::create(Contact::tableName(), function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
             $table->id();
             $table->string('username');
             $table->string('name');
@@ -32,6 +32,6 @@ class CreateContactsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(Contact::tableName());
+        Schema::dropIfExists('contacts');
     }
 }

@@ -13,7 +13,7 @@ class CreateNoteCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('note_category', function (Blueprint $table) {
+        Schema::create('category_note', function (Blueprint $table) {
             $table->id();
             $table->integer('note_id');
             $table->integer('category_id');
@@ -28,6 +28,6 @@ class CreateNoteCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('note_category');
+        Schema::dropIfExists('category_note');
     }
 }

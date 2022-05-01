@@ -21,7 +21,7 @@
     <div class="content">
         <span>{{ __('Article.Search') }} - {{ $models->total() }}</span>
         @foreach($models as $article)
-            @php /** @var \App\Models\Article $article @endphp
+            @php /** @var \App\Models\Article $article */ @endphp
             <div class="list-group">
                 <a href="{{ route('articles.show', ['article' => $article->id]) }}"
                    class="list-group-item list-group-item-action flex-column align-items-start"

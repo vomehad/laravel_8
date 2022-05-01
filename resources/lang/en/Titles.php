@@ -10,6 +10,7 @@ return [
     'test' => [
         'notes' => [
             'index' => 'Notes',
+            'create' => 'Create'
         ]
     ]
 ];

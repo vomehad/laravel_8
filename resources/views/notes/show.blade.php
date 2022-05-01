@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    @php /* @var \App\Models\Note $model @endphp
+    @php /** @var \App\Models\Note $model */ @endphp
     <a href="{{ route('test.notes.edit', ['note' => $model->id]) }}"
        class="btn btn-primary"
     >{{ __('Note.Button.Update') }}</a>

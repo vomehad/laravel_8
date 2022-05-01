@@ -54,7 +54,7 @@ class NoteController extends Controller
     {
         $note = Note::find($id);
 
-        return view('notes.view', [
+        return view('notes.show', [
             'note' => $note,
             'nav' => $this->nav,
         ]);

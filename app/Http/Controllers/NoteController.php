@@ -17,7 +17,7 @@ class NoteController extends Controller
         $title = Lang::get(Helper::getActionName());
         $notes = $this->getNotes();
 
-        return view('note.index', [
+        return view('notes.index', [
             'title' => $title,
             'models' => $notes,
             'nav' => $this->nav,
@@ -29,7 +29,7 @@ class NoteController extends Controller
         $title = Lang::get(Helper::getActionName());
         $note = new Note();
 
-        return view('note.create', [
+        return view('notes.create', [
             'title' => $title,
             'note' => $note,
             'nav' => $this->nav,
@@ -58,7 +58,7 @@ class NoteController extends Controller
     {
         $note = Note::find($id);
 
-        return view('note.view', [
+        return view('notes.view', [
             'title' => $note->name,
             'note' => $note,
             'nav' => $this->nav,
@@ -70,7 +70,7 @@ class NoteController extends Controller
         $title = Lang::get(Helper::getActionName());
         $note = Note::find($id);
 
-        return view('note.create', [
+        return view('notes.create', [
             'title' => $title . ' - ' . $note->name,
             'note' => $note,
             'nav' => $this->nav,

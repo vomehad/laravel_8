@@ -1,9 +1,6 @@
 @extends('layouts.app')
-@section('title', $title)
 @section('content')
-
     <div class="test">
-
         <div class="test-content">
             <form action="{{ route('Test.Cookie') }}" class="test-content__form form-inline js-send-form" id="cookie-form">
                 @csrf
@@ -62,14 +59,12 @@
 
 
                 </div>
-
                 <button class="btn btn-success col-2">{{ __('Test.Send.Split-word') }}</button>
             </form>
         </div>
         <hr>
         <div class="test-content">
             <form action="{{ route('Test.Text') }}" class="test-content__form js-send-form row" id="text-form">
-
                 @csrf
 
                 <div class="form-group col-10">
@@ -83,13 +78,8 @@
                 </div>
 
                 <button class="btn btn-success col-2">{{ __('Test.Send.Text') }}</button>
-
             </form>
         </div>
 
     </div>
-@endsection
-
-@section('aside')
-{{--    @parent--}}
 @endsection

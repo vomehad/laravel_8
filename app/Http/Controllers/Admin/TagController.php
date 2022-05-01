@@ -13,11 +13,9 @@ class TagController extends Controller
 {
     public function index()
     {
-        $title = Lang::get(Helper::getActionName());
         $tags = Tag::all();
 
-        return view('tag.index', [
-            'title' => $title,
+        return view('tags.index', [
             'models' => $tags,
             'nav' => $this->nav
         ]);
@@ -25,11 +23,9 @@ class TagController extends Controller
 
     public function create()
     {
-        $title = Lang::get(Helper::getActionName());
         $tag = new Tag();
 
-        return view('tag.create', [
-            'title' => $title,
+        return view('tags.edit', [
             'model' => $tag,
             'nav' => $this->nav,
         ]);
@@ -43,16 +39,14 @@ class TagController extends Controller
 
         $tag->save();
 
-        return redirect()->route('tags.show', [
-            'tag' => $tag->id,
-        ]);
+        return redirect()->route('tags.show', $tag->id);
     }
 
     public function show(int $id): string
     {
         $tag = Tag::find($id);
 
-        return view('tag.view', [
+        return view('tags.show', [
             'title' => $tag->name,
             'model' => $tag,
             'nav' => $this->nav,
@@ -61,11 +55,10 @@ class TagController extends Controller
 
     public function update(int $id): string
     {
-        $title = Lang::get(Helper::getActionName());
         $tag = Tag::find($id);
 
-        return view('tag.create', [
-            'title' => $title . ' - ' . $tag->name,
+        return view('tags.edit', [
+            'title' => $tag->name,
             'model' => $tag,
             'nav' => $this->nav,
         ]);

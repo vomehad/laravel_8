@@ -13,13 +13,9 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $title = Lang::get(Helper::getActionName());
-        $categories = Category::where(['is_active' => true])
-            ->where(['is_deleted' => false])
-            ->paginate();
+        $categories = Category::where(['is_active' => true])->paginate();
 
         return view('categories.index', [
-            'title' => $title,
             'models' => $categories,
             'nav' => $this->nav,
         ]);
@@ -27,11 +23,9 @@ class CategoryController extends Controller
 
     public function create()
     {
-        $title = Lang::get(Helper::getActionName());
         $category = new Category();
 
-        return view('category.create', [
-            'title' => $title,
+        return view('categories.edit', [
             'model' => $category,
             'nav' => $this->nav,
         ]);
@@ -45,16 +39,14 @@ class CategoryController extends Controller
 
         $category->save();
 
-        return redirect()->route('Test.Category.View', [
-            'id' => $category->id,
-        ]);
+        return redirect()->route('test.categories.show', $category->id);
     }
 
     public function show(int $id): string
     {
         $category = Category::find($id);
 
-        return view('category.view', [
+        return view('categories.show', [
             'title' => $category->name,
             'model' => $category,
             'nav' => $this->nav,
@@ -63,11 +55,9 @@ class CategoryController extends Controller
 
     public function edit(int $id)
     {
-        $title = Lang::get(Helper::getActionName());
         $category = Category::find($id);
 
-        return view('category.create', [
-            'title' => $title,
+        return view('categories.edit', [
             'model' => $category,
             'nav' => $this->nav,
         ]);

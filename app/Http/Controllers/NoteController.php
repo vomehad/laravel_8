@@ -52,9 +52,11 @@ class NoteController extends Controller
 
     public function show(int $id): string
     {
+        /** @var Note $note */
         $note = Note::find($id);
 
         return view('notes.show', [
+            'title' => $note->name,
             'model' => $note,
             'nav' => $this->nav,
         ]);

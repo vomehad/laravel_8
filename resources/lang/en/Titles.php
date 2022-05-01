@@ -6,4 +6,9 @@ return [
         'search' => 'Found',
     ],
     'home' => 'Home',
+    'test' => [
+        'notes' => [
+            'index' => 'Notes',
+        ]
+    ]
 ];

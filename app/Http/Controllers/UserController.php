@@ -40,7 +40,7 @@ class UserController extends Controller
             'cookie_forever' => $this->incrementCookie($this->foreverCookie),
         ];
 
-        return view('cookie.index', [
+        return view('cookies.index', [
             'cookies' => $cookies,
             'nav' => $this->nav,
         ]);
@@ -50,7 +50,7 @@ class UserController extends Controller
     {
         $users = User::all();
 
-        return view('user.index', [
+        return view('users.index', [
             'models' => $users,
             'nav' => $this->nav
         ]);
@@ -60,7 +60,7 @@ class UserController extends Controller
     {
         $user = new User();
 
-        return view('user.create', [
+        return view('users.edit', [
             'model' => $user,
             'nav' => $this->nav,
         ]);
@@ -72,9 +72,7 @@ class UserController extends Controller
         $user->username = $request->get('username');
         $user->email = $request->get('email');
 
-        return redirect()->route('User.View', [
-            'id' => $user->id,
-        ]);
+        return redirect()->route('users.show', $user->id);
     }
 
     public function show(int $id)
@@ -82,7 +80,7 @@ class UserController extends Controller
         /** @var User $user */
         $user = User::find($id);
 
-        return view('user.view', [
+        return view('users.show', [
             'title' => $user->name,
             'model' => $user,
             'nav' => $this->nav,
@@ -94,7 +92,7 @@ class UserController extends Controller
         /** @var User $user */
         $user = User::find($id);
 
-        return view('user.create', [
+        return view('users.edit', [
             'title' => $user->name,
             'model' => $user,
             'nav' => $this->nav,
@@ -193,10 +191,7 @@ class UserController extends Controller
 
     public function account()
     {
-        $title = Lang::get('Account');
-
         return view('auth.account', [
-            'title' => $title,
             'nav' => $this->nav,
         ]);
     }

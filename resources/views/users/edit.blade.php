@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+    @php /** @var \App\Models\User $model */ @endphp
     <div class="content">
         <div class="form-wrap">
             <form action="{{ route('users.store') }}" method="post" class="row">

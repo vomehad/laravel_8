@@ -30,8 +30,8 @@ Route::name('test.')->prefix('/test')->group(function() {
     Route::get('/', [UserController::class, 'testingPage'])->name('main');
 
     Route::prefix('/')->group(function() {
-        Route::resource('notes', NoteController::class);
         Route::match(['get', 'post'],'/notes/search', [NoteController::class, 'search'])->name('notes.search');
+        Route::resource('notes', NoteController::class);
     });
 
     Route::resource('categories', CategoryController::class);

@@ -1,6 +1,6 @@
 import $ from './jquery-3.6.0.min'
 
-const getCookieUrl = '/test/get-cookie';
+const getCookieUrl = '/test/cookie';
 const contentBlock = $('.test-content');
 
 // functions

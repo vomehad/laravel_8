@@ -5,6 +5,10 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+/**
+ * @property int $numberHourly
+ * @property int $numberForever
+ */
 class AjaxRequest extends FormRequest
 {
     /**

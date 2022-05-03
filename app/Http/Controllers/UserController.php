@@ -2,46 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Facades\CustomCookie;
 use App\Helpers\Helper;
-use App\Http\Requests\AjaxRequest;
 use App\Http\Requests\SplitRequest;
 use App\Http\Requests\TextRequest;
 use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Lang;
 
 class UserController extends Controller
 {
-    private string $hourlyCookie = 'hourly_cookie';
-    private string $foreverCookie = 'forever_cookie';
-
     public function home()
     {
         $contacts = Contact::all();
 
         return view('home', [
             'models' => $contacts,
-            'nav' => $this->nav,
-        ]);
-    }
-
-    /**
-     * Start Page with forms
-     *
-     * @return string
-     */
-    public function testingPage(): string
-    {
-        $cookies = [
-            'cookie_hourly' => $this->incrementCookie($this->hourlyCookie),
-            'cookie_forever' => $this->incrementCookie($this->foreverCookie),
-        ];
-
-        return view('cookies.index', [
-            'cookies' => $cookies,
             'nav' => $this->nav,
         ]);
     }
@@ -121,46 +97,11 @@ class UserController extends Controller
 //        ]);
     }
 
-//    public function roles(int $id)
-//    {
-//        $user = User::find($id)->with('role')->get();
-////        $user->role()->attach($roleId);
-//    }
-
-    /**
-     * Set cookie value
-     *
-     * @param AjaxRequest $request
-     * @return void
-     */
-    public function addCookie(AjaxRequest $request): void
+/*    public function roles(int $id)
     {
-        $hourly = $request->input('numberHourly');
-        $forever = $request->input('numberForever');
-
-        if ($hourly) {
-            $oneHour = 60;
-
-            CustomCookie::setCookie($this->hourlyCookie, $hourly, $oneHour);
-        }
-
-        if ($forever) {
-            CustomCookie::setCookie($this->foreverCookie, $forever);
-        }
-    }
-
-    /**
-     * Get new cookie`s value
-     *
-     * @return array
-     */
-    public function getCookie(): array
-    {
-        return [
-            'cookie_hourly' => CustomCookie::getCookie($this->hourlyCookie),
-            'cookie_forever' => CustomCookie::getCookie($this->foreverCookie)
-        ];
-    }
+        $user = User::find($id)->with('role')->get();
+//        $user->role()->attach($roleId);
+    }*/
 
     /**
      * "Whitespaced" word
@@ -194,10 +135,5 @@ class UserController extends Controller
         return view('auth.account', [
             'nav' => $this->nav,
         ]);
-    }
-
-    private function incrementCookie(string $name): string
-    {
-        return CustomCookie::incrementCookie($name) ? CustomCookie::getCookie($name) : "not set";
     }
 }

@@ -2,7 +2,7 @@
 @section('content')
     <div class="test">
         <div class="test-content">
-            <form action="{{ route('Test.Cookie') }}" class="test-content__form form-inline js-send-form" id="cookie-form">
+            <form action="{{ route('test.web-cookie') }}" class="test-content__form form-inline js-send-form" id="cookie-form">
                 @csrf
 
                 <div class="form-group mx-sm-4 mb-1">
@@ -29,14 +29,14 @@
             </form>
 
             <div class="row js-cookies">
-                @foreach($cookies as $class => $cookie)
+                @foreach($models as $class => $cookie)
 
                 <div
                     class="alert alert-success {{ $class }} col-5 mr-5 test-content__cookie"
                 >{{ __('Test.Message.Cookie', [
                         'class' => $class === "cookie_hourly" ? "by 1 hour" : "forever",
                         'cookie' => $cookie
-                    ]) }}"</div>
+                    ]) }}</div>
 
                 @endforeach
             </div>
@@ -44,7 +44,7 @@
         </div>
         <hr>
         <div class="test-content">
-            <form action="{{ route('Test.Word') }}" class="test-content__form js-send-form row" id="split-form">
+            <form action="{{ route('api.word') }}" class="test-content__form js-send-form row" id="split-form">
                 @csrf
 
                 <div class="form-group col-10">
@@ -64,7 +64,7 @@
         </div>
         <hr>
         <div class="test-content">
-            <form action="{{ route('Test.Text') }}" class="test-content__form js-send-form row" id="text-form">
+            <form action="{{ route('api.text') }}" class="test-content__form js-send-form row" id="text-form">
                 @csrf
 
                 <div class="form-group col-10">

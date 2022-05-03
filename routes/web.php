@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\CookieController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\Admin\TagController;
@@ -27,14 +28,19 @@ Route::group(['prefix' => '/game'], function() {
 });
 
 Route::name('test.')->prefix('/test')->group(function() {
-    Route::get('/', [UserController::class, 'testingPage'])->name('main');
+    Route::get('/', [CookieController::class, 'testingPage'])->name('main');
+
+    Route::prefix('/cookie')->group(function() {
+        Route::post('/add', [CookieController::class, 'addCookie'])->name('web-cookie');
+        Route::get('/', [CookieController::class, 'getCookie']);
+    });
 
     Route::prefix('/')->group(function() {
         Route::match(['get', 'post'],'/notes/search', [NoteController::class, 'search'])->name('notes.search');
-        Route::resource('notes', NoteController::class);
+        Route::resource('/notes', NoteController::class);
     });
 
-    Route::resource('categories', CategoryController::class);
+    Route::resource('/categories', CategoryController::class);
 });
 
 Route::prefix('/')->group(function() {

@@ -1,0 +1,69 @@
++--------+---------------+---------------------------------+-------------------------+---------------------------------------------------------------+----------------------------------------------+
+| Domain | Method        | URI                             | Name                    | Action                                                        | Middleware                                   |
++--------+---------------+---------------------------------+-------------------------+---------------------------------------------------------------+----------------------------------------------+
+|        | GET|HEAD      | /                               | home                    | App\Http\Controllers\UserController@home                      | web                                          |
+|        | GET|HEAD      | _debugbar/assets/javascript     | debugbar.assets.js      | Barryvdh\Debugbar\Controllers\AssetController@js              | Barryvdh\Debugbar\Middleware\DebugbarEnabled |
+|        |               |                                 |                         |                                                               | Closure                                      |
+|        | GET|HEAD      | _debugbar/assets/stylesheets    | debugbar.assets.css     | Barryvdh\Debugbar\Controllers\AssetController@css             | Barryvdh\Debugbar\Middleware\DebugbarEnabled |
+|        |               |                                 |                         |                                                               | Closure                                      |
+|        | DELETE        | _debugbar/cache/{key}/{tags?}   | debugbar.cache.delete   | Barryvdh\Debugbar\Controllers\CacheController@delete          | Barryvdh\Debugbar\Middleware\DebugbarEnabled |
+|        |               |                                 |                         |                                                               | Closure                                      |
+|        | GET|HEAD      | _debugbar/clockwork/{id}        | debugbar.clockwork      | Barryvdh\Debugbar\Controllers\OpenHandlerController@clockwork | Barryvdh\Debugbar\Middleware\DebugbarEnabled |
+|        |               |                                 |                         |                                                               | Closure                                      |
+|        | GET|HEAD      | _debugbar/open                  | debugbar.openhandler    | Barryvdh\Debugbar\Controllers\OpenHandlerController@handle    | Barryvdh\Debugbar\Middleware\DebugbarEnabled |
+|        |               |                                 |                         |                                                               | Closure                                      |
+|        | POST          | api/v1/text                     | api.text                | App\Http\Controllers\UserController@switchDates               | api                                          |
+|        | POST          | api/v1/word                     | api.word                | App\Http\Controllers\UserController@processWord               | api                                          |
+|        | POST          | articles                        | articles.store          | App\Http\Controllers\ArticleController@store                  | web                                          |
+|        | GET|HEAD      | articles                        | articles.index          | App\Http\Controllers\ArticleController@index                  | web                                          |
+|        | GET|HEAD      | articles/create                 | articles.create         | App\Http\Controllers\ArticleController@create                 | web                                          |
+|        | GET|POST|HEAD | articles/search                 | articles.search         | App\Http\Controllers\ArticleController@search                 | web                                          |
+|        | DELETE        | articles/{article}              | articles.destroy        | App\Http\Controllers\ArticleController@destroy                | web                                          |
+|        | GET|HEAD      | articles/{article}              | articles.show           | App\Http\Controllers\ArticleController@show                   | web                                          |
+|        | PUT|PATCH     | articles/{article}              | articles.update         | App\Http\Controllers\ArticleController@update                 | web                                          |
+|        | GET|HEAD      | articles/{article}/edit         | articles.edit           | App\Http\Controllers\ArticleController@edit                   | web                                          |
+|        | GET|HEAD      | game                            | Game                    | App\Http\Controllers\GameController@playGame                  | web                                          |
+|        | POST          | game/create                     |                         | App\Http\Controllers\UserController@createRecord              | web                                          |
+|        | GET|HEAD      | kinsman/account                 | Account                 | App\Http\Controllers\UserController@account                   | web                                          |
+|        |               |                                 |                         |                                                               | App\Http\Middleware\Authenticate             |
+|        | POST          | kinsman/create                  | Create                  | App\Http\Controllers\AuthController@create                    | web                                          |
+|        | GET|HEAD      | kinsman/create                  | SignUp                  | App\Http\Controllers\AuthController@signup                    | web                                          |
+|        | GET|POST|HEAD | kinsman/login                   | Login                   | App\Http\Controllers\AuthController@login                     | web                                          |
+|        | GET|HEAD      | kinsman/logout                  | Logout                  | App\Http\Controllers\AuthController@logout                    | web                                          |
+|        | POST          | kinsman/store                   | Store                   | App\Http\Controllers\AuthController@store                     | web                                          |
+|        | GET|HEAD      | sanctum/csrf-cookie             |                         | Laravel\Sanctum\Http\Controllers\CsrfCookieController@show    | web                                          |
+|        | POST          | tags                            | tags.store              | App\Http\Controllers\Admin\TagController@store                | web                                          |
+|        | GET|HEAD      | tags                            | tags.index              | App\Http\Controllers\Admin\TagController@index                | web                                          |
+|        | GET|HEAD      | tags/create                     | tags.create             | App\Http\Controllers\Admin\TagController@create               | web                                          |
+|        | GET|HEAD      | tags/{tag}                      | tags.show               | App\Http\Controllers\Admin\TagController@show                 | web                                          |
+|        | PUT|PATCH     | tags/{tag}                      | tags.update             | App\Http\Controllers\Admin\TagController@update               | web                                          |
+|        | DELETE        | tags/{tag}                      | tags.destroy            | App\Http\Controllers\Admin\TagController@destroy              | web                                          |
+|        | GET|HEAD      | tags/{tag}/edit                 | tags.edit               | App\Http\Controllers\Admin\TagController@edit                 | web                                          |
+|        | GET|HEAD      | test                            | test.main               | App\Http\Controllers\CookieController@testingPage             | web                                          |
+|        | GET|HEAD      | test/categories                 | test.categories.index   | App\Http\Controllers\Admin\CategoryController@index           | web                                          |
+|        | POST          | test/categories                 | test.categories.store   | App\Http\Controllers\Admin\CategoryController@store           | web                                          |
+|        | GET|HEAD      | test/categories/create          | test.categories.create  | App\Http\Controllers\Admin\CategoryController@create          | web                                          |
+|        | DELETE        | test/categories/{category}      | test.categories.destroy | App\Http\Controllers\Admin\CategoryController@destroy         | web                                          |
+|        | GET|HEAD      | test/categories/{category}      | test.categories.show    | App\Http\Controllers\Admin\CategoryController@show            | web                                          |
+|        | PUT|PATCH     | test/categories/{category}      | test.categories.update  | App\Http\Controllers\Admin\CategoryController@update          | web                                          |
+|        | GET|HEAD      | test/categories/{category}/edit | test.categories.edit    | App\Http\Controllers\Admin\CategoryController@edit            | web                                          |
+|        | GET|HEAD      | test/cookie                     | test.                   | App\Http\Controllers\CookieController@getCookie               | web                                          |
+|        | POST          | test/cookie/add                 | test.web-cookie         | App\Http\Controllers\CookieController@addCookie               | web                                          |
+|        | GET|HEAD      | test/notes                      | test.notes.index        | App\Http\Controllers\NoteController@index                     | web                                          |
+|        | POST          | test/notes                      | test.notes.store        | App\Http\Controllers\NoteController@store                     | web                                          |
+|        | GET|HEAD      | test/notes/create               | test.notes.create       | App\Http\Controllers\NoteController@create                    | web                                          |
+|        | GET|POST|HEAD | test/notes/search               | test.notes.search       | App\Http\Controllers\NoteController@search                    | web                                          |
+|        | GET|HEAD      | test/notes/{note}               | test.notes.show         | App\Http\Controllers\NoteController@show                      | web                                          |
+|        | PUT|PATCH     | test/notes/{note}               | test.notes.update       | App\Http\Controllers\NoteController@update                    | web                                          |
+|        | DELETE        | test/notes/{note}               | test.notes.destroy      | App\Http\Controllers\NoteController@destroy                   | web                                          |
+|        | GET|HEAD      | test/notes/{note}/edit          | test.notes.edit         | App\Http\Controllers\NoteController@edit                      | web                                          |
+|        | GET|HEAD      | users                           | users.index             | App\Http\Controllers\UserController@index                     | web                                          |
+|        | POST          | users                           | users.store             | App\Http\Controllers\UserController@store                     | web                                          |
+|        | GET|POST|HEAD | users.search                    | users.search            | App\Http\Controllers\UserController@search                    | web                                          |
+|        | GET|HEAD      | users/create                    | users.create            | App\Http\Controllers\UserController@create                    | web                                          |
+|        | GET|HEAD      | users/roles/{id}                | users.roles             | App\Http\Controllers\UserController@roles                     | web                                          |
+|        | GET|HEAD      | users/{user}                    | users.show              | App\Http\Controllers\UserController@show                      | web                                          |
+|        | PUT|PATCH     | users/{user}                    | users.update            | App\Http\Controllers\UserController@update                    | web                                          |
+|        | DELETE        | users/{user}                    | users.destroy           | App\Http\Controllers\UserController@destroy                   | web                                          |
+|        | GET|HEAD      | users/{user}/edit               | users.edit              | App\Http\Controllers\UserController@edit                      | web                                          |
++--------+---------------+---------------------------------+-------------------------+---------------------------------------------------------------+----------------------------------------------+

@@ -18,7 +18,7 @@ return [
         'Text' => 'Insert text with dates',
     ],
     'Message' => [
-        'Cookie' => 'Cookie set :class is :cookie',
+        'Cookie' => 'Cookie :class is :cookie',
     ],
     'Send' => [
         'Cookie' => 'Set Cookies',

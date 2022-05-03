@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Cookie;
 class CustomCookieService extends CookieJar
 {
     private Request $request;
-
     private Session $session;
 
     public function __construct(Request $request)
@@ -44,6 +43,10 @@ class CustomCookieService extends CookieJar
         return !!$this->setCookie($name, ++$cookieNumber);
     }
 
+    /**
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
     public function setSessionCookie(string $name, string $value): string
     {
         $this->session->put([$name => $value]);
@@ -51,11 +54,19 @@ class CustomCookieService extends CookieJar
         return $this->session->get($name);
     }
 
+    /**
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
     public function getSessionCookie(string $name): string
     {
         return $this->session->get($name) ?? '';
     }
 
+    /**
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
     public function incrementSessionCookie(string $name): string
     {
         if (!$this->session->has($name)) {

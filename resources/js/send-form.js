@@ -1,10 +1,9 @@
 import $ from './jquery-3.6.0.min'
 
-// const getCookieUrl = '/test/get-cookie';
-const getCookieUrl = '/api/v1/get-cookie';
+const getCookieUrl = '/test/get-cookie';
 const contentBlock = $('.test-content');
 
-// function
+// functions
 const showNewCookie = (numbers, form) => {
     for (const [className, value] of Object.entries(numbers)) {
         let period = '';
@@ -17,7 +16,7 @@ const showNewCookie = (numbers, form) => {
             period = 'forever';
         }
 
-        $(`.js-cookies .${className}`).text(`Cookie set ${period} is "${value.toString()}"`);
+        $(`.js-cookies .${className}`).text(`Cookie ${period} is ${value.toString()}`);
     }
 
     cleanForm(form);
@@ -83,8 +82,14 @@ cookieForm.on('submit', (event) => {
     event.preventDefault();
     disableButton(cookieForm);
 
-    $.ajax({url: cookieForm.attr('action'), method: "POST", data: cookieForm.serializeArray()})
-        .done(() => $.ajax(getCookieUrl).done((cookies) => showNewCookie(cookies, cookieForm)))
+    $.ajax({
+        url: cookieForm.attr('action'),
+        method: "POST",
+        data: cookieForm.serializeArray()
+    })
+        .done(() => {
+            $.ajax(getCookieUrl).done((cookies) => showNewCookie(cookies, cookieForm))
+        })
         .fail((error) => alertErrorMessages(error.responseJSON, cookieForm));
 });
 // ----------- ----------- end cookie form ----------- -----------

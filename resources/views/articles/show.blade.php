@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     @php /** @var \App\Models\Article $model */ @endphp
-    <a href="{{ route('articles.edit', ['article' => $model->id]) }}"
+    <a href="{{ route('articles.edit', $model->id) }}"
        class="btn btn-primary"
     >{{ __('Article.Button.Update') }}</a>
     <button class="btn btn-danger js-delete"

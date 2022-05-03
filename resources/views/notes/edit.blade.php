@@ -13,7 +13,7 @@
                            name="name"
                            placeholder="{{ __('Note.Placeholder.Name') }}"
                            id="name"
-                           value="{{$model->name}}"
+                           value="{{ $model->name }}"
                     >
                 </div>
                 @error('name')
@@ -30,7 +30,7 @@
                               id="content"
                               cols="30"
                               rows="10"
-                    >{{$model->content}}</textarea>
+                    >{{ $model->content }}</textarea>
                 </div>
                 @error('content')
                 <div class="alert alert-danger">

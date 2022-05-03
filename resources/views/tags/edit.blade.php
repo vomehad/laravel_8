@@ -14,7 +14,7 @@
                            name="name"
                            placeholder="{{ __('Tag.Placeholder.Name') }}"
                            id="name"
-                           value="{{$model->name}}"
+                           value="{{ old('name', $model->name) }}"
                     >
                 </div>
                 @error('name')
@@ -30,7 +30,7 @@
                            name="description"
                            placeholder="{{ __('Tag.Placeholder.Description') }}"
                            id="name"
-                           value="{{$model->description}}"
+                           value="{{ old('description', $model->description) }}"
                     >
                 </div>
                 @error('description')

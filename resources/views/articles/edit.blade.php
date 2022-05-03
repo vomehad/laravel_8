@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-md-10 col-sm-12">
                     <label for="link">{{ __('Article.Label.Link') }}</label>
-                    <input name="link" value="{{ $model->link }}"
+                    <input name="link" value="{{ old('link', $model->link) }}"
                            type="text"
                            class="form-control @error('link') border-danger @enderror"
                            placeholder="{{ __('Article.Placeholder.Link') }}"

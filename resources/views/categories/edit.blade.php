@@ -13,7 +13,7 @@
                            name="name"
                            placeholder="{{ __('Category.Placeholder.Name') }}"
                            id="name"
-                           value="{{$model->name}}"
+                           value="{{ old('name', $model->name) }}"
                     >
                 </div>
                 @error('name')

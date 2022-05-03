@@ -19,7 +19,7 @@ class CookieController extends Controller
     {
         $cookies = [
             'cookie_hourly' => $this->incrementCookie($this->hourlyCookie),
-            'cookie_forever' => $this->incrementCookie($this->hourlyCookie),
+            'cookie_forever' => $this->incrementCookie($this->foreverCookie),
         ];
 
         return view('cookies.index', [

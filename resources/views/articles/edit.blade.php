@@ -27,7 +27,7 @@
             </div>
             @enderror
 
-            <div class="row">
+{{--            <div class="row form_label">--}}
                 <div class="col-md-10 col-sm-12">
                     <label for="link">{{ __('Article.Label.Link') }}</label>
                     <input name="link" value="{{ old('link', $model->link) }}"
@@ -38,15 +38,19 @@
                     />
                 </div>
 
-                <div class="col-5">
-                    <label for="category">{{ __('Article.Label.Category') }}</label>
-                    <select name="category[]" id="category" class="select_picker" multiple>
+                <div class="col-md-10 col-sm-12 multiselect_block">
+                    <label for="category-selector" class="field_multiselect">{{ __('Article.Label.Category') }}</label>
+                    <label for="checkbox-1" class="multiselect_label"></label>
+                    <input type="checkbox" id="checkbox-1" class="multiselect_checkbox">
+                    <select name="category" id="category-selector" class="field_select" multiple>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
+                    <span class="field_multiselect_help">You can select several items by pressing <b>Ctrl(or Command)+Element</b></span>
                 </div>
-            </div>
+                <span class="error_text"></span>
+{{--            </div>--}}
 
             <div class="col-md-10 col-sm-12">
                 <label for="text" class="form-label">{{ __('Article.Label.Text') }}</label>

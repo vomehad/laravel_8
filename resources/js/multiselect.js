@@ -16,7 +16,15 @@ multiselect_block.forEach(parent => {
             button.type = "button";
             button.className = "btn_multiselect";
             button.textContent = option.value;
-            but
+            button.onclick = _ => {
+                option.selected = false;
+                button.remove();
+
+                if (!select.selecetedOptions.length) {
+                    label.innerHTML = text;
+                }
+            }
+            label.append(button);
         }
-    })
-})
+    });
+});

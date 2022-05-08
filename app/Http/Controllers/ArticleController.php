@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Http\Requests\ArticleRequestStore;
-use App\Http\Requests\ArticleRequestUpdate;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
@@ -13,7 +12,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Lang;
 
 class ArticleController extends Controller
 {
@@ -45,7 +43,7 @@ class ArticleController extends Controller
     {
         $data = $request->all();
 
-        $article = new Article();
+        $article = $request->id ? Article::find($request->id) : new Article();
         $article->fill($data);
 
         $article->preview = $request->get('title');
@@ -85,26 +83,6 @@ class ArticleController extends Controller
             'categories' => $categories,
             'nav' => $this->nav,
         ]);
-    }
-
-    public function update(ArticleRequestUpdate $request): RedirectResponse
-    {
-        $data = $request->all();
-
-        /** @var Article $article */
-        $article = Article::find($request->id);
-        $article->fill($data);
-
-        $article->preview = $request->title;
-
-        $article->created_by = User::first()->id;
-        $article->disk = '';
-
-        $article->save();
-
-        $article->category()->attach(Arr::get($data, 'category'));
-
-        return redirect()->route('articles.show', $article->id);
     }
 
     public function destroy(int $id): string

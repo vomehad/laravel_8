@@ -14,5 +14,8 @@
         <div class="starter-template">
             <p class="lead">{{ $model->content }}</p>
         </div>
+        <div class="">
+            @foreach()
+        </div>
     </main>
 @endsection

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class ArticleRequest
+ * Class ArticleRequestStore
  * @package App\Http\Requests
  *
  * @property int $id

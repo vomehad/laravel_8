@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Http\Requests\ArticleRequestStore;
+use App\Http\Requests\ArticleRequestUpdate;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
@@ -44,7 +45,7 @@ class ArticleController extends Controller
     {
         $data = $request->all();
 
-        $article = $request->id ? Article::find($request->id) : new Article();
+        $article = new Article();
         $article->fill($data);
 
         $article->preview = $request->get('title');
@@ -72,8 +73,10 @@ class ArticleController extends Controller
 
     public function edit(int $id)
     {
-        $model = Article::find($id);
-        $article = Article::with('category')->where(['id' => $id])->first();
+        $article = Article::with('category')
+            ->where(['id' => $id])
+            ->first();
+
         $categories = Category::getAll();
 
         return view('articles.edit', [
@@ -84,9 +87,24 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function update()
+    public function update(ArticleRequestUpdate $request): RedirectResponse
     {
+        $data = $request->all();
 
+        /** @var Article $article */
+        $article = Article::find($request->id);
+        $article->fill($data);
+
+        $article->preview = $request->title;
+
+        $article->created_by = User::first()->id;
+        $article->disk = '';
+
+        $article->save();
+
+        $article->category()->attach(Arr::get($data, 'category'));
+
+        return redirect()->route('articles.show', $article->id);
     }
 
     public function destroy(int $id): string

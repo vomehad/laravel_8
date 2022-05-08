@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
-use App\Http\Requests\ArticleRequest;
+use App\Http\Requests\ArticleRequestStore;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
@@ -40,7 +40,7 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function store(ArticleRequest $request): RedirectResponse
+    public function store(ArticleRequestStore $request): RedirectResponse
     {
         $data = $request->all();
 
@@ -61,7 +61,7 @@ class ArticleController extends Controller
 
     public function show(int $id): string
     {
-        $article = Article::find($id);
+        $article = Article::with(['category'])->where(['id' => $id])->first();
 
         return view('articles.show', [
             'title' => $article->title,
@@ -73,14 +73,20 @@ class ArticleController extends Controller
     public function edit(int $id)
     {
         $model = Article::find($id);
+        $article = Article::with('category')->where(['id' => $id])->first();
         $categories = Category::getAll();
 
         return view('articles.edit', [
-            'title' => $model->title,
-            'model' => $model,
+            'title' => $article->title,
+            'model' => $article,
             'categories' => $categories,
             'nav' => $this->nav,
         ]);
+    }
+
+    public function update()
+    {
+
     }
 
     public function destroy(int $id): string

@@ -11,16 +11,18 @@
     >{{ __('Article.Button.Delete') }}</button>
 
     <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-0">
+                @foreach($model->category as $category)
+                    @php /** @var \App\Models\Category $category */ @endphp
+                    <div class="badge badge-secondary">{{ $category->name }}</div>
+                @endforeach
+            </div>
+        </div>
 
         <div class="starter-template">
             <span class="link"><a href="{{ $model->link }}">{{ $model->link }}</a></span>
             <div>{!! $model->text !!}</div>
-
-            @foreach($model->category as $category)
-                @php /** @var \App\Models\Category $category */ @endphp
-                <div class="">{{ $category->name }}</div>
-            @endforeach
         </div>
-
     </main>
 @endsection

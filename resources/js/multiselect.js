@@ -15,7 +15,7 @@ multiselect_block.forEach(parent => {
 
             button.type = "button";
             button.className = "btn_multiselect";
-            button.textContent = option.value;
+            button.textContent = option.innerHTML;
             button.onclick = _ => {
                 option.selected = false;
                 button.remove();

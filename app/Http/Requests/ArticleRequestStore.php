@@ -10,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
  *
  * @property int $id
  */
-class ArticleRequest extends FormRequest
+class ArticleRequestStore extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,7 +32,7 @@ class ArticleRequest extends FormRequest
     {
         return [
             'title' => 'required|min:5|max:128',
-            'text' => 'required|min:3|max:500',
+            'text' => 'required|min:3',
             'category.*' => 'required|integer|exists:categories,id',
         ];
     }

@@ -47,7 +47,7 @@
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
-                    <span class="field_multiselect_help">You can select several items by pressing <b>Ctrl(or Command)+Element</b></span>
+{{--                    <span class="field_multiselect_help">You can select several items by pressing <b>Ctrl(or Command)+Element</b></span>--}}
                 </div>
                 <span class="error_text"></span>
 {{--            </div>--}}

@@ -34,7 +34,7 @@ class NoteController extends Controller
 
     public function store(NoteRequest $request): RedirectResponse
     {
-        $note = new Note();
+        $note = Note::findOrNew($request->id);
 
         $data = $request->input();
         $saved = $note->fill($data)->save();

@@ -43,10 +43,10 @@ class ArticleController extends Controller
     {
         $data = $request->all();
 
-        $article = $request->id ? Article::find($request->id) : new Article();
+        $article = Article::findOrNew($request->id);
         $article->fill($data);
 
-        $article->preview = $request->get('title');
+        $article->preview = $request->title;
 
         $article->created_by = User::first()->id;
         $article->disk = '';
@@ -65,6 +65,7 @@ class ArticleController extends Controller
         return view('articles.show', [
             'title' => $article->title,
             'model' => $article,
+            'selected' => $article->category->toArray(),
             'nav' => $this->nav,
         ]);
     }

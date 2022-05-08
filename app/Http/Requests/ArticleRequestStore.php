@@ -8,7 +8,8 @@ use Illuminate\Foundation\Http\FormRequest;
  * Class ArticleRequestStore
  * @package App\Http\Requests
  *
- * @property int $id
+ * @property int    $id
+ * @property string $title
  */
 class ArticleRequestStore extends FormRequest
 {

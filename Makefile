@@ -5,15 +5,15 @@ mysql_container := $(APP_NAME)_mysql
 
 rebuild-up:
 	@docker-compose up -d --build --remove-orphans
-	@echo -e "Make: rebuild and up containers.\n"
+	@echo "Make: rebuild and up containers.\n"
 
 build:
 	docker-compose build
-	@echo -e "Make: Build containers.\n"
+	@echo "Make: Build containers.\n"
 
 up:
 	@docker-compose up -d --remove-orphans
-	@echo -e "Make: Up containers.\n"
+	@echo "Make: Up containers.\n"
 
 down:
 	@docker-compose down

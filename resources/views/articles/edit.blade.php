@@ -7,8 +7,12 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 @endsection
 @section('content')
+    @php
+        /** @var \App\Models\Article $model */
+        /** @var \App\Models\Category $selected */
+    @endphp
     <div class="form-wrap">
-        <form action="{{ route('articles.store') }}" method="post" class="row">
+        <form action="{{ route('articles.store') }}" method="post" class="row multiselect_block">
             @csrf
             <input type="hidden" name="id" value="{{ $model->id }}" />
 
@@ -44,7 +48,7 @@
                     <label for="category-selector" class="field_multiselect">{{ __('Article.Label.Category') }}</label>
                     <select name="category[]" id="category-selector" class="field_select" multiple>
                         @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" {{ Arr::exists($selected->toArray(), $category->id) ? 'selected' : '' }}>{{ $category->name }}</option>
                         @endforeach
                     </select>
                 </div>

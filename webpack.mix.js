@@ -9,8 +9,8 @@ mix.js('resources/js/find-pairs.js', 'public/js/')
 ;
 
 // if (mix.inProduction()) {
-//     // mix.minify(undefined, undefined, undefined);
+//     mix.minify(undefined, undefined, undefined);
 // }
 
 mix.browserSync('http://backend.family.local/');
-// mix.browserSync();
+// mix.browserSync('http://localhost:3000/');

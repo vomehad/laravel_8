@@ -78,10 +78,13 @@ class ArticleController extends Controller
 
         $categories = Category::getAll();
 
+        $selected = $article->category->keyBy('id');
+
         return view('articles.edit', [
             'title' => $article->title,
             'model' => $article,
             'categories' => $categories,
+            'selected' => $selected,
             'nav' => $this->nav,
         ]);
     }

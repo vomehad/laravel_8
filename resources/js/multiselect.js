@@ -3,11 +3,13 @@ const multiselect_block = document.querySelectorAll(".multiselect_block");
 multiselect_block.forEach(parent => {
     const label = parent.querySelector(".field_multiselect");
     const select = parent.querySelector(".field_select");
+    const selectedOptions = select.selectedOptions;
     const text = label.innerHTML;
 
-    select.addEventListener("change", function(elem) {
-        const selectedOptions = this.selectedOptions;
+    select.addEventListener("change", pinCategory);
+    document.addEventListener('DOMContentLoaded', pinCategory);
 
+    function pinCategory() {
         label.innerHTML = "";
 
         for (const option of selectedOptions) {
@@ -17,6 +19,7 @@ multiselect_block.forEach(parent => {
             button.className = "btn_multiselect";
             button.textContent = option.innerHTML;
             button.onclick = _ => {
+
                 option.selected = false;
                 button.remove();
 
@@ -24,7 +27,10 @@ multiselect_block.forEach(parent => {
                     label.innerHTML = text;
                 }
             }
+
             label.append(button);
         }
-    });
+    }
 });
+
+

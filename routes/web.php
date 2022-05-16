@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlgorithmController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -54,4 +55,8 @@ Route::prefix('/')->group(function() {
     Route::resource('/users', UserController::class);
     Route::match(['get', 'post'], '/users.search', [UserController::class, 'search'])->name('users.search');
     Route::get('/users/roles/{id}', [UserController::class, 'roles'])->name('users.roles');
+});
+
+Route::prefix('algorithm')->group(function() {
+    Route::get('/bubble', [AlgorithmController::class, 'index'])->name('sort');
 });

@@ -26,6 +26,7 @@ class Controller extends BaseController
             ['url' => route('test.main'),               'name' => Lang::get('Test.Menu.Top')],
             ['url' => route('test.notes.index'),        'name' => Lang::get('Note.Menu.Top')],
             ['url' => route('test.categories.index'),   'name' => Lang::get('Category.Menu.Top')],
+            ['url' => route('sort'),                    'name' => Lang::get('Algorithm.Menu.Top')],
             ['url' => route('tags.index'),              'name' => Lang::get('Tag.Menu.Top')],
             ['url' => route('articles.index'),          'name' => Lang::get('Article.Menu.Top')],
             ['url' => route('Game'),                    'name' => Lang::get('Game.Menu.Top')],

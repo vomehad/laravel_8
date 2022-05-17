@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helpers\Helper;
+use App\Helpers\NameHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Lang;
 
 class CategoryController extends Controller
 {
@@ -68,6 +67,6 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category->delete();
 
-        return Helper::getActionName();
+        return NameHelper::getActionName();
     }
 }

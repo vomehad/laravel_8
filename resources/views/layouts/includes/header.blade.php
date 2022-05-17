@@ -26,6 +26,6 @@
     </div>
 
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-            <h1 class="display-4 fw-normal">{{ $title ?? __('Titles' . '.' . \App\Helpers\Helper::getActionName()) }}</h1>
+            <h1 class="display-4 fw-normal">{{ $title ?? __('Titles' . '.' . \App\Helpers\NameHelper::getActionName()) }}</h1>
     </div>
 </header>

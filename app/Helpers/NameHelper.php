@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 use Illuminate\Support\Arr;
 
-class Helper
+class NameHelper
 {
     public static function getActionName(string $param = 'as'): string
     {

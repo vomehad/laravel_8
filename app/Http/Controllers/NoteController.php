@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Helper;
+use App\Helpers\NameHelper;
 use App\Models\Note;
 use App\Http\Requests\NoteRequest;
 use Illuminate\Http\RedirectResponse;
@@ -79,7 +79,7 @@ class NoteController extends Controller
         $note = Note::find($id);
         $note->delete();
 
-        return Helper::getActionName();
+        return NameHelper::getActionName();
     }
 
     public function search(Request $request)

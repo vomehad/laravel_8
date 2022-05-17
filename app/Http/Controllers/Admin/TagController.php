@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helpers\Helper;
+use App\Helpers\NameHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Lang;
 
 class TagController extends Controller
 {
@@ -69,6 +68,6 @@ class TagController extends Controller
         $tag = Tag::find($id);
         $tag->delete();
 
-        return Helper::getActionName();
+        return NameHelper::getActionName();
     }
 }

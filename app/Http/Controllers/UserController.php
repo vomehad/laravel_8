@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Helper;
+use App\Helpers\NameHelper;
 use App\Http\Requests\SplitRequest;
 use App\Http\Requests\TextRequest;
 use App\Models\Contact;
@@ -80,7 +80,7 @@ class UserController extends Controller
         $tag = User::find($id);
         $tag->delete();
 
-        return Helper::getActionName();
+        return NameHelper::getActionName();
     }
 
     public function search(Request $request)

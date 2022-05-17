@@ -10,7 +10,7 @@
 
     @yield('meta')
 {{--    <title>@yield('title')</title>--}}
-    <title>{{ $title ?? __('Titles' . '.' . \App\Helpers\Helper::getActionName()) }}</title>
+    <title>{{ $title ?? __('Titles' . '.' . \App\Helpers\NameHelper::getActionName()) }}</title>
     @include('layouts.includes.assets.css')
     @include('layouts.includes.assets.fonts')
     @yield('head')

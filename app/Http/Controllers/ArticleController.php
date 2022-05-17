@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Helper;
+use App\Helpers\NameHelper;
 use App\Http\Requests\ArticleRequestStore;
 use App\Models\Article;
 use App\Models\Category;
-use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,12 +28,11 @@ class ArticleController extends Controller
     {
         $article = new Article();
         $categories = Category::getAll();
-//        $tags = Tag::all();
 
         return view('articles.edit', [
             'model' => $article,
             'categories' => $categories,
-//            'tag' => $tags,
+            'selected' => [],
             'nav' => $this->nav,
         ]);
     }
@@ -84,7 +82,7 @@ class ArticleController extends Controller
             'title' => $article->title,
             'model' => $article,
             'categories' => $categories,
-            'selected' => $selected,
+            'selected' => $selected->toArray(),
             'nav' => $this->nav,
         ]);
     }
@@ -94,7 +92,7 @@ class ArticleController extends Controller
         $article = Article::find($id);
         $article->delete();
 
-        return Helper::getActionName();
+        return NameHelper::getActionName();
     }
 
     public function search(Request $request)

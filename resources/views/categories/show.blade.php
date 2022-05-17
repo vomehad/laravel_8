@@ -15,7 +15,7 @@
             <p class="lead">{{ $model->content }}</p>
         </div>
         <div class="">
-            @foreach()
+{{--            @foreach()--}}
         </div>
     </main>
 @endsection

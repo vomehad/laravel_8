@@ -9,7 +9,7 @@
 @section('content')
     @php
         /** @var \App\Models\Article $model */
-        /** @var \App\Models\Category $selected */
+        /** @var array $selected */
     @endphp
     <div class="form-wrap">
         <form action="{{ route('articles.store') }}" method="post" class="row multiselect_block">
@@ -48,7 +48,7 @@
                     <label for="category-selector" class="field_multiselect">{{ __('Article.Label.Category') }}</label>
                     <select name="category[]" id="category-selector" class="field_select" multiple>
                         @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ Arr::exists($selected->toArray() ?? [], $category->id) ? 'selected' : '' }}>{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" {{ Arr::exists($selected, $category->id) ? 'selected' : '' }}>{{ $category->name }}</option>
                         @endforeach
                     </select>
                 </div>

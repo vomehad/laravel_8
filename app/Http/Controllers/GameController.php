@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Helper;
+use App\Helpers\NameHelper;
 use Illuminate\Support\Facades\Lang;
 
 class GameController extends Controller
 {
     public function playGame(): string
     {
-        $title = Lang::get(Helper::getActionName() . '.Title');
+        $title = Lang::get(NameHelper::getActionName() . '.Title');
         $rows = 4;
         $startItem = 1;
 

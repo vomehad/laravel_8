@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Helpers\Helper;
 use Illuminate\Support\ServiceProvider;
 
 class HelperServiceProvider extends ServiceProvider
@@ -14,7 +13,7 @@ class HelperServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        require_once app()->path() . '/Helpers/Helper.php';
+        require_once app()->path() . '/Helpers/NameHelper.php';
     }
 
     /**

@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 8.83.10.
+ * Generated for Laravel 8.83.12.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -11913,6 +11913,7 @@
      * @method static \Illuminate\Routing\RouteRegistrar prefix(string $prefix)
      * @method static \Illuminate\Routing\RouteRegistrar scopeBindings()
      * @method static \Illuminate\Routing\RouteRegistrar where(array $where)
+     * @method static \Illuminate\Routing\RouteRegistrar withoutMiddleware(array|string $middleware)
      * @see \Illuminate\Routing\Router
      */ 
         class Route {
@@ -16084,7 +16085,7 @@
      * 
      *
      */ 
-        class Helper {
+        class NameHelper {
          
     }
      
@@ -20434,7 +20435,7 @@ namespace  {
             class File extends \Illuminate\Support\Facades\File {}
             class Gate extends \Illuminate\Support\Facades\Gate {}
             class Hash extends \Illuminate\Support\Facades\Hash {}
-            class Helper extends \App\Helpers\Helper {}
+            class Helper extends \App\Helpers\NameHelper {}
             class Http extends \Illuminate\Support\Facades\Http {}
             class Js extends \Illuminate\Support\Js {}
             class Lang extends \Illuminate\Support\Facades\Lang {}

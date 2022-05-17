@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Helper;
+use App\Helpers\NameHelper;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +17,7 @@ class AuthController extends Controller
         }
 
         return view('auth.login', [
-            'title' => Lang::get('Auth.' . Helper::getActionName()),
+            'title' => Lang::get('Auth.' . NameHelper::getActionName()),
 //            'nav' => $this->nav,
         ]);
     }
@@ -46,7 +46,7 @@ class AuthController extends Controller
         }
 
         return view('auth.sign-up', [
-            'title' => Lang::get('Auth.' . Helper::getActionName()),
+            'title' => Lang::get('Auth.' . NameHelper::getActionName()),
         ]);
     }
 

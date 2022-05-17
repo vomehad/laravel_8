@@ -29,12 +29,13 @@ class ArticleController extends Controller
     {
         $article = new Article();
         $categories = Category::getAll();
-        $tags = Tag::all();
+//        $tags = Tag::all();
 
         return view('articles.edit', [
             'model' => $article,
             'categories' => $categories,
-            'tag' => $tags,
+//            'tag' => $tags,
+            'selected' => [],
             'nav' => $this->nav,
         ]);
     }

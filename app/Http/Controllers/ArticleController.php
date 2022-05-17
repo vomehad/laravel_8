@@ -35,7 +35,6 @@ class ArticleController extends Controller
             'model' => $article,
             'categories' => $categories,
 //            'tag' => $tags,
-            'selected' => [],
             'nav' => $this->nav,
         ]);
     }

@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 8.83.12.
+ * Generated for Laravel 8.83.13.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -12787,6 +12787,18 @@
                         /** @var \Illuminate\Routing\Router $instance */
                         return $instance->macroCall($method, $parameters);
         }
+                    /**
+         * 
+         *
+         * @see \Orchid\Platform\Providers\FoundationServiceProvider::register()
+         * @param mixed $url
+         * @param mixed $screen
+         * @static 
+         */ 
+        public static function screen($url, $screen)
+        {
+                        return \Illuminate\Routing\Router::screen($url, $screen);
+        }
          
     }
             /**
@@ -16920,6 +16932,538 @@
      
 }
 
+    namespace Orchid\Support\Facades { 
+            /**
+     * Class Alert.
+     *
+     */ 
+        class Alert {
+                    /**
+         * Flash an information message.
+         *
+         * @param string $message
+         * @return \Alert 
+         * @static 
+         */ 
+        public static function info($message)
+        {
+                        /** @var \Orchid\Alert\Alert $instance */
+                        return $instance->info($message);
+        }
+                    /**
+         * Flash a general message.
+         *
+         * @param string $message
+         * @param \Orchid\Support\Color|null $level
+         * @return \Alert 
+         * @static 
+         */ 
+        public static function message($message, $level = null)
+        {
+                        /** @var \Orchid\Alert\Alert $instance */
+                        return $instance->message($message, $level);
+        }
+                    /**
+         * Flash a success message.
+         *
+         * @param string $message
+         * @return \Alert 
+         * @static 
+         */ 
+        public static function success($message)
+        {
+                        /** @var \Orchid\Alert\Alert $instance */
+                        return $instance->success($message);
+        }
+                    /**
+         * Flash an error message.
+         *
+         * @param string $message
+         * @return \Alert 
+         * @static 
+         */ 
+        public static function error($message)
+        {
+                        /** @var \Orchid\Alert\Alert $instance */
+                        return $instance->error($message);
+        }
+                    /**
+         * Flash a warning message.
+         *
+         * @param string $message
+         * @return \Alert 
+         * @static 
+         */ 
+        public static function warning($message)
+        {
+                        /** @var \Orchid\Alert\Alert $instance */
+                        return $instance->warning($message);
+        }
+                    /**
+         * Flash a view message.
+         *
+         * @param string $template
+         * @param \Orchid\Support\Color|null $level
+         * @param array $data
+         * @throws \Throwable
+         * @return \Alert 
+         * @static 
+         */ 
+        public static function view($template, $level = null, $data = [])
+        {
+                        /** @var \Orchid\Alert\Alert $instance */
+                        return $instance->view($template, $level, $data);
+        }
+                    /**
+         * Checks if a message has been set before.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function check()
+        {
+                        /** @var \Orchid\Alert\Alert $instance */
+                        return $instance->check();
+        }
+         
+    }
+            /**
+     * Class Dashboard.
+     *
+     * @method static bool checkUpdate()
+     */ 
+        class Dashboard {
+                    /**
+         * Get the version number of the application.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function version()
+        {
+                        return \Orchid\Platform\Dashboard::version();
+        }
+                    /**
+         * Get the route with the dashboard prefix.
+         *
+         * @param string $path
+         * @return string 
+         * @static 
+         */ 
+        public static function prefix($path = '')
+        {
+                        return \Orchid\Platform\Dashboard::prefix($path);
+        }
+                    /**
+         * Configure the Dashboard application.
+         *
+         * @param array $options
+         * @return void 
+         * @static 
+         */ 
+        public static function configure($options)
+        {
+                        \Orchid\Platform\Dashboard::configure($options);
+        }
+                    /**
+         * Get a Dashboard configuration option.
+         *
+         * @param string $key
+         * @param mixed|null $default
+         * @return mixed 
+         * @static 
+         */ 
+        public static function option($key, $default = null)
+        {
+                        return \Orchid\Platform\Dashboard::option($key, $default);
+        }
+                    /**
+         * 
+         *
+         * @param string $key
+         * @param string|null $default
+         * @return mixed 
+         * @static 
+         */ 
+        public static function modelClass($key, $default = null)
+        {
+                        return \Orchid\Platform\Dashboard::modelClass($key, $default);
+        }
+                    /**
+         * Get the class name for a given Dashboard model.
+         *
+         * @param string $key
+         * @param string|null $default
+         * @return string 
+         * @static 
+         */ 
+        public static function model($key, $default = null)
+        {
+                        return \Orchid\Platform\Dashboard::model($key, $default);
+        }
+                    /**
+         * Get the user model class name.
+         *
+         * @param string $key
+         * @param string $custom
+         * @static 
+         */ 
+        public static function useModel($key, $custom)
+        {
+                        return \Orchid\Platform\Dashboard::useModel($key, $custom);
+        }
+                    /**
+         * The real path to the package files.
+         *
+         * @param string $path
+         * @return string 
+         * @static 
+         */ 
+        public static function path($path = '')
+        {
+                        return \Orchid\Platform\Dashboard::path($path);
+        }
+                    /**
+         * Registers a ItemPermission that defines authentication permissions.
+         *
+         * @param \Orchid\Platform\ItemPermission $permission
+         * @return \Orchid\Platform\Dashboard 
+         * @static 
+         */ 
+        public static function registerPermissions($permission)
+        {
+                        /** @var \Orchid\Platform\Dashboard $instance */
+                        return $instance->registerPermissions($permission);
+        }
+                    /**
+         * Registers a set of models for which full-text search is required.
+         *
+         * @param array $model
+         * @return \Orchid\Platform\Dashboard 
+         * @static 
+         */ 
+        public static function registerSearch($model)
+        {
+                        /** @var \Orchid\Platform\Dashboard $instance */
+                        return $instance->registerSearch($model);
+        }
+                    /**
+         * 
+         *
+         * @param string $key
+         * @param string|array $value
+         * @return \Dashboard 
+         * @static 
+         */ 
+        public static function registerResource($key, $value)
+        {
+                        /** @var \Orchid\Platform\Dashboard $instance */
+                        return $instance->registerResource($key, $value);
+        }
+                    /**
+         * Return CSS\JS.
+         *
+         * @param null $key
+         * @return array|\Illuminate\Support\Collection|mixed 
+         * @static 
+         */ 
+        public static function getResource($key = null)
+        {
+                        /** @var \Orchid\Platform\Dashboard $instance */
+                        return $instance->getResource($key);
+        }
+                    /**
+         * 
+         *
+         * @return \Illuminate\Support\Collection 
+         * @static 
+         */ 
+        public static function getSearch()
+        {
+                        /** @var \Orchid\Platform\Dashboard $instance */
+                        return $instance->getSearch();
+        }
+                    /**
+         * 
+         *
+         * @return \Illuminate\Support\Collection 
+         * @static 
+         */ 
+        public static function getPermission()
+        {
+                        /** @var \Orchid\Platform\Dashboard $instance */
+                        return $instance->getPermission();
+        }
+                    /**
+         * Get all registered permissions with the enabled state.
+         *
+         * @return \Illuminate\Support\Collection 
+         * @static 
+         */ 
+        public static function getAllowAllPermission()
+        {
+                        /** @var \Orchid\Platform\Dashboard $instance */
+                        return $instance->getAllowAllPermission();
+        }
+                    /**
+         * 
+         *
+         * @param string $key
+         * @return \Orchid\Platform\Dashboard 
+         * @static 
+         */ 
+        public static function removePermission($key)
+        {
+                        /** @var \Orchid\Platform\Dashboard $instance */
+                        return $instance->removePermission($key);
+        }
+                    /**
+         * 
+         *
+         * @param \Orchid\Screen\Screen $screen
+         * @return \Orchid\Platform\Dashboard 
+         * @static 
+         */ 
+        public static function setCurrentScreen($screen)
+        {
+                        /** @var \Orchid\Platform\Dashboard $instance */
+                        return $instance->setCurrentScreen($screen);
+        }
+                    /**
+         * 
+         *
+         * @return \Orchid\Screen\Screen|null 
+         * @static 
+         */ 
+        public static function getCurrentScreen()
+        {
+                        /** @var \Orchid\Platform\Dashboard $instance */
+                        return $instance->getCurrentScreen();
+        }
+                    /**
+         * Adding a new element to the menu.
+         *
+         * @param string $location
+         * @param \Orchid\Screen\Actions\Menu $menu
+         * @return \Orchid\Platform\Dashboard 
+         * @static 
+         */ 
+        public static function registerMenuElement($location, $menu)
+        {
+                        /** @var \Orchid\Platform\Dashboard $instance */
+                        return $instance->registerMenuElement($location, $menu);
+        }
+                    /**
+         * Generate on the menu display.
+         *
+         * @param string $location
+         * @throws \Throwable
+         * @return string 
+         * @static 
+         */ 
+        public static function renderMenu($location)
+        {
+                        /** @var \Orchid\Platform\Dashboard $instance */
+                        return $instance->renderMenu($location);
+        }
+                    /**
+         * 
+         *
+         * @param string $location
+         * @return bool 
+         * @static 
+         */ 
+        public static function isEmptyMenu($location)
+        {
+                        /** @var \Orchid\Platform\Dashboard $instance */
+                        return $instance->isEmptyMenu($location);
+        }
+                    /**
+         * 
+         *
+         * @param string $location
+         * @param string $slug
+         * @param \Orchid\Screen\Actions\Menu[] $list
+         * @return \Dashboard 
+         * @static 
+         */ 
+        public static function addMenuSubElements($location, $slug, $list)
+        {
+                        /** @var \Orchid\Platform\Dashboard $instance */
+                        return $instance->addMenuSubElements($location, $slug, $list);
+        }
+                    /**
+         * Flush the persistent Orchid state.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function flushState()
+        {
+                        /** @var \Orchid\Platform\Dashboard $instance */
+                        $instance->flushState();
+        }
+                    /**
+         * Register a custom macro.
+         *
+         * @param string $name
+         * @param object|callable $macro
+         * @return void 
+         * @static 
+         */ 
+        public static function macro($name, $macro)
+        {
+                        \Orchid\Platform\Dashboard::macro($name, $macro);
+        }
+                    /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @param bool $replace
+         * @return void 
+         * @throws \ReflectionException
+         * @static 
+         */ 
+        public static function mixin($mixin, $replace = true)
+        {
+                        \Orchid\Platform\Dashboard::mixin($mixin, $replace);
+        }
+                    /**
+         * Checks if macro is registered.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */ 
+        public static function hasMacro($name)
+        {
+                        return \Orchid\Platform\Dashboard::hasMacro($name);
+        }
+                    /**
+         * Flush the existing macros.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function flushMacros()
+        {
+                        \Orchid\Platform\Dashboard::flushMacros();
+        }
+         
+    }
+     
+}
+
+    namespace Tabuna\Breadcrumbs { 
+            /**
+     * Class Breadcrumbs.
+     *
+     */ 
+        class Breadcrumbs {
+                    /**
+         * Register a breadcrumb definition by passing it off to the registrar.
+         *
+         * @param string $route
+         * @param \Closure $definition
+         * @return void 
+         * @throws \Throwable
+         * @static 
+         */ 
+        public static function for($route, $definition)
+        {
+                        /** @var \Tabuna\Breadcrumbs\Manager $instance */
+                        $instance->for($route, $definition);
+        }
+                    /**
+         * 
+         *
+         * @param null $parameters
+         * @return \Illuminate\Support\Collection 
+         * @throws \Throwable
+         * @static 
+         */ 
+        public static function current($parameters = null)
+        {
+                        /** @var \Tabuna\Breadcrumbs\Manager $instance */
+                        return $instance->current($parameters);
+        }
+                    /**
+         * 
+         *
+         * @param string $route
+         * @param mixed|null $parameters
+         * @return \Illuminate\Support\Collection 
+         * @throws \Throwable
+         * @static 
+         */ 
+        public static function generate($route, $parameters = null)
+        {
+                        /** @var \Tabuna\Breadcrumbs\Manager $instance */
+                        return $instance->generate($route, $parameters);
+        }
+                    /**
+         * 
+         *
+         * @param string|null $name
+         * @return bool 
+         * @static 
+         */ 
+        public static function has($name = null)
+        {
+                        /** @var \Tabuna\Breadcrumbs\Manager $instance */
+                        return $instance->has($name);
+        }
+                    /**
+         * Register a custom macro.
+         *
+         * @param string $name
+         * @param object|callable $macro
+         * @return void 
+         * @static 
+         */ 
+        public static function macro($name, $macro)
+        {
+                        \Tabuna\Breadcrumbs\Manager::macro($name, $macro);
+        }
+                    /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @param bool $replace
+         * @return void 
+         * @throws \ReflectionException
+         * @static 
+         */ 
+        public static function mixin($mixin, $replace = true)
+        {
+                        \Tabuna\Breadcrumbs\Manager::mixin($mixin, $replace);
+        }
+                    /**
+         * Checks if macro is registered.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */ 
+        public static function hasMacro($name)
+        {
+                        return \Tabuna\Breadcrumbs\Manager::hasMacro($name);
+        }
+                    /**
+         * Flush the existing macros.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function flushMacros()
+        {
+                        \Tabuna\Breadcrumbs\Manager::flushMacros();
+        }
+         
+    }
+     
+}
+
     namespace Illuminate\Http { 
             /**
      * 
@@ -16971,6 +17515,48 @@
         public static function hasValidRelativeSignature()
         {
                         return \Illuminate\Http\Request::hasValidRelativeSignature();
+        }
+         
+    }
+     
+}
+
+    namespace Illuminate\Routing { 
+            /**
+     * 
+     *
+     * @mixin \Illuminate\Routing\RouteRegistrar
+     */ 
+        class Router {
+                    /**
+         * 
+         *
+         * @see \Orchid\Platform\Providers\FoundationServiceProvider::register()
+         * @param mixed $url
+         * @param mixed $screen
+         * @static 
+         */ 
+        public static function screen($url, $screen)
+        {
+                        return \Illuminate\Routing\Router::screen($url, $screen);
+        }
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class Route {
+                    /**
+         * 
+         *
+         * @see \Tabuna\Breadcrumbs\BreadcrumbsServiceProvider::register()
+         * @param \Closure $closure
+         * @static 
+         */ 
+        public static function breadcrumbs($closure)
+        {
+                        return \Illuminate\Routing\Route::breadcrumbs($closure);
         }
          
     }
@@ -20458,6 +21044,9 @@ namespace  {
             class View extends \Illuminate\Support\Facades\View {}
             class Debugbar extends \Barryvdh\Debugbar\Facades\Debugbar {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
+            class Alert extends \Orchid\Support\Facades\Alert {}
+            class Dashboard extends \Orchid\Support\Facades\Dashboard {}
+            class Breadcrumbs extends \Tabuna\Breadcrumbs\Breadcrumbs {}
      
 }
 

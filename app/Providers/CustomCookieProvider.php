@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\CustomCookieService;
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 
 class CustomCookieProvider extends ServiceProvider
@@ -15,7 +16,7 @@ class CustomCookieProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(CustomCookieService::class, function () {
-            return new CustomCookieService();
+            return new CustomCookieService(app(Request::class));
         });
     }
 

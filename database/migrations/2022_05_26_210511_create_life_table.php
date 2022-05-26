@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGamesTable extends Migration
+class CreateLifeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreateGamesTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('games')) {
-            Schema::create('games', function (Blueprint $table) {
+        if (!Schema::hasTable('life')) {
+            Schema::create('life', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('user_id')
-                    ->nullable(true)
                     ->constrained('users')
                     ->cascadeOnUpdate()
                     ->cascadeOnDelete();
-                $table->integer('moves');
-                $table->string('record');
+                $table->timestamp('birth_date');
+                $table->timestamp('end_date');
                 $table->timestamps();
+                $table->boolean('active')->default(true);
                 $table->softDeletes();
             });
         }
@@ -36,6 +36,6 @@ class CreateGamesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('games');
+        Schema::dropIfExists('life');
     }
 }

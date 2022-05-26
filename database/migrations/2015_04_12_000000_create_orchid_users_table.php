@@ -11,9 +11,11 @@ class CreateOrchidUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->jsonb('permissions')->nullable();
-        });
+        if (!Schema::hasColumn('users', 'permissions')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->jsonb('permissions')->nullable();
+            });
+        }
     }
 
     /**

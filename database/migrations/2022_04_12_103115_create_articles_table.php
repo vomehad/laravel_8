@@ -13,26 +13,28 @@ class CreateArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
-            $table->id();
-            $table->tinyText('title');
-            $table->string('preview');
-            $table->text('text');
+        if (!Schema::hasTable('articles')) {
+            Schema::create('articles', function (Blueprint $table) {
+                $table->id();
+                $table->tinyText('title');
+                $table->string('preview');
+                $table->text('text');
 
-            $table->fullText('text');
-            $table->tinyText('link');
+                $table->fullText('text');
+                $table->tinyText('link');
 
-            $table->foreignId('created_by')
-                ->nullable(false)
-                ->constrained('users')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                $table->foreignId('created_by')
+                    ->nullable(false)
+                    ->constrained('users')
+                    ->cascadeOnUpdate()
+                    ->cascadeOnDelete();
 
-            $table->index(['created_by', 'created_at', 'updated_at']);
-            $table->string('disk');
-            $table->timestamps();
-            $table->softDeletes();
-        });
+                $table->index(['created_by', 'created_at', 'updated_at']);
+                $table->string('disk');
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**

@@ -11,13 +11,15 @@ class CreateOrchidRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('slug')->unique();
-            $table->string('name');
-            $table->jsonb('permissions')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('roles')) {
+            Schema::create('roles', function (Blueprint $table) {
+                $table->id();
+                $table->string('slug')->unique();
+                $table->string('name');
+                $table->jsonb('permissions')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**

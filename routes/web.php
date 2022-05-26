@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [UserController::class, 'home'])->name('home');
 
-Route::group(['prefix' => '/kinsman'], function() {
-    Route::get('/create', [AuthController::class, 'signup'])->name('SignUp');
-    Route::post('/create', [AuthController::class, 'create'])->name('Create');
+Route::name('kinsman.')->prefix('/kinsman')->group(function() {
+    Route::get('/create', [UserController::class, 'create'])->name('create');
+    Route::post('/store', [UserController::class, 'store'])->name('store');
     Route::match(['get', 'post'],'/login', [AuthController::class, 'login'])->name('Login');
-    Route::post('/store', [AuthController::class, 'store'])->name('Store');
+//    Route::post('/store', [AuthController::class, 'store'])->name('s');
     Route::get('/logout', [AuthController::class, 'logout'])->name('Logout');
 
     Route::get('/account', [UserController::class, 'account'])->middleware('auth')->name('Account');

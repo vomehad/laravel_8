@@ -13,9 +13,22 @@ class AddColumnsToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->tinyText('name')->nullable();
-        });
+        if (!Schema::hasColumn('users', 'name')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->tinyText('name')->nullable();
+                $table->tinyText('second_name')->nullable();
+                $table->tinyText('middle_name')->nullable();
+                $table->foreignId('father_id')
+                    ->constrained('users')
+                    ->cascadeOnUpdate()
+                    ->cascadeOnDelete();
+                $table->foreignId('mother_id')
+                    ->constrained('users')
+                    ->cascadeOnUpdate()
+                    ->cascadeOnDelete();
+                $table->boolean('active')->default(true);
+            });
+        }
     }
 
     /**

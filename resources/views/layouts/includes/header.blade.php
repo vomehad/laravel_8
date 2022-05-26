@@ -14,14 +14,14 @@
                     <a class="p-2 text-dark text-decoration-none" href="{{ $link['url'] }}">{{ $link['name'] }}</a>
                 @endforeach
             @endisset
-            @guest
-                <a href="{{ route('Login') }}" class="btn btn-outline-primary">Login</a>
-                <a class="btn btn-outline-primary" href="{{ route('SignUp') }}">Sign up</a>
-            @endguest
-            @auth
-                <a href="{{ route('Account') }}" class="btn btn-outline-primary">Account</a>
-                <a href="{{ route('Logout') }}" class="btn btn-outline-prim">Logout</a>
-            @endauth
+{{--            @guest--}}
+{{--                <a href="{{ route('Login') }}" class="btn btn-outline-primary">Login</a>--}}
+{{--                <a class="btn btn-outline-primary" href="{{ route('SignUp') }}">Sign up</a>--}}
+{{--            @endguest--}}
+{{--            @auth--}}
+{{--                <a href="{{ route('Account') }}" class="btn btn-outline-primary">Account</a>--}}
+{{--                <a href="{{ route('Logout') }}" class="btn btn-outline-prim">Logout</a>--}}
+{{--            @endauth--}}
         </nav>
     </div>
 

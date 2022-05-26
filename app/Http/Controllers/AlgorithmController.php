@@ -9,7 +9,7 @@ class AlgorithmController extends Controller
      */
     public function index()
     {
-        $source = $this->getShuffledArray();
+        $source = $this->getShuffledArray(100);
 
         $bubbled = $this->loopSort($source);
 
@@ -35,7 +35,7 @@ class AlgorithmController extends Controller
         return $data;
     }
 
-    private function getShuffledArray(int $length = 100): array
+    private function getShuffledArray(int $length = 10): array
     {
         $data = [];
 

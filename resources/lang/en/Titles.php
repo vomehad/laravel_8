@@ -7,11 +7,18 @@ return [
         'create' =>  'Create',
     ],
     'home' => 'Home',
+    'kinsmans' => [
+        'create' => 'Create',
+        'edit' => 'Edit',
+        'index' => 'list',
+        'show' => 'Detail'
+    ],
     'tags' => [
         'index' => 'Tags',
         'create' => 'Create',
     ],
     'test' => [
+        'main' => 'cookie page',
         'categories' => [
             'index' => 'Categories',
             'create' => 'Create',
@@ -22,6 +29,7 @@ return [
             'search' => 'Found',
         ]
     ],
+    'sort' => 'Bubble sort',
     'users' => [
         'index' => 'Users',
         'edit' => 'Edit'

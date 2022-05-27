@@ -31,9 +31,19 @@ class CreateKinsmansTable extends Migration
                 $table->tinyText('name');
                 $table->tinyText('middle_name');
                 $table->tinyText('gender');
-                $table->foreignId('father_id')->constrained('kinsmans')->cascadeOnUpdate()->cascadeOnDelete();
-                $table->foreignId('mother_id')->constrained('kinsmans')->cascadeOnUpdate()->cascadeOnDelete();
-                $table->foreignId('kin_id')->constrained('kins');
+                $table->foreignId('father_id')
+                    ->nullable()
+                    ->constrained('kinsmans')
+                    ->cascadeOnUpdate()
+                    ->cascadeOnDelete();
+                $table->foreignId('mother_id')
+                    ->nullable()
+                    ->constrained('kinsmans')
+                    ->cascadeOnUpdate()
+                    ->cascadeOnDelete();
+                $table->foreignId('kin_id')
+                    ->nullable()
+                    ->constrained('kins');
                 $table->timestamps();
                 $table->boolean('active')->default(true);
                 $table->softDeletes();

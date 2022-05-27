@@ -3,11 +3,8 @@
     @php /** @var \App\Models\Kinsman $model */ @endphp
     <div class="content">
         <div class="form-wrap">
-            <form action="{{ route('kinsmans.update', $model->id) }}" method="post" class="row">
+            <form action="{{ route('kinsmans.store') }}" method="post" class="row">
                 @csrf
-                <input type="hidden" name="id" value="{{ $model->id }}" />
-                @method('PUT')
-
                 <div class="col-md-12">
                     <label for="name" class="form-label">{{ __('Kinsman.Label.Name') }}</label>
                     <input type="text"
@@ -55,7 +52,7 @@
 
                 <div class="col-md-12">
                     <label for="father" class="form-label">{{ __('Kinsman.Label.Father') }}</label>
-                    <select name="father_id" id="father" class="@error('father') border-danger @enderror">
+                    <select name="father" id="father" class="@error('father') border-danger @enderror">
                         <option value="{{ null }}"></option>
                         @foreach($fathers as $father)
                             <option value="{{ $father->id }}">{{ $father->name }}</option>
@@ -70,7 +67,7 @@
 
                 <div class="col-md-12">
                     <label for="mother" class="form-label">{{ __('Kinsman.Label.Mother') }}</label>
-                    <select name="mother_id" id="father" class="@error('mother') border-danger @enderror">
+                    <select name="mother" id="father" class="@error('mother') border-danger @enderror">
                         <option value="{{ null }}"></option>
                         @foreach($mothers as $mother)
                             <option value="{{ $mother->id }}">{{ $mother->name }}</option>
@@ -85,7 +82,7 @@
 
                 <div class="col-md-12">
                     <label for="kin" class="form-label">{{ __('Kinsman.Label.Kin') }}</label>
-                    <select name="kin_id" id="father" class="@error('kin') border-danger @enderror">
+                    <select name="kin" id="father" class="@error('kin') border-danger @enderror">
                         <option value="{{ null }}"></option>
                         @foreach($kins as $kin)
                             <option value="{{ $kin->id }}">{{ $kin->name }}</option>
@@ -99,7 +96,7 @@
                 @enderror
 
                 <div class="ml-5">
-                    <button type="submit" class="btn btn-success">{{ __('Kinsman.Button.Update') }}</button>
+                    <button type="submit" class="btn btn-success">{{ __('Kinsman.Button.Save') }}</button>
                 </div>
             </form>
         </div>

@@ -61,7 +61,6 @@ class ArticleController extends Controller
         $article = Article::with(['category'])->where(['id' => $id])->first();
 
         return view('articles.show', [
-            'title' => $article->title,
             'model' => $article,
             'selected' => $article->category->toArray(),
             'nav' => $this->nav,

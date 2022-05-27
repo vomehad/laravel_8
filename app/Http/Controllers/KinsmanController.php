@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\KinsmanRequest;
+use App\Http\Requests\CreateKinsmanRequest;
+use App\Http\Requests\UpdateKinsmanRequest;
 use App\Repositories\KinsmanRepository;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class KinsmanController extends Controller
 {
@@ -39,7 +39,7 @@ class KinsmanController extends Controller
     {
         [$kinsman, $fathers, $mothers, $kins] = $this->repository->add();
 
-        return view('kinsmans.edit', [
+        return view('kinsmans.create', [
             'model' => $kinsman,
             'fathers' => $fathers,
             'mothers' => $mothers,
@@ -52,11 +52,11 @@ class KinsmanController extends Controller
      * Store a newly created resource in storage.
      *
      */
-    public function store(KinsmanRequest $request): RedirectResponse
+    public function store(CreateKinsmanRequest $request): RedirectResponse
     {
-        $dto = $request->all();
+        $dto = $request->createDto();
 
-        $kinsmanId = $this->repository->save($dto);
+        $kinsmanId = $this->repository->create($dto);
 
         return redirect()->route('kinsmans.show', $kinsmanId);
     }
@@ -64,35 +64,53 @@ class KinsmanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show($id)
+    public function show(int $id)
     {
-        //
+        $kinsman = $this->repository->getOne($id);
+        $children = $this->repository->getChildren($id);
+
+        return view('kinsmans.show', [
+            'model' => $kinsman,
+            'children' => $children,
+            'nav' =>$this->nav
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit($id)
+    public function edit(int $id)
     {
-        //
+        [$kinsman, $fathers, $mothers, $kins] = $this->repository->edit($id);
+
+        return view('kinsmans.edit', [
+            'model' => $kinsman,
+            'fathers' => $fathers,
+            'mothers' => $mothers,
+            'kins' => $kins,
+            'nav' => $this->nav
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \App\Http\Requests\UpdateKinsmanRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpdateKinsmanRequest $request): RedirectResponse
     {
-        //
+        $dto = $request->createDto();
+
+        $kinsmanId = $this->repository->update($dto);
+
+        return redirect()->route('kinsmans.show', $kinsmanId);
     }
 
     /**

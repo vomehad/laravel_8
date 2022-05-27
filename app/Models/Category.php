@@ -35,7 +35,6 @@ class Category extends Model
     {
         return self::select(['id', 'name'])
             ->where(['is_active' => true])
-            ->where(['is_deleted' => false])
             ->get();
     }
 }

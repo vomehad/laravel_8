@@ -16,7 +16,6 @@ class AddColumnsToUsers extends Migration
         if (!Schema::hasColumns('users', ['name', 'active'])) {
             Schema::table('users', function (Blueprint $table) {
                 $table->tinyText('name')->nullable();
-                $table->boolean('active')->default(true);
             });
         }
     }

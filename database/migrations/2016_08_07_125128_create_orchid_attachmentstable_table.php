@@ -39,11 +39,11 @@ class CreateOrchidAttachmentstableTable extends Migration
                 $table->unsignedInteger('attachment_id');
 
                 $table->index(['attachmentable_type', 'attachmentable_id']);
-                $table->foreignId('attachment_id')
-                    ->nullable(false)
-                    ->constrained('attachments')
-                    ->cascadeOnUpdate()
-                    ->cascadeOnDelete();
+                $table->foreign('attachment_id')
+                    ->references('id')
+                    ->on('attachments')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
             });
         }
     }

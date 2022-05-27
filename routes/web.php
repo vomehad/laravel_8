@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\CookieController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\KinsmanController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\UserController;
@@ -13,14 +14,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [UserController::class, 'home'])->name('home');
 
-Route::name('kinsman.')->prefix('/kinsman')->group(function() {
-    Route::get('/create', [UserController::class, 'create'])->name('create');
-    Route::post('/store', [UserController::class, 'store'])->name('store');
-    Route::match(['get', 'post'],'/login', [AuthController::class, 'login'])->name('Login');
-//    Route::post('/store', [AuthController::class, 'store'])->name('s');
-    Route::get('/logout', [AuthController::class, 'logout'])->name('Logout');
-
-    Route::get('/account', [UserController::class, 'account'])->middleware('auth')->name('Account');
+Route::prefix('/')->group(function() {
+    Route::match(['get', 'post'],'/kinsmans/search', [NoteController::class, 'search'])->name('kinsmans.search');
+    Route::resource('kinsmans', KinsmanController::class);
 });
 
 Route::group(['prefix' => '/game'], function() {

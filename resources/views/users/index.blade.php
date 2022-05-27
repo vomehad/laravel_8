@@ -1,11 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    <div class="control">
-        <a href="{{ route('kinsman.create') }}"
-           class="btn btn-success"
-        >{{ __('Kinsman.Button.Create') }}</a>
-    </div>
-
     <div class="content">
         @foreach($models as $user)
             @php /** @var \App\Models\User $user */ @endphp

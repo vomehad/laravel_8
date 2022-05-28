@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\AlgorithmController;
 use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\CookieController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\KinController;
 use App\Http\Controllers\KinsmanController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\Admin\TagController;
@@ -15,8 +15,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [UserController::class, 'home'])->name('home');
 
 Route::prefix('/')->group(function() {
-    Route::match(['get', 'post'],'/kinsmans/search', [NoteController::class, 'search'])->name('kinsmans.search');
+    Route::match(['get', 'post'],'/kinsmans/search', [KinsmanController::class, 'search'])->name('kinsmans.search');
     Route::resource('kinsmans', KinsmanController::class);
+});
+
+Route::prefix('/')->group(function() {
+    Route::match(['get', 'post'],'/kins/search', [KinController::class, 'search'])->name('kins.search');
+    Route::resource('kins', KinController::class);
 });
 
 Route::group(['prefix' => '/game'], function() {

@@ -39,6 +39,8 @@
             </tbody>
         </table>
         <hr>
+
+        @if($children->count())
         <div class="">{{ __('Kinsman.Children.List') }}</div>
         <table>
             <thead>
@@ -74,7 +76,7 @@
                 @endif
 
                 @isset($child->kin->id)
-                    <td><a href="{{ route('kinsman', $child->kin->id) }}">{{ $child->kin->name }}</a></td>
+                    <td><a href="{{ route('kins.show', $child->kin->id) }}">{{ $child->kin->name }}</a></td>
                 @else
                     <td><div class="starter-template">{{ $child->kin->name ?? '-' }}</div></td>
                 @endif
@@ -86,5 +88,6 @@
             @endforeach
             </tbody>
         </table>
+        @endif
     </main>
 @endsection

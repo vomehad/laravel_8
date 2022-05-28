@@ -17,10 +17,6 @@ class KinsmanController extends Controller
         $this->repository = $repository;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     */
     public function index()
     {
         $kinsmans = $this->repository->getAll(12);
@@ -31,10 +27,6 @@ class KinsmanController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     */
     public function create()
     {
         [$kinsman, $fathers, $mothers, $kins] = $this->repository->add();
@@ -48,10 +40,6 @@ class KinsmanController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     */
     public function store(CreateKinsmanRequest $request): RedirectResponse
     {
         $dto = $request->createDto();
@@ -61,12 +49,6 @@ class KinsmanController extends Controller
         return redirect()->route('kinsmans.show', $kinsmanId);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
     public function show(int $id)
     {
         $kinsman = $this->repository->getOne($id);
@@ -79,31 +61,20 @@ class KinsmanController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
     public function edit(int $id)
     {
-        [$kinsman, $fathers, $mothers, $kins] = $this->repository->edit($id);
+        [$kinsman, $fathers, $mothers, $kins, $selected] = $this->repository->edit($id);
 
         return view('kinsmans.edit', [
             'model' => $kinsman,
             'fathers' => $fathers,
             'mothers' => $mothers,
             'kins' => $kins,
+            'selected' => $selected,
             'nav' => $this->nav
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \App\Http\Requests\UpdateKinsmanRequest $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function update(UpdateKinsmanRequest $request): RedirectResponse
     {
         $dto = $request->createDto();

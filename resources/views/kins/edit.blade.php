@@ -1,12 +1,9 @@
 @extends('layouts.app')
 @section('content')
-    @php
-        /** @var \App\Models\Kinsman $model */
-        /** @var \App\Dto\SelectedDto $selected */
-     @endphp
+    @php /** @var \App\Models\Kin $model */ @endphp
     <div class="content">
         <div class="form-wrap">
-            <form action="{{ route('kinsmans.update', $model->id) }}" method="post" class="row">
+            <form action="{{ route('kins.update', $model->id) }}" method="post" class="row">
                 @csrf
                 <input type="hidden" name="id" value="{{ $model->id }}" />
                 @method('PUT')
@@ -46,9 +43,8 @@
                 <div class="col-md-12">
                     <label for="gender" class="form-label">{{ __('Kinsman.Label.Gender') }}</label>
                     <select name="gender" id="gender" class="@error('gender') border-danger @enderror">
-                        @foreach(['male', 'female'] as $gender)
-                            <option value="{{ $gender }}" {{ $gender === $model->gender ? 'selected' : '' }}>{{ __('Kinsman.Select.' . $gender) }}</option>
-                        @endforeach
+                            <option value="male">{{ __('Kinsman.Select.Male') }}</option>
+                            <option value="female">{{ __('Kinsman.Select.Female') }}</option>
                     </select>
                 </div>
                 @error('gender')
@@ -62,7 +58,7 @@
                     <select name="father_id" id="father" class="@error('father') border-danger @enderror">
                         <option value="{{ null }}"></option>
                         @foreach($fathers as $father)
-                            <option value="{{ $father->id }}" {{ ($father->id === $selected->fatherId) ? 'selected' : '' }}>{{ $father->name }} {{ $father->middle_name }}</option>
+                            <option value="{{ $father->id }}">{{ $father->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -77,7 +73,7 @@
                     <select name="mother_id" id="father" class="@error('mother') border-danger @enderror">
                         <option value="{{ null }}"></option>
                         @foreach($mothers as $mother)
-                            <option value="{{ $mother->id }}" {{ ($mother->id === ($model->mother->id ?? null)) ? 'selected' : '' }}>{{ $mother->name }} {{ $mother->middle_name }}</option>
+                            <option value="{{ $mother->id }}">{{ $mother->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -89,10 +85,10 @@
 
                 <div class="col-md-12">
                     <label for="kin" class="form-label">{{ __('Kinsman.Label.Kin') }}</label>
-                    <select name="kin_id" id="kin" class="@error('kin') border-danger @enderror">
+                    <select name="kin_id" id="father" class="@error('kin') border-danger @enderror">
                         <option value="{{ null }}"></option>
                         @foreach($kins as $kin)
-                            <option value="{{ $kin->id }}" {{ ($kin->id === ($model->kin->id ?? null)) ? 'selected' : '' }}>{{ $kin->name }}</option>
+                            <option value="{{ $kin->id }}">{{ $kin->name }}</option>
                         @endforeach
                     </select>
                 </div>

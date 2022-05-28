@@ -38,8 +38,8 @@ return [
         'Kin' => 'Kin'
     ],
     'Select' => [
-        'Male' => 'Man',
-        'Female' => 'Women'
+        'male' => 'Man',
+        'female' => 'Women'
     ],
     'Table' => [
         'Name' => 'Name',

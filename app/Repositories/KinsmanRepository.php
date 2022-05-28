@@ -2,48 +2,46 @@
 
 namespace App\Repositories;
 
-use App\Models\Article;
+use App\Dto\KinsmanDto;
+use App\Dto\SelectedDto;
+use App\Interfaces\RepositoryInterface;
 use App\Models\Kin;
 use App\Models\Kinsman;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class KinsmanRepository extends BaseRepository
+class KinsmanRepository extends BaseRepository implements RepositoryInterface
 {
-    /*private Kinsman $model;
+    private Kinsman $kinsmanModel;
+    private Kin $kinModel;
 
-    public function __construct(Kinsman $model)
+    public function __construct(Kinsman $kinsmanModel, Kin $kinModel)
     {
-        $this->model = $model;
-    }*/
+        $this->kinsmanModel = $kinsmanModel;
+        $this->kinModel = $kinModel;
+    }
 
     public function getAll(int $perPage = 10)
     {
-        $kinsman = app(Kinsman::class);
-
-        return $kinsman->paginate($perPage);
+        return $this->kinsmanModel->paginate($perPage);
     }
 
     public function add(): array
     {
-        $kinsman = app(Kinsman::class);
-        $fathers = $kinsman->where(['gender' => 'male'])
+        $fathers = $this->kinsmanModel->where(['gender' => 'male'])
             ->get()
             ->keyBy('id');
-        $mothers = $kinsman->where(['gender' => 'female'])
+        $mothers = $this->kinsmanModel->where(['gender' => 'female'])
             ->get()
             ->keyBy('id');
-        $kins = app(Kin::class)->where(['active' => true])
+        $kins = $this->kinModel->where(['active' => true])
             ->get()
             ->keyBy('id');
 
-        return [$kinsman, $fathers, $mothers, $kins];
+        return [$this->kinsmanModel, $fathers, $mothers, $kins];
     }
 
-    public function create($dto)
+    public function create($dto): int
     {
-        $kinsman = app(Kinsman::class);
-
-        $kinsman = $this->setFields($kinsman, $dto);
+        $kinsman = $this->setFields($this->kinsmanModel, $dto);
 
         $kinsman->save();
 
@@ -52,25 +50,28 @@ class KinsmanRepository extends BaseRepository
 
     public function edit(int $id): array
     {
-        $model = app(Kinsman::class);
-
-        $kinsman = $model->where(['id' => $id])->first();
-        $fathers = $model->where(['gender' => 'male'])
+        $kinsman = $this->kinsmanModel->where(['id' => $id])->first();
+        $fathers = $this->kinsmanModel->where(['gender' => 'male'])
             ->get()
             ->keyBy('id');
-        $mothers = $model->where(['gender' => 'female'])
+        $mothers = $this->kinsmanModel->where(['gender' => 'female'])
             ->get()
             ->keyBy('id');
-        $kins = app(Kin::class)->where(['active' => true])
+        $kins = $this->kinModel->where(['active' => true])
             ->get()
             ->keyBy('id');
 
-        return [$kinsman, $fathers, $mothers, $kins];
+        $selected = new SelectedDto();
+        $selected->fatherId = $kinsman->father->id ?? null;
+        $selected->motherId = $kinsman->mother->id ?? null;
+        $selected->kinId = $kinsman->kin->id ?? null;
+
+        return [$kinsman, $fathers, $mothers, $kins, $selected];
     }
 
-    public function update($dto)
+    public function update($dto): int
     {
-        $kinsman = app(Kinsman::class)->findOrNew($dto->id);
+        $kinsman = $this->kinsmanModel->findOrNew($dto->id);
 
         $kinsman = $this->setFields($kinsman, $dto);
 
@@ -81,34 +82,26 @@ class KinsmanRepository extends BaseRepository
 
     public function getOne(int $id)
     {
-        $kinsman = app(Kinsman::class)
+        return $this->kinsmanModel
             ->with([
-                'father' => function ($query) {
-                    $query->where(['gender' => 'male']);
-                },
-                'mother' => function ($query) {
-                    $query->where(['gender' => 'female']);
-                },
+                'father',
+                'mother',
                 'kin'
             ])
             ->where(['id' => $id])
             ->where(['active' => true])
             ->first();
-
-        return $kinsman;
     }
 
     public function getChildren(int $id)
     {
-        $kinsmans = app(Kinsman::class)
+        return $this->kinsmanModel
             ->orWhere(['father_id' => $id])
             ->orWhere(['mother_id' => $id])
             ->get();
-
-        return $kinsmans;
     }
 
-    private function setFields($kinsman, $dto)
+    private function setFields(Kinsman $kinsman, KinsmanDto $dto): Kinsman
     {
         foreach ($dto as $prop => $value) {
             if ($dto->$prop) {

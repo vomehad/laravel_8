@@ -32,21 +32,13 @@ class Article extends Model
         'text',
     ];
 
-    public function getPreview(int $long = 512): string
-    {
-        $pattern = '/\.([^.]*)$/';
-        $previewText = mb_substr(strip_tags($this->text), 0, $long);
-
-        return preg_replace($pattern, '.', $previewText);
-    }
-
     public function category(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
     }
 
-    public function tags(): MorphToMany
-    {
-        return $this->morphToMany(Tag::class, 'taggable');
-    }
+//    public function tags(): MorphToMany
+//    {
+//        return $this->morphToMany(Tag::class, 'taggable');
+//    }
 }

@@ -5,10 +5,14 @@ namespace App\Dto;
 use App\Interfaces\DtoInterface;
 use Illuminate\Support\Arr;
 
-class KinDto implements DtoInterface
+class ArticleDto implements DtoInterface
 {
     public int $id;
-    public string $name;
+    public string $title;
+    public string $link;
+    public array $category;
+    public string $text;
+    public $file;
 
     public function createFromRequest(array $fields): DtoInterface
     {

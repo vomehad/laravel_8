@@ -18,6 +18,11 @@ class CreateNotesTable extends Migration
                 $table->id();
                 $table->tinyText('name')->nullable(false);
                 $table->text('content')->nullable(true);
+                $table->foreignId('parent_id')
+                    ->nullable()
+                    ->constrained('notes')
+                    ->cascadeOnUpdate()
+                    ->cascadeOnDelete();
                 $table->timestamps();
                 $table->boolean('active')->default(true);
                 $table->softDeletes();

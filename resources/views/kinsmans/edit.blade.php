@@ -59,14 +59,14 @@
 
                 <div class="col-md-12">
                     <label for="father" class="form-label">{{ __('Kinsman.Label.Father') }}</label>
-                    <select name="father_id" id="father" class="@error('father') border-danger @enderror">
+                    <select name="father_id" id="father" class="@error('father_id') border-danger @enderror">
                         <option value="{{ null }}"></option>
                         @foreach($fathers as $father)
                             <option value="{{ $father->id }}" {{ ($father->id === $selected->fatherId) ? 'selected' : '' }}>{{ $father->name }} {{ $father->middle_name }}</option>
                         @endforeach
                     </select>
                 </div>
-                @error('father')
+                @error('father_id')
                 <div class="alert alert-danger">
                     <span>{{ $message }}</span>
                 </div>
@@ -74,14 +74,14 @@
 
                 <div class="col-md-12">
                     <label for="mother" class="form-label">{{ __('Kinsman.Label.Mother') }}</label>
-                    <select name="mother_id" id="father" class="@error('mother') border-danger @enderror">
+                    <select name="mother_id" id="father" class="@error('mother_id') border-danger @enderror">
                         <option value="{{ null }}"></option>
                         @foreach($mothers as $mother)
                             <option value="{{ $mother->id }}" {{ ($mother->id === ($model->mother->id ?? null)) ? 'selected' : '' }}>{{ $mother->name }} {{ $mother->middle_name }}</option>
                         @endforeach
                     </select>
                 </div>
-                @error('mother')
+                @error('mother_id')
                 <div class="alert alert-danger">
                     <span>{{ $message }}</span>
                 </div>
@@ -89,14 +89,14 @@
 
                 <div class="col-md-12">
                     <label for="kin" class="form-label">{{ __('Kinsman.Label.Kin') }}</label>
-                    <select name="kin_id" id="kin" class="@error('kin') border-danger @enderror">
+                    <select name="kin_id" id="kin" class="@error('kin_id') border-danger @enderror">
                         <option value="{{ null }}"></option>
                         @foreach($kins as $kin)
                             <option value="{{ $kin->id }}" {{ ($kin->id === ($model->kin->id ?? null)) ? 'selected' : '' }}>{{ $kin->name }}</option>
                         @endforeach
                     </select>
                 </div>
-                @error('kin')
+                @error('kin_id')
                 <div class="alert alert-danger">
                     <span>{{ $message }}</span>
                 </div>

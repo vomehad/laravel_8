@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 
@@ -15,7 +16,6 @@ use Laravel\Scout\Searchable;
  * @property int        $id
  * @property string     $name
  * @property string     $content
- * @property string     $updated_at
  *
  * @method static find(int $id)
  */
@@ -31,11 +31,16 @@ class Note extends Model
         'content',
     ];
 
-    /**
-     * @return HasMany
-     */
-    public function category(): HasMany
+    public function category(): BelongsToMany
     {
-        return $this->hasMany(Category::class);
+        return $this->belongsToMany(Category::class);
+    }
+
+    public function parentNote(): BelongsTo
+    {
+        return $this->belongsTo(Note::class, 'parent_id', 'id')->withDefault([
+            'active' => true,
+            'parent_id' => null
+        ]);
     }
 }

@@ -2,16 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Dto\ArticleDto;
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * Class ArticleRequestStore
- * @package App\Http\Requests
- *
- * @property int    $id
- * @property string $title
- */
-class ArticleRequestStore extends FormRequest
+class CreateArticleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,7 +14,6 @@ class ArticleRequestStore extends FormRequest
      */
     public function authorize(): bool
     {
-//        return auth()->check();
         return true;
     }
 
@@ -33,8 +26,14 @@ class ArticleRequestStore extends FormRequest
     {
         return [
             'title' => 'required|min:5|max:128',
-            'text' => 'required|min:3',
+            'link' => 'nullable|string:regex:/^http(s)?:\/\/(.*)/',
             'category.*' => 'required|integer|exists:categories,id',
+            'text' => 'required|min:3',
         ];
+    }
+
+    public function createDto(): ArticleDto
+    {
+        return app(ArticleDto::class)->createFromRequest($this->validated());
     }
 }

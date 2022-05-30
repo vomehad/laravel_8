@@ -2,13 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Dto\KinsmanDto;
 use App\Dto\SelectedDto;
+use App\Interfaces\DtoInterface;
+use App\Interfaces\InheritInterface;
 use App\Interfaces\RepositoryInterface;
 use App\Models\Kin;
 use App\Models\Kinsman;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Model;
 
-class KinsmanRepository extends BaseRepository implements RepositoryInterface
+class KinsmanRepository extends BaseRepository implements RepositoryInterface, InheritInterface
 {
     private Kinsman $kinsmanModel;
     private Kin $kinModel;
@@ -19,45 +22,68 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface
         $this->kinModel = $kinModel;
     }
 
-    public function getAll(int $perPage = 10)
+    public function getAll(int $perPage = 10, string $search = ''): LengthAwarePaginator
     {
-        return $this->kinsmanModel->paginate($perPage);
+        $kinsmans = $this->kinsmanModel;
+
+        if ($search) {
+            $kinsmans = $this->kinsmanModel->search($search);
+        }
+
+        return $kinsmans->paginate($perPage);
+    }
+
+    public function getOne(int $id): ?Model
+    {
+        return $this->kinsmanModel
+            ->with(['father', 'mother', 'kin'])
+            ->where(['id' => $id])
+            ->where(['active' => true])
+            ->first();
     }
 
     public function add(): array
     {
-        $fathers = $this->kinsmanModel->where(['gender' => 'male'])
+        $fathers = $this->kinsmanModel
+            ->where(['gender' => 'male'])
             ->get()
             ->keyBy('id');
-        $mothers = $this->kinsmanModel->where(['gender' => 'female'])
+        $mothers = $this->kinsmanModel
+            ->where(['gender' => 'female'])
             ->get()
             ->keyBy('id');
-        $kins = $this->kinModel->where(['active' => true])
+        $kins = $this->kinModel
+            ->where(['active' => true])
             ->get()
             ->keyBy('id');
 
         return [$this->kinsmanModel, $fathers, $mothers, $kins];
     }
 
-    public function create($dto): int
+    public function create(DtoInterface $dto): ?int
     {
         $kinsman = $this->setFields($this->kinsmanModel, $dto);
 
-        $kinsman->save();
+        $saved = $kinsman->save();
 
-        return $kinsman->id;
+        return $saved ? $kinsman->id : null;
     }
 
     public function edit(int $id): array
     {
-        $kinsman = $this->kinsmanModel->where(['id' => $id])->first();
-        $fathers = $this->kinsmanModel->where(['gender' => 'male'])
+        $kinsman = $this->kinsmanModel
+            ->where(['id' => $id])
+            ->first();
+        $fathers = $this->kinsmanModel
+            ->where(['gender' => 'male'])
             ->get()
             ->keyBy('id');
-        $mothers = $this->kinsmanModel->where(['gender' => 'female'])
+        $mothers = $this->kinsmanModel
+            ->where(['gender' => 'female'])
             ->get()
             ->keyBy('id');
-        $kins = $this->kinModel->where(['active' => true])
+        $kins = $this->kinModel
+            ->where(['active' => true])
             ->get()
             ->keyBy('id');
 
@@ -69,28 +95,15 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface
         return [$kinsman, $fathers, $mothers, $kins, $selected];
     }
 
-    public function update($dto): int
+    public function update(DtoInterface $dto): ?int
     {
         $kinsman = $this->kinsmanModel->findOrNew($dto->id);
 
         $kinsman = $this->setFields($kinsman, $dto);
 
-        $kinsman->update();
+        $updated = $kinsman->update();
 
-        return $kinsman->id;
-    }
-
-    public function getOne(int $id)
-    {
-        return $this->kinsmanModel
-            ->with([
-                'father',
-                'mother',
-                'kin'
-            ])
-            ->where(['id' => $id])
-            ->where(['active' => true])
-            ->first();
+        return $updated ? $kinsman->id : null;
     }
 
     public function getChildren(int $id)
@@ -101,7 +114,17 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface
             ->get();
     }
 
-    private function setFields(Kinsman $kinsman, KinsmanDto $dto): Kinsman
+    public function remove(int $id): string
+    {
+        // TODO: Implement remove() method.
+    }
+
+    public function restore(int $id): string
+    {
+        // TODO: Implement restore() method.
+    }
+
+    private function setFields(Kinsman $kinsman, DtoInterface $dto): Kinsman
     {
         foreach ($dto as $prop => $value) {
             if ($dto->$prop) {

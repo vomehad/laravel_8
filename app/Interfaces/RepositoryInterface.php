@@ -2,19 +2,24 @@
 
 namespace App\Interfaces;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Model;
+
 interface RepositoryInterface
 {
-    public function getAll();
+    public function getAll(): LengthAwarePaginator;
 
-    public function getOne(int $id);
+    public function getOne(int $id): ?Model;
 
-    public function add();
+    public function add(): array;
 
-    public function create($dto);
+    public function create(DtoInterface $dto): ?int;
 
     public function edit(int $id);
 
-    public function update($dto);
+    public function update(DtoInterface $dto): ?int;
 
-    public function getChildren(int $id);
+    public function remove(int $id): string;
+
+    public function restore(int $id): string;
 }

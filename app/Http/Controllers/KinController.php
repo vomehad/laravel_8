@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateKinRequest;
+use App\Http\Requests\UpdateKinsmanRequest;
 use App\Repositories\KinRepository;
 use Illuminate\Http\RedirectResponse;
 
@@ -55,12 +56,6 @@ class KinController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
     public function edit(int $id)
     {
         [$kinsman, $fathers, $mothers, $kins] = $this->repository->edit($id);
@@ -74,12 +69,6 @@ class KinController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \App\Http\Requests\UpdateKinsmanRequest $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function update(UpdateKinsmanRequest $request): RedirectResponse
     {
         $dto = $request->createDto();
@@ -89,12 +78,6 @@ class KinController extends Controller
         return redirect()->route('kinsmans.show', $kinsmanId);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

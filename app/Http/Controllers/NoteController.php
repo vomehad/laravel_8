@@ -2,19 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\NameHelper;
+use App\Http\Requests\UpdateNoteRequest;
 use App\Models\Note;
-use App\Http\Requests\NoteRequest;
+use App\Http\Requests\CreateNoteRequest;
+use App\Repositories\NoteRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Lang;
 
 class NoteController extends Controller
 {
+    private const PER_PAGE = 10;
+
+    private NoteRepository $repository;
+
+    public function __construct(NoteRepository $repository)
+    {
+        parent::__construct();
+        $this->repository = $repository;
+    }
+
     public function index(): string
     {
-        $notes = $this->getNotes();
+        $notes = $this->repository->getAll(self::PER_PAGE);
 
         return view('notes.index', [
             'models' => $notes,
@@ -24,24 +34,25 @@ class NoteController extends Controller
 
     public function create(): string
     {
-        $note = new Note();
+        [$note, $notes, $categories] = $this->repository->add();
 
-        return view('notes.edit', [
+        return view('notes.create', [
             'model' => $note,
+            'parentNotes' => $notes,
+            'categories' => $categories,
             'nav' => $this->nav,
         ]);
     }
 
-    public function store(NoteRequest $request): RedirectResponse
+    public function store(CreateNoteRequest $request): RedirectResponse
     {
-        $note = Note::findOrNew($request->id);
+        $dto = $request->createDto();
 
-        $data = $request->input();
-        $saved = $note->fill($data)->save();
+        $noteId = $this->repository->create($dto);
 
-        if ($saved) {
+        if ($noteId) {
             return redirect()
-                ->route('test.notes.show', $note->id)
+                ->route('test.notes.show', $noteId)
                 ->with(['success' => Lang::get('Note.Message.Saved')]);
         } else {
             return back()
@@ -53,56 +64,62 @@ class NoteController extends Controller
     public function show(int $id): string
     {
         /** @var Note $note */
-        $note = Note::find($id);
+        $note = $this->repository->getOne($id);
+        $children = $this->repository->getChildren($id);
 
         return view('notes.show', [
             'title' => $note->name,
             'model' => $note,
+            'children' => $children,
             'nav' => $this->nav,
         ]);
     }
 
     public function edit(int $id): string
     {
-        $note = Note::find($id);
+        /** @var Note $note */
+        [$note, $categories, $selected] = $this->repository->edit($id);
 
         return view('notes.edit', [
             'title' => $note->name,
             'model' => $note,
+            'categories' => $categories,
+            'selected' => $selected,
             'nav' => $this->nav,
         ]);
     }
 
+    public function update(UpdateNoteRequest $request): RedirectResponse
+    {
+        $dto = $request->createDto();
+
+        $noteId = $this->repository->update($dto);
+
+        if ($noteId) {
+            return redirect()
+                ->route('test.notes.show', $noteId)
+                ->with(['success' => Lang::get('Note.Message.Saved')]);
+        } else {
+            return back()
+                ->withErrors(['msg' => Lang::get('Note.Message.Error')])
+                ->withInput();
+        }
+    }
+
     public function destroy(int $id): string
     {
-        /** @var Note $note */
-        $note = Note::find($id);
-        $note->delete();
-
-        return NameHelper::getActionName();
+        return $this->repository->remove($id);
     }
 
     public function search(Request $request)
     {
         $string = $request->get('search') ?? $request->query->get('query') ?? '';
-        $notes = $this->getNotes($string);
+        $notes = $this->repository->getAll(self::PER_PAGE, $string);
 
         return view('notes.index', [
             'models' => $notes,
-            'nav' => $this->nav,
             'string' => $string,
+            'nav' => $this->nav,
         ]);
-    }
-
-    private function getNotes(string $search = ''): LengthAwarePaginator
-    {
-        $model = new Note();
-        $perPage = 10;
-
-        if ($search) {
-            $model = $model->search($search);
-        }
-
-        return $model->paginate($perPage);
     }
 }

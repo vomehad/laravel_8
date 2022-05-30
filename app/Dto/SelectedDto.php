@@ -2,17 +2,13 @@
 
 namespace App\Dto;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Support\Arrayable;
 
 class SelectedDto
 {
-    public $fatherId;
-    public $motherId;
-    public $kinId;
-
-    public function setFromModel(Model $model)
-    {
-
-        return $this;
-    }
+    public ?int $fatherId;
+    public ?int $motherId;
+    public ?int $kinId;
+    public ?int $noteId;
+    public Arrayable $categories;
 }

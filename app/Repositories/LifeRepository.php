@@ -2,10 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Dto\LifeDto;
+use App\Interfaces\DtoInterface;
 use App\Interfaces\RepositoryInterface;
-use App\Models\Kin;
 use App\Models\Life;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class LifeRepository extends BaseRepository implements RepositoryInterface
@@ -17,19 +18,19 @@ class LifeRepository extends BaseRepository implements RepositoryInterface
         $this->model = $model;
     }
 
-    public function getAll(int $perPage = 10)
+    public function getAll(int $perPage = 10): LengthAwarePaginator
     {
         $kins = $this->model->paginate($perPage);
 
         return $kins;
     }
 
-    public function add(): Life
+    public function add(): array
     {
-        return $this->model;
+        return [$this->model];
     }
 
-    public function create($dto): int
+    public function create(DtoInterface $dto): int
     {
         $kin = $this->setFields($this->model, $dto);
         $kin->slug = Str::slug($kin->name);
@@ -41,18 +42,7 @@ class LifeRepository extends BaseRepository implements RepositoryInterface
         return $kin->id;
     }
 
-    private function setFields(Life $kin, LifeDto $dto): Kin
-    {
-        foreach ($dto as $prop => $value) {
-            if ($dto->$prop) {
-                $kin->$prop = $value;
-            }
-        }
-
-        return $kin;
-    }
-
-    public function getOne(int $id)
+    public function getOne(int $id): ?Model
     {
         return $this->model
             ->where(['id' => $id])
@@ -65,7 +55,7 @@ class LifeRepository extends BaseRepository implements RepositoryInterface
         // TODO: Implement edit() method.
     }
 
-    public function update($dto)
+    public function update(DtoInterface $dto): ?int
     {
         // TODO: Implement update() method.
     }
@@ -73,5 +63,26 @@ class LifeRepository extends BaseRepository implements RepositoryInterface
     public function getChildren(int $id)
     {
         // TODO: Implement getChildren() method.
+    }
+
+    public function remove(int $id): string
+    {
+        // TODO: Implement remove() method.
+    }
+
+    public function restore(int $id): string
+    {
+        // TODO: Implement restore() method.
+    }
+
+    private function setFields(Life $kin, DtoInterface $dto): ?Model
+    {
+        foreach ($dto as $prop => $value) {
+            if ($dto->$prop) {
+                $kin->$prop = $value;
+            }
+        }
+
+        return $kin;
     }
 }

@@ -2,49 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\AlgorithmService;
+
 class AlgorithmController extends Controller
 {
-    /**
-     * @throws \Exception
-     */
+    private AlgorithmService $service;
+
+    public function __construct(AlgorithmService $service)
+    {
+        parent::__construct();
+        $this->service = $service;
+    }
+
     public function index()
     {
-        $source = $this->getShuffledArray(100);
-
-        $bubbled = $this->loopSort($source);
+        [$source, $bubbled] = $this->service->bubble();
 
         return view('algorithms.index', [
             'source' => $source,
             'bubbled' => $bubbled,
             'nav' => $this->nav
         ]);
-    }
-
-    public function loopSort($data)
-    {
-        for ($i = 0; $i <= count($data); $i++) {
-            for ($j = $i; $j <= count($data) - 1; $j++) {
-                if ($data[$i] > $data[$j]) {
-                    $tmp = $data[$i];
-                    $data[$i] = $data[$j];
-                    $data[$j] = $tmp;
-                }
-            }
-        }
-
-        return $data;
-    }
-
-    private function getShuffledArray(int $length = 10): array
-    {
-        $data = [];
-
-        for ($i = 1; $i <= $length; $i++) {
-            $data[] = $i;
-        }
-
-        shuffle($data);
-
-        return $data;
     }
 }

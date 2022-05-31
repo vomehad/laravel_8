@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Dto\CookieDto;
+use App\Interfaces\TransportInterface;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -9,7 +11,7 @@ use Illuminate\Validation\Rule;
  * @property int $numberHourly
  * @property int $numberForever
  */
-class AjaxRequest extends FormRequest
+class CreateCookieRequest extends FormRequest implements TransportInterface
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -44,5 +46,10 @@ class AjaxRequest extends FormRequest
                 'max:255',
             ],
         ];
+    }
+
+    public function createDto(): CookieDto
+    {
+        return app(CookieDto::class)->createFromRequest($this->validated());
     }
 }

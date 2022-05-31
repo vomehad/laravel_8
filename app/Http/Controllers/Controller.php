@@ -23,12 +23,12 @@ class Controller extends BaseController
     public function __construct()
     {
         $this->nav = [
-            ['url' => route('test.main'),               'name' => Lang::get('Test.Menu.Top')],
+            ['url' => route('test.cookie.index'),       'name' => Lang::get('Test.Menu.Top')],
             ['url' => route('test.notes.index'),        'name' => Lang::get('Note.Menu.Top')],
             ['url' => route('sort'),                    'name' => Lang::get('Algorithm.Menu.Top')],
             ['url' => route('articles.index'),          'name' => Lang::get('Article.Menu.Top')],
             ['url' => route('Game'),                    'name' => Lang::get('Game.Menu.Top')],
-            ['url' => route('kinsmans.index'),                 'name' => Lang::get('Kinsman.Menu.Top')],
+            ['url' => route('kinsmans.index'),          'name' => Lang::get('Kinsman.Menu.Top')],
         ];
     }
 }

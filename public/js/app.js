@@ -4170,8 +4170,8 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+ // const getCookieUrl = '/test/cookie';
 
-var getCookieUrl = '/test/cookie';
 var contentBlock = _jquery_3_6_0_min__WEBPACK_IMPORTED_MODULE_0___default()('.test-content'); // functions
 
 var showNewCookie = function showNewCookie(numbers, form) {
@@ -4264,6 +4264,7 @@ var cookieForm = contentBlock.find('form#cookie-form');
 cookieForm.on('submit', function (event) {
   event.preventDefault();
   disableButton(cookieForm);
+  var getCookieUrl = cookieForm.attr('data-url');
   _jquery_3_6_0_min__WEBPACK_IMPORTED_MODULE_0___default().ajax({
     url: cookieForm.attr('action'),
     method: "POST",

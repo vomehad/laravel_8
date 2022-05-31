@@ -3,9 +3,10 @@
 namespace App\Http\Requests;
 
 use App\Dto\ArticleDto;
+use App\Interfaces\TransportInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateArticleRequest extends FormRequest
+class CreateArticleRequest extends FormRequest implements TransportInterface
 {
     /**
      * Determine if the user is authorized to make this request.

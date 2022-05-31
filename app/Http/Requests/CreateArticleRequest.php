@@ -26,15 +26,15 @@ class CreateArticleRequest extends FormRequest implements TransportInterface
     public function rules(): array
     {
         return [
-            'title' => 'required|min:5|max:128',
-            'link' => 'nullable|string:regex:/^http(s)?:\/\/(.*)/',
-            'category.*' => 'required|integer|exists:categories,id',
-            'text' => 'required|min:3',
+            'article.title' => 'required|min:5|max:128',
+            'article.link' => 'nullable|string:regex:/^http(s)?:\/\/(.*)/',
+            'article.category.*' => 'required|integer|exists:categories,id',
+            'article.text' => 'required|min:3',
         ];
     }
 
     public function createDto(): ArticleDto
     {
-        return app(ArticleDto::class)->createFromRequest($this->validated());
+        return app(ArticleDto::class)->createFromRequest($this->validated(), 'article');
     }
 }

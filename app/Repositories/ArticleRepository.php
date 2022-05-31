@@ -121,6 +121,7 @@ class ArticleRepository extends BaseRepository implements RepositoryInterface
                 if (is_array($dto->$prop)) {
                     continue;
                 }
+
                 $article->$prop = $value;
             }
         }
@@ -128,7 +129,7 @@ class ArticleRepository extends BaseRepository implements RepositoryInterface
         return $article;
     }
 
-    private function getPreview(DtoInterface $dto, int $long = 512): string
+    private function getPreview(DtoInterface $dto, int $long = 255): string
     {
         $pattern = '/\.([^.]*)$/';
         $previewText = mb_substr(strip_tags($dto->text), 0, $long);

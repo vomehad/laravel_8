@@ -15,6 +15,7 @@ return [
         'Link' => 'Link',
         'Category' => 'click to select category',
     ],
+    'Message' => [],
     'Placeholder' => [
         'Title' => 'Enter title',
         'Text' => 'Start writing an article here',

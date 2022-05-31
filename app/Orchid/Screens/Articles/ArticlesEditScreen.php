@@ -107,7 +107,7 @@ class ArticlesEditScreen extends Screen
                     ->title(__('Article.Label.Active'))
                     ->sendTrueOrFalse(),
 
-                Relation::make('article.author')
+                Relation::make('article.created_by')
                     ->title('Author')
                     ->fromModel(User::class, 'name'),
 

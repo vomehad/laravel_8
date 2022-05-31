@@ -12,6 +12,7 @@ class ArticleDto implements DtoInterface
     public ?string $link;
     public bool $active;
     public array $category;
+    public int $created_by;
     public string $text;
     public $file;
 

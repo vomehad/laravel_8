@@ -56,8 +56,7 @@ class ArticleRepository extends BaseRepository implements RepositoryInterface
     {
         $article = $this->setFields($this->articleModel, $dto);
         $article->preview = $this->getPreview($dto);
-        $article->created_by = $this->setUser();
-        $article->disk = $this->setDisk($dto);
+        $article->disk = $this->setDisk();
 
         $saved = $article->save();
 
@@ -117,7 +116,7 @@ class ArticleRepository extends BaseRepository implements RepositoryInterface
     private function setFields(Article $article, DtoInterface $dto): Article
     {
         foreach ($dto as $prop => $value) {
-            if ($dto->$prop) {
+            if ($dto->$prop !== null) {
                 if (is_array($dto->$prop)) {
                     continue;
                 }
@@ -135,13 +134,6 @@ class ArticleRepository extends BaseRepository implements RepositoryInterface
         $previewText = mb_substr(strip_tags($dto->text), 0, $long);
 
         return preg_replace($pattern, '.', $previewText);
-    }
-
-    private function setUser(): ?int
-    {
-        $user = User::first();
-
-        return $user->id;
     }
 
     private function setDisk(): string

@@ -28,6 +28,7 @@ class CreateArticleRequest extends FormRequest implements TransportInterface
         return [
             'article.title' => 'required|min:5|max:128',
             'article.link' => 'nullable|string:regex:/^http(s)?:\/\/(.*)/',
+            'article.created_by' => 'required|integer|exists:users,id',
             'article.category.*' => 'required|integer|exists:categories,id',
             'article.text' => 'required|min:3',
         ];

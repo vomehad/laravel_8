@@ -123,7 +123,7 @@ class ArticlesEditScreen extends Screen
         ];
     }
 
-    public function create(Article $article, CreateArticleRequest $request): RedirectResponse
+    public function create(CreateArticleRequest $request): RedirectResponse
     {
         $dto = $request->createDto();
 
@@ -134,7 +134,7 @@ class ArticlesEditScreen extends Screen
         return redirect()->route('platform.articles');
     }
 
-    public function update(Article $article, UpdateArticleRequest $request): RedirectResponse
+    public function update(UpdateArticleRequest $request): RedirectResponse
     {
         $dto = $request->createDto();
 

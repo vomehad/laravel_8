@@ -4,9 +4,8 @@ namespace App\Orchid\Screens\Datetime;
 
 use App\Http\Requests\DateRequest;
 use App\Services\ExamService;
+use DateTimeInterface;
 use Orchid\Screen\Actions\ModalToggle;
-use Orchid\Screen\Fields\Code;
-use Orchid\Screen\Layouts\Modal;
 use Orchid\Support\Facades\Toast;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\DateTimer;
@@ -85,42 +84,6 @@ class DatetimeScreen extends Screen
 
             ])->title('period'),
 
-            Layout::modal(
-                'diffTime',
-                Layout::rows([
-
-                    Code::make('begin'),
-
-                    Code::make('end'),
-
-                ])
-            )->title(__('Datetime.Modal.Title'))
-                ->size(Modal::SIZE_LG)
-                ->withoutApplyButton(),
-
-            Layout::block(
-/*                Layout::view('platform::layouts.modal', [
-                    'apply' => __('Datetime.Model.Apply'),
-                    'close' => false,
-                    'size' => '',
-                    'type' => Modal::TYPE_CENTER,
-                    'key' => __('Datetime.Model.Title'),
-                    'title' => __('Datetime.Model.Title'),
-                    'turbo' => true,
-                    'commandBar' => [],
-                    'withoutApplyButton' => false,
-                    'withoutCloseButton' => false,
-                    'open' => false,
-                    'method' => null,
-                    'staticBackdrop' => false,
-                    'templateSlug' => '',
-                    'asyncEnable' => false,
-                    'asyncRoute' => false,
-                    'manyForms' => [],
-                ]),*/
-                (new Modal(__('Datetime.Model.Title')))
-            )
-
         ];
     }
 
@@ -130,27 +93,12 @@ class DatetimeScreen extends Screen
 
         [$begin, $end, $days, $month, $years] = $this->service->diffTwoDates($dto);
 
-        Toast::info(json_encode($begin));
-//        Toast::success(json_encode($end));
-//        Toast::error($days);
-//        Toast::warning($month);
-//        Toast::info($years);
-
-//        return $begin;
-    }
-
-    public function showDiffs(DateRequest $request)
-    {
-        $dto = $request->createDto();
-
-        [$begin, $end, $days, $month, $years] = $this->service->diffTwoDates($dto);
-
-        Toast::info(json_encode($begin));
-        //        Toast::success(json_encode($end));
-        //        Toast::error($days);
-        //        Toast::warning($month);
-        //        Toast::info($years);
-
-        //        return $begin;
+        return redirect()->route('platform.datetime.view', [
+            'begin' => $begin->format(DateTimeInterface::ISO8601),
+            'end' => $end->format(DateTimeInterface::ISO8601),
+            'days' => $days,
+            'month' => $month,
+            'years' => $years
+        ]);
     }
 }

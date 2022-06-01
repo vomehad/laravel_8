@@ -25,7 +25,7 @@ class ExamService
         return preg_replace($pattern, $replacement, $dto->text);
     }
 
-    public function diffTwoDates($dto)
+    public function diffTwoDates($dto): array
     {
         $begin = date_create($dto->begin);
         $end = date_create($dto->end);

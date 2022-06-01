@@ -9,6 +9,7 @@ use App\Orchid\Screens\Article\ArticleListScreen;
 use App\Orchid\Screens\Category\CategoryEditScreen;
 use App\Orchid\Screens\Category\CategoryListScreen;
 use App\Orchid\Screens\Datetime\DatetimeScreen;
+use App\Orchid\Screens\Datetime\DatetimeViewScreen;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;
 use App\Orchid\Screens\Examples\ExampleChartsScreen;
 use App\Orchid\Screens\Examples\ExampleFieldsAdvancedScreen;
@@ -105,44 +106,69 @@ Route::screen('example-advanced', ExampleFieldsAdvancedScreen::class)->name('pla
 
 //Route::screen('idea', 'Idea::class','platform.screens.idea');
 
+// Platform > Datetime > Roles
 Route::screen('datetime', DatetimeScreen::class)
     ->name('platform.datetime')
     ->breadcrumbs(function (Trail $trail) {
         return $trail->parent('platform.index')->push('Datetime');
     });
 
+// Platform > Datetime > View
+Route::screen('datetime/view', DatetimeViewScreen::class)
+    ->name('platform.datetime.view')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail->parent('platform.index')
+            ->push('platform.datetime', route('platform.datetime'))
+            ->push('Time diff');
+    });
+
+// Platform > Articles
 Route::screen('articles', ArticleListScreen::class)
     ->name('platform.articles')
     ->breadcrumbs(function (Trail $trail) {
         return $trail->parent('platform.index')->push(__('Article.Orchid.Menu'));
     });
 
+// Platform > Articles > Edit
 Route::screen('articles/{article}/edit', ArticleEditScreen::class)
     ->name('platform.article.edit')
     ->breadcrumbs(function (Trail $trail, Article $article) {
-        return $trail->parent('platform.articles')->push('platform.article.edit', (string)$article->id);
+        return $trail->parent('platform.index')
+            ->push(__('Article.Orchid.Menu'), route('platform.articles'))
+            ->push($article->title);
     });
 
+// Platform > Articles > Create
 Route::screen('articles/create', ArticleEditScreen::class)
     ->name('platform.article.create')
     ->breadcrumbs(function (Trail $trail) {
-        return $trail->parent('platform.articles')->push('platform.article.create');
+        return $trail->parent('platform.index')
+            ->push(__('Article.Orchid.Menu'), route('platform.articles'))
+            ->push('Create');
     });
 
+// Platform > Categories
 Route::screen('categories', CategoryListScreen::class)
     ->name('platform.categories')
     ->breadcrumbs(function (Trail $trail) {
-        return $trail->parent('platform.index')->push(__('Category.Orchid.Menu'));
+        return $trail->parent('platform.index')
+            ->push(__('Category.Orchid.Menu'));
     });
 
+// Platform > Categories > Edit
 Route::screen('categories/{category}/edit', CategoryEditScreen::class)
     ->name('platform.category.edit')
     ->breadcrumbs(function (Trail $trail, Category $category) {
-        return $trail->parent('platform.categories')->push('platform.category.edit', $category->id);
+        return $trail->parent('platform.index')
+            ->push(__('Category.Orchid.Menu'), route('platform.categories'))
+            ->push($category->name);
     });
 
+// Platform > Categories > Create
 Route::screen('categories/create', CategoryEditScreen::class)
     ->name('platform.category.create')
     ->breadcrumbs(function (Trail $trail) {
-        return $trail->parent('platform.categories')->push('platform.category.create');
+        return $trail->parent('platform.index')
+            ->push(__('Category.Orchid.Menu'), route('platform.categories'))
+            ->push('Create');
     });

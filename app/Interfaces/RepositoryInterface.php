@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 interface RepositoryInterface
 {
-    public function getAll(): LengthAwarePaginator;
+    public function getAll(array $options = []): LengthAwarePaginator;
 
     public function getOne(int $id): ?Model;
 

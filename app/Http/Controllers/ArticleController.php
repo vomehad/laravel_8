@@ -23,7 +23,12 @@ class ArticleController extends Controller
 
     public function index()
     {
-        $articles = $this->repository->getAll(self::PER_PAGE);
+        $options = [
+            'perPage' => self::PER_PAGE,
+            'defaultSort' => 'updated_at',
+        ];
+
+        $articles = $this->repository->getAll($options);
 
         return view('articles.index', [
             'models' => $articles,
@@ -109,12 +114,17 @@ class ArticleController extends Controller
 
     public function search(Request $request)
     {
-        $string = $request->get('search') ?? $request->query->get('query') ?? '';
-        $articles = $this->repository->getAll(self::PER_PAGE, $string);
+        $options = [
+            'perPage' => self::PER_PAGE,
+            'search' => $request->get('search') ?? $request->query->get('query') ?? '',
+            'defaultSearch' => 'updated_at',
+        ];
+
+        $articles = $this->repository->getAll($options);
 
         return view('articles.index', [
             'models' => $articles,
-            'string' => $string,
+            'string' => $options['string'],
             'nav' => $this->nav,
         ]);
     }

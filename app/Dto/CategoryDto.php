@@ -5,13 +5,13 @@ namespace App\Dto;
 use App\Interfaces\DtoInterface;
 use Illuminate\Support\Arr;
 
-class NoteDto implements DtoInterface
+class CategoryDto implements DtoInterface
 {
     public int $id;
     public string $name;
-    public array $category;
-    public ?int $parent_id;
-    public string $content;
+    public bool $active;
+    public array $article;
+    public array $note;
 
     public function createFromRequest(array $fields, string $prefix = ''): DtoInterface
     {

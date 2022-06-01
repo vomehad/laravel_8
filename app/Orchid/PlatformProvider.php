@@ -28,14 +28,11 @@ class PlatformProvider extends OrchidServiceProvider
     public function registerMainMenu(): array
     {
         return [
-            Menu::make('DateTime')
-                ->icon('history')
-                ->route('platform.datetime')
-                ->title('Grade')
-            ,
+            Menu::make('DateTime')->icon('history')->route('platform.datetime')->title('Grade'),
 
-            Menu::make('Articles')->icon('speech')->route('platform.articles')
-            ,
+            Menu::make(__('Article.Orchid.Menu'))->icon('speech')->route('platform.articles'),
+
+            Menu::make(__('Category.Orchid.Menu'))->icon('speech')->route('platform.categories'),
 
             Menu::make('Example screen')
                 ->icon('monitor')

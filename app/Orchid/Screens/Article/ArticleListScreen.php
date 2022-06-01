@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Orchid\Screens\Articles;
+namespace App\Orchid\Screens\Article;
 
-use App\Orchid\Layouts\Articles\ArticlesListLayout;
+use App\Orchid\Layouts\Article\ArticleListLayout;
 use App\Repositories\ArticleRepository;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
 
-class ArticlesListScreen extends Screen
+class ArticleListScreen extends Screen
 {
+    private const PER_PAGE = 10;
+
     private ArticleRepository $repository;
 
     public function __construct(ArticleRepository $repository)
@@ -23,8 +25,13 @@ class ArticlesListScreen extends Screen
      */
     public function query(): iterable
     {
+        $options = [
+            'perPage' => self::PER_PAGE,
+            'defaultSort' => 'updated_at'
+        ];
+
         return [
-            'articles' => $this->repository->getAll(),
+            'articles' => $this->repository->getAll($options),
         ];
     }
 
@@ -35,7 +42,7 @@ class ArticlesListScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Articles';
+        return __('Article.Orchid.Title');
     }
 
     public function description(): ?string
@@ -63,7 +70,7 @@ class ArticlesListScreen extends Screen
     public function layout(): iterable
     {
         return [
-            ArticlesListLayout::class
+            ArticleListLayout::class
         ];
     }
 }

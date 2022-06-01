@@ -24,7 +24,12 @@ class NoteController extends Controller
 
     public function index(): string
     {
-        $notes = $this->repository->getAll(self::PER_PAGE);
+        $options = [
+            'perPage' => self::PER_PAGE,
+            'defaultSort' => 'updated_at'
+        ];
+
+        $notes = $this->repository->getAll($options);
 
         return view('notes.index', [
             'models' => $notes,
@@ -113,12 +118,17 @@ class NoteController extends Controller
 
     public function search(Request $request)
     {
-        $string = $request->get('search') ?? $request->query->get('query') ?? '';
-        $notes = $this->repository->getAll(self::PER_PAGE, $string);
+        $options = [
+            'perPage' => self::PER_PAGE,
+            'defaultSort' => 'updated_at',
+            'search' => $request->get('search') ?? $request->query->get('query') ?? ''
+        ];
+
+        $notes = $this->repository->getAll($options);
 
         return view('notes.index', [
             'models' => $notes,
-            'string' => $string,
+            'string' => $options['string'],
             'nav' => $this->nav,
         ]);
     }

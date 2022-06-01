@@ -7,6 +7,7 @@ use App\Interfaces\RepositoryInterface;
 use App\Models\Life;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class LifeRepository extends BaseRepository implements RepositoryInterface
@@ -18,11 +19,19 @@ class LifeRepository extends BaseRepository implements RepositoryInterface
         $this->model = $model;
     }
 
-    public function getAll(int $perPage = 10): LengthAwarePaginator
+    public function getAll(array $options = []): LengthAwarePaginator
     {
-        $kins = $this->model->paginate($perPage);
+        $lifes = $this->model;
 
-        return $kins;
+        if (Arr::has($options, 'search')) {
+            $lifes = $this->model->search(Arr::get($options, 'search'));
+        }
+
+        if (Arr::has($options, 'defaultSort')) {
+            $lifes = $this->model->defaultSort(Arr::get($options, 'defaultSort'));
+        }
+
+        return $lifes->filters()->paginate(Arr::get($options, 'perPage'));
     }
 
     public function add(): array

@@ -2,8 +2,12 @@
 
 declare(strict_types=1);
 
-use App\Orchid\Screens\Articles\ArticlesEditScreen;
-use App\Orchid\Screens\Articles\ArticlesListScreen;
+use App\Models\Article;
+use App\Models\Category;
+use App\Orchid\Screens\Article\ArticleEditScreen;
+use App\Orchid\Screens\Article\ArticleListScreen;
+use App\Orchid\Screens\Category\CategoryEditScreen;
+use App\Orchid\Screens\Category\CategoryListScreen;
 use App\Orchid\Screens\Datetime\DatetimeScreen;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;
 use App\Orchid\Screens\Examples\ExampleChartsScreen;
@@ -107,20 +111,38 @@ Route::screen('datetime', DatetimeScreen::class)
         return $trail->parent('platform.index')->push('Datetime');
     });
 
-Route::screen('articles', ArticlesListScreen::class)
+Route::screen('articles', ArticleListScreen::class)
     ->name('platform.articles')
     ->breadcrumbs(function (Trail $trail) {
-        return $trail->parent('platform.index')->push('Articles');
+        return $trail->parent('platform.index')->push(__('Article.Orchid.Menu'));
     });
 
-Route::screen('articles/{article}/edit', ArticlesEditScreen::class)
+Route::screen('articles/{article}/edit', ArticleEditScreen::class)
     ->name('platform.article.edit')
-    ->breadcrumbs(function (Trail $trail, $article) {
-        return $trail->parent('platform.articles')->push('platform.article.edit', $article->id);
+    ->breadcrumbs(function (Trail $trail, Article $article) {
+        return $trail->parent('platform.articles')->push('platform.article.edit', (string)$article->id);
     });
 
-Route::screen('articles/create', ArticlesEditScreen::class)
+Route::screen('articles/create', ArticleEditScreen::class)
     ->name('platform.article.create')
     ->breadcrumbs(function (Trail $trail) {
         return $trail->parent('platform.articles')->push('platform.article.create');
+    });
+
+Route::screen('categories', CategoryListScreen::class)
+    ->name('platform.categories')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail->parent('platform.index')->push(__('Category.Orchid.Menu'));
+    });
+
+Route::screen('categories/{category}/edit', CategoryEditScreen::class)
+    ->name('platform.category.edit')
+    ->breadcrumbs(function (Trail $trail, Category $category) {
+        return $trail->parent('platform.categories')->push('platform.category.edit', $category->id);
+    });
+
+Route::screen('categories/create', CategoryEditScreen::class)
+    ->name('platform.category.create')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail->parent('platform.categories')->push('platform.category.create');
     });

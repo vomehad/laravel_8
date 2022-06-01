@@ -30,10 +30,11 @@ class ExamService
         $begin = date_create($dto->begin);
         $end = date_create($dto->end);
         $diff = $begin->diff($end);
-        $res['days'] = $diff->days;
-        $res['month'] = $diff->y > 0 ? ($diff->y * 12 + $diff->m) : $diff->m;
-        $res['years'] = $diff->y;
 
-        dd($res);
+        $days = $diff->days;
+        $month = $diff->y > 0 ? ($diff->y * 12 + $diff->m) : $diff->m;
+        $years = $diff->y;
+
+        return [$begin, $end, $days, $month, $years];
     }
 }

@@ -10,6 +10,7 @@ use App\Models\Kin;
 use App\Models\Kinsman;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class KinsmanRepository extends BaseRepository implements RepositoryInterface, InheritInterface
 {
@@ -22,15 +23,19 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         $this->kinModel = $kinModel;
     }
 
-    public function getAll(int $perPage = 10, string $search = ''): LengthAwarePaginator
+    public function getAll(array $options = []): LengthAwarePaginator
     {
         $kinsmans = $this->kinsmanModel;
 
-        if ($search) {
-            $kinsmans = $this->kinsmanModel->search($search);
+        if (Arr::has($options, 'search')) {
+            $kinsmans = $this->kinsmanModel->search(Arr::get($options, 'search'));
         }
 
-        return $kinsmans->paginate($perPage);
+        if (Arr::has($options, 'defaultSort')) {
+            $kinsmans = $this->kinsmanModel->defaultSort(Arr::get($options, 'defaultSort'));
+        }
+
+        return $kinsmans->filters()->paginate(Arr::get($options, 'perPage'));
     }
 
     public function getOne(int $id): ?Model

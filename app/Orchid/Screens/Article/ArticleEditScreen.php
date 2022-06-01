@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Orchid\Screens\Articles;
+namespace App\Orchid\Screens\Article;
 
 use App\Http\Requests\CreateArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
@@ -19,7 +19,7 @@ use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Layout;
 
-class ArticlesEditScreen extends Screen
+class ArticleEditScreen extends Screen
 {
     public Article $article;
 

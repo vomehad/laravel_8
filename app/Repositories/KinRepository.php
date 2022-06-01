@@ -8,6 +8,7 @@ use App\Models\Kin;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class KinRepository extends BaseRepository implements RepositoryInterface
@@ -19,15 +20,19 @@ class KinRepository extends BaseRepository implements RepositoryInterface
         $this->model = $model;
     }
 
-    public function getAll(int $perPage = 10, string $search = ''): LengthAwarePaginator
+    public function getAll(array $options = []): LengthAwarePaginator
     {
         $kins = $this->model;
 
-        if ($search) {
-            $kins = $this->model->search($search);
+        if (Arr::has($options, 'search')) {
+            $kins = $this->model->search(Arr::get($options, 'search'));
         }
 
-        return $kins->paginate($perPage);
+        if (Arr::has($options, 'defaultSort')) {
+            $kins = $this->model->defaultSort(Arr::get($options, 'defaultSort'));
+        }
+
+        return $kins->filters()->paginate(Arr::get($options, 'perPage'));
     }
 
     public function getOne(int $id): ?Model

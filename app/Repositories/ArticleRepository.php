@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class ArticleRepository extends BaseRepository implements RepositoryInterface
 {
@@ -23,15 +24,19 @@ class ArticleRepository extends BaseRepository implements RepositoryInterface
         $this->categoryModel = $categoryModel;
     }
 
-    public function getAll(int $perPage = 10, string $search = ''): LengthAwarePaginator
+    public function getAll(array $options = []): LengthAwarePaginator
     {
         $articles = $this->articleModel;
 
-        if ($search) {
-            $articles = $this->articleModel->search($search);
+        if (Arr::has($options, 'search')) {
+            $articles = $this->articleModel->search(Arr::get($options, 'search'));
         }
 
-        return $articles->paginate($perPage);
+        if (Arr::has($options, 'defaultSort')) {
+            $articles = $this->articleModel->defaultSort(Arr::get($options, 'defaultSort'));
+        }
+
+        return $articles->filters()->paginate(Arr::get($options, 'perPage'));
     }
 
     public function getOne(int $id): ?Model

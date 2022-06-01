@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\Note;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Arr;
 
 class NoteRepository extends BaseRepository implements RepositoryInterface, InheritInterface
 {
@@ -23,15 +24,19 @@ class NoteRepository extends BaseRepository implements RepositoryInterface, Inhe
         $this->categoryModel = $categoryModel;
     }
 
-    public function getAll(int $perPage = 10, string $search = ''): LengthAwarePaginator
+    public function getAll(array $options = []): LengthAwarePaginator
     {
-        $note = $this->noteModel;
+        $notes = $this->noteModel;
 
-        if ($search) {
-            $note = $this->noteModel->search($search);
+        if (Arr::has($options, 'search')) {
+            $notes = $this->noteModel->search(Arr::get($options, 'search'));
         }
 
-        return $note->paginate($perPage);
+        if (Arr::has($options, 'defaultSort')) {
+            $notes = $this->noteModel->defaultSort(Arr::get($options, 'defaultSort'));
+        }
+
+        return $notes->filters()->paginate(Arr::get($options, 'perPage'));
     }
 
     public function getOne(int $id): ?Model

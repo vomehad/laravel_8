@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
+use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 
 /**
@@ -27,12 +28,28 @@ use Orchid\Screen\AsSource;
  */
 class Article extends Model
 {
-    use HasFactory, Searchable, SoftDeletes, AsSource;
+    use HasFactory, Searchable, SoftDeletes, AsSource, Filterable;
 
     protected $fillable = [
         'title',
         'link',
         'text',
+    ];
+
+    protected $allowedFilters = [
+        'title',
+        'active',
+        'author',
+        'created_at',
+        'updated_at',
+    ];
+
+    protected $allowedSorts = [
+        'title',
+        'active',
+        'author',
+        'created_at',
+        'updated_at',
     ];
 
     public function category(): BelongsToMany

@@ -4,6 +4,10 @@ namespace App\Orchid\Screens\Datetime;
 
 use App\Http\Requests\DateRequest;
 use App\Services\ExamService;
+use Orchid\Screen\Actions\ModalToggle;
+use Orchid\Screen\Fields\Code;
+use Orchid\Screen\Layouts\Modal;
+use Orchid\Support\Facades\Toast;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\DateTimer;
 use Orchid\Screen\Screen;
@@ -52,6 +56,11 @@ class DatetimeScreen extends Screen
                 ->block()
                 ->novalidate()
                 ->icon('bag'),
+
+            ModalToggle::make(__('Datetime.Button.Modal'))
+                ->modal('diffTime')
+                ->method('showDiff')
+                ->icon('full-screen'),
         ];
     }
 
@@ -65,19 +74,52 @@ class DatetimeScreen extends Screen
         return [
             Layout::rows([
 
-                DateTimer::make('begin')
-                    ->title('begin')
-                    ->enableTime()
-                    ->format24hr(),
+                DateTimer::make('begin')->title('begin')->enableTime()->format24hr(),
 
-                DateTimer::make('end')
-                    ->title('end')
-                    ->enableTime()
-                    ->format24hr(),
+                DateTimer::make('end')->title('end')->enableTime()->format24hr(),
 
-                Button::make('Submit')->method('buttonClickProcessing')->type(Color::INFO())
+                Button::make('showDiff')
+                    ->modal('diffTime')
+                    ->method('showDiff')
+                    ->type(Color::INFO())
 
             ])->title('period'),
+
+            Layout::modal(
+                'diffTime',
+                Layout::rows([
+
+                    Code::make('begin'),
+
+                    Code::make('end'),
+
+                ])
+            )->title(__('Datetime.Modal.Title'))
+                ->size(Modal::SIZE_LG)
+                ->withoutApplyButton(),
+
+            Layout::block(
+/*                Layout::view('platform::layouts.modal', [
+                    'apply' => __('Datetime.Model.Apply'),
+                    'close' => false,
+                    'size' => '',
+                    'type' => Modal::TYPE_CENTER,
+                    'key' => __('Datetime.Model.Title'),
+                    'title' => __('Datetime.Model.Title'),
+                    'turbo' => true,
+                    'commandBar' => [],
+                    'withoutApplyButton' => false,
+                    'withoutCloseButton' => false,
+                    'open' => false,
+                    'method' => null,
+                    'staticBackdrop' => false,
+                    'templateSlug' => '',
+                    'asyncEnable' => false,
+                    'asyncRoute' => false,
+                    'manyForms' => [],
+                ]),*/
+                (new Modal(__('Datetime.Model.Title')))
+            )
 
         ];
     }
@@ -86,7 +128,29 @@ class DatetimeScreen extends Screen
     {
         $dto = $request->createDto();
 
-        $diff = $this->service->diffTwoDates($dto);
-        dd(__METHOD__, $diff);
+        [$begin, $end, $days, $month, $years] = $this->service->diffTwoDates($dto);
+
+        Toast::info(json_encode($begin));
+//        Toast::success(json_encode($end));
+//        Toast::error($days);
+//        Toast::warning($month);
+//        Toast::info($years);
+
+//        return $begin;
+    }
+
+    public function showDiffs(DateRequest $request)
+    {
+        $dto = $request->createDto();
+
+        [$begin, $end, $days, $month, $years] = $this->service->diffTwoDates($dto);
+
+        Toast::info(json_encode($begin));
+        //        Toast::success(json_encode($end));
+        //        Toast::error($days);
+        //        Toast::warning($month);
+        //        Toast::info($years);
+
+        //        return $begin;
     }
 }

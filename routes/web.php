@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [GameController::class, 'playGame'])->name('home');
 
+Route::get('locale/{locale}', function ($locale) {
+    Session::put('locale', $locale);
+
+    return redirect()->back();
+})->name('locale');
+
 Route::prefix('/')->group(function() {
     Route::match(['get', 'post'],'/kinsmans/search', [KinsmanController::class, 'search'])->name('kinsmans.search');
     Route::resource('kinsmans', KinsmanController::class);

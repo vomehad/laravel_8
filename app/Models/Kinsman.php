@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 
@@ -25,9 +26,33 @@ use Orchid\Screen\AsSource;
  */
 class Kinsman extends Model
 {
-    use HasFactory, SoftDeletes, AsSource, Filterable;
+    use HasFactory, Searchable, SoftDeletes, AsSource, Filterable;
 
     protected $table = 'kinsmans';
+
+    protected $fillable = [
+        'name',
+        'middle_name',
+        'gender',
+        'father_id',
+        'mother_id',
+        'kin_id',
+        'active',
+    ];
+
+    protected $allowedFilters = [
+        'name',
+        'middle_name',
+        'gender',
+        'active',
+    ];
+
+    protected $allowedSorts = [
+        'name',
+        'middle_name',
+        'gender',
+        'active',
+    ];
 
     public function father(): BelongsTo
     {

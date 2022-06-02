@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'home' => 'Домой',
-    'welcome' => 'Добро пожаловать',
-    'regex' => 'Регулярки',
+    'home' => 'Home',
+    'welcome' => 'Welcome',
+    'regex' => 'TEst Regex',
 ];

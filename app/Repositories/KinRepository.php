@@ -33,10 +33,10 @@ class KinRepository extends BaseRepository implements RepositoryInterface
         }
 
         if (Arr::has($options, 'defaultSort')) {
-            $kins = $kins->defaultSort(Arr::get($options, 'defaultSort'));
+            $kins = $kins->filters()->defaultSort(Arr::get($options, 'defaultSort'));
         }
 
-        return $kins->filters()->paginate(Arr::get($options, 'perPage'));
+        return $kins->paginate(Arr::get($options, 'perPage'));
     }
 
     public function getOne(int $id): ?Model

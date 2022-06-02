@@ -28,15 +28,19 @@ class ArticleRepository extends BaseRepository implements RepositoryInterface
     {
         $articles = $this->articleModel->where(['active' => true]);
 
+        if (Arr::has($options, 'eager')) {
+            $articles = $articles->with(['category', 'author']);
+        }
+
         if (Arr::has($options, 'search')) {
             $articles = $articles->search(Arr::get($options, 'search'));
         }
 
         if (Arr::has($options, 'defaultSort')) {
-            $articles = $articles->defaultSort(Arr::get($options, 'defaultSort'));
+            $articles = $articles->filters()->defaultSort(Arr::get($options, 'defaultSort'));
         }
 
-        return $articles->filters()->paginate(Arr::get($options, 'perPage'));
+        return $articles->paginate(Arr::get($options, 'perPage'));
     }
 
     public function getOne(int $id): ?Model

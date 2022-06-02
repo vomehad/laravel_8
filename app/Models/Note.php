@@ -29,9 +29,22 @@ class Note extends Model
     /**
      * @var string[]
      */
-    public $fillable = [
+    protected $fillable = [
         'name',
         'content',
+        'active',
+    ];
+
+    protected $allowedFilters = [
+        'name',
+        'content',
+        'active',
+    ];
+
+    protected $allowedSorts = [
+        'name',
+        'content',
+        'active',
     ];
 
     public function category(): BelongsToMany

@@ -25,21 +25,21 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
 
     public function getAll(array $options = []): LengthAwarePaginator
     {
-        $kinsmans = $this->kinsmanModel;
+        $kinsmans = $this->kinsmanModel->where(['active' => true]);
 
         if (Arr::has($options, 'eager')) {
-            $kinsmans = $this->kinsmanModel->with(['father', 'mother', 'kin']);
+            $kinsmans = $kinsmans->with(['father', 'mother', 'kin']);
         }
 
         if (Arr::has($options, 'search')) {
-            $kinsmans = $this->kinsmanModel->search(Arr::get($options, 'search'));
+            $kinsmans = $kinsmans->search(Arr::get($options, 'search'));
         }
 
         if (Arr::has($options, 'defaultSort')) {
-            $kinsmans = $this->kinsmanModel->defaultSort(Arr::get($options, 'defaultSort'));
+            $kinsmans = $kinsmans->filters()->defaultSort(Arr::get($options, 'defaultSort'));
         }
 
-        return $kinsmans->filters()->paginate(Arr::get($options, 'perPage'));
+        return $kinsmans->paginate(Arr::get($options, 'perPage'));
     }
 
     public function getOne(int $id): ?Model

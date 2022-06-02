@@ -38,10 +38,10 @@ class KinLayout extends Table
 
             TD::make('active', __('Kin.Label.Active'))->render(function(Kin $kin) {
                 return Switcher::make()->sendTrueOrFalse()->value($kin->active)->disabled(true);
-            }),
+            })->sort(),
 
-            TD::make('updated_at', __('Kin.Label.Updated')),
-            TD::make('created_at', __('Kin.Label.Created')),
+            TD::make('updated_at', __('Kin.Label.Updated'))->sort(),
+            TD::make('created_at', __('Kin.Label.Created'))->sort(),
 
         ];
     }

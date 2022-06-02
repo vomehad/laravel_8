@@ -36,7 +36,7 @@ class NoteLayout extends Table
             TD::make('content', __('Note.Label.Content'))
                 ->render(function (Note $note) {
                     return preg_replace('/^(.{40})(.*)/', '$1...', $note->content);
-                })->sort(),
+                }),
 
             TD::make('active', __('Note.Label.Active'))
                 ->render(function(Note $note) {
@@ -55,8 +55,8 @@ class NoteLayout extends Table
                     return null;
                 }),
 
-            TD::make('updated_at', __('Note.Label.Updated')),
-            TD::make('created_at', __('Note.Label.Created')),
+            TD::make('updated_at', __('Note.Label.Updated'))->sort(),
+            TD::make('created_at', __('Note.Label.Created'))->sort(),
 
         ];
     }

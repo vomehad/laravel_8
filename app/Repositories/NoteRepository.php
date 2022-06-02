@@ -26,17 +26,17 @@ class NoteRepository extends BaseRepository implements RepositoryInterface, Inhe
 
     public function getAll(array $options = []): LengthAwarePaginator
     {
-        $notes = $this->noteModel;
+        $notes = $this->noteModel->where(['active' => true]);
 
         if (Arr::has($options, 'search')) {
-            $notes = $this->noteModel->search(Arr::get($options, 'search'));
+            $notes = $notes->search(Arr::get($options, 'search'));
         }
 
         if (Arr::has($options, 'defaultSort')) {
-            $notes = $this->noteModel->defaultSort(Arr::get($options, 'defaultSort'));
+            $notes = $notes->filters()->defaultSort(Arr::get($options, 'defaultSort'));
         }
 
-        return $notes->filters()->paginate(Arr::get($options, 'perPage'));
+        return $notes->paginate(Arr::get($options, 'perPage'));
     }
 
     public function getOne(int $id): ?Model

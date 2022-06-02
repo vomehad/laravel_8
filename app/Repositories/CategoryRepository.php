@@ -22,17 +22,17 @@ class CategoryRepository extends BaseRepository implements RepositoryInterface
 
     public function getAll(array $options = []): LengthAwarePaginator
     {
-        $categories = $this->model;
+        $categories = $this->model->where(['active' => true]);
 
         if (Arr::has($options, 'search')) {
-            $categories = $this->model->search(Arr::get($options, 'search'));
+            $categories = $categories->search(Arr::get($options, 'search'));
         }
 
         if (Arr::has($options, 'defaultSort')) {
-            $categories = $this->model->defaultSort(Arr::get($options, 'defaultSort'));
+            $categories = $categories->filters()->defaultSort(Arr::get($options, 'defaultSort'));
         }
 
-        return $categories->filters()->paginate(Arr::get($options, 'perPage'));
+        return $categories->paginate(Arr::get($options, 'perPage'));
     }
 
     public function getOne(int $id): ?Model

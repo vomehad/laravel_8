@@ -43,11 +43,11 @@ class CategoryListLayout extends Table
 
             TD::make('article', __('Category.Label.Article'))->render(function(Category $category) {
                 return $category->article()->count();
-            })->sort(),
+            }),
 
             TD::make('note', __('Category.Label.Note'))->render(function(Category $category) {
                 return $category->note()->count();
-            })->sort(),
+            }),
 
             TD::make('updated_at', __('Category.Label.Updated'))->sort(),
             TD::make('created_at', __('Category.Label.Created'))->sort(),

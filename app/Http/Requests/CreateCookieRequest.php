@@ -32,14 +32,12 @@ class CreateCookieRequest extends FormRequest implements TransportInterface
     {
         return [
             'numberHourly' => [
-                'bail',
                 'nullable',
                 Rule::requiredIf(empty($this->numberForever)),
                 'int',
                 'max:255',
             ],
             'numberForever' => [
-                'bail',
                 'nullable',
                 Rule::requiredIf(empty($this->numberHourly)),
                 'int',

@@ -13,9 +13,9 @@ class NoteDto implements DtoInterface
     public ?int $parent_id;
     public string $content;
 
-    public function createFromRequest(array $fields, string $prefix = ''): DtoInterface
+    public function createFromRequest(array $fields): DtoInterface
     {
-        $array = $prefix ? Arr::get($fields, $prefix) : $fields;
+        $array = is_array(reset($fields)) ? reset($fields) : $fields;
 
         foreach (get_class_vars(self::class) as $prop => $item) {
             if (Arr::has($array, $prop)) {

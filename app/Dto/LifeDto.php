@@ -12,9 +12,11 @@ class LifeDto implements DtoInterface
 
     public function createFromRequest(array $fields): DtoInterface
     {
+        $array = is_array(reset($fields)) ? reset($fields) : $fields;
+
         foreach (get_class_vars(self::class) as $prop => $item) {
-            if (Arr::get($fields, $prop)) {
-                $this->$prop = Arr::get($fields, $prop);
+            if (Arr::has($array, $prop)) {
+                $this->$prop = Arr::get($array, $prop);
             }
         }
 

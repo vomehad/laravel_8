@@ -16,7 +16,7 @@ class ArticleDto implements DtoInterface
     public string $text;
     public $file;
 
-    public function createFromRequest(array $fields, string $prefix = ''): DtoInterface
+    public function createFromRequest(array $fields): DtoInterface
     {
         $array = is_array(reset($fields)) ? reset($fields) : $fields;
 

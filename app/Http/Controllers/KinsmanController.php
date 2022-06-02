@@ -9,6 +9,15 @@ use Illuminate\Http\RedirectResponse;
 
 class KinsmanController extends Controller
 {
+    private const PER_PAGE = 10;
+    private const DEFAULT_SORT = 'updated_at';
+    private const EAGER_LOADING = true;
+    private const OPTIONS = [
+        'perPage' => self::PER_PAGE,
+        'defaultSort' => self::DEFAULT_SORT,
+        'eager' => self::EAGER_LOADING,
+    ];
+
     private KinsmanRepository $repository;
 
     public function __construct(KinsmanRepository $repository)
@@ -19,7 +28,7 @@ class KinsmanController extends Controller
 
     public function index()
     {
-        $kinsmans = $this->repository->getAll(12);
+        $kinsmans = $this->repository->getAll(self::OPTIONS);
 
         return view('kinsmans.index', [
             'models' => $kinsmans,
@@ -84,12 +93,6 @@ class KinsmanController extends Controller
         return redirect()->route('kinsmans.show', $kinsmanId);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

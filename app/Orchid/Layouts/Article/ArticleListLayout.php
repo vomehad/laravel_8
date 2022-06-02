@@ -28,9 +28,11 @@ class ArticleListLayout extends Table
     protected function columns(): iterable
     {
         return [
-            TD::make('title', __('Article.Label.Title'))->render(function (Article $article) {
-                return Link::make($article->title)->route('platform.article.edit', $article->id);
-            })->sort(),
+
+            TD::make('title', __('Article.Label.Title'))
+                ->render(function (Article $article) {
+                    return Link::make($article->title)->route('platform.article.edit', $article->id);
+                })->sort(),
 
             TD::make('preview', __('Article.Label.Preview')),
 
@@ -56,6 +58,7 @@ class ArticleListLayout extends Table
             TD::make('created_at', __('Article.Label.CreatedAt'))->sort(),
 
             TD::make('updated_at', __('Article.Label.UpdatedAt'))->sort(),
+
         ];
     }
 }

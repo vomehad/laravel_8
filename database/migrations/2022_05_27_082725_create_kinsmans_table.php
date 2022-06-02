@@ -17,7 +17,7 @@ class CreateKinsmansTable extends Migration
             Schema::create('kins', function (Blueprint $table) {
                 $table->id();
                 $table->tinyText('name');
-                $table->text('slug')->unique();
+                $table->string('slug', 255)->unique();
                 $table->tinyText('generation');
                 $table->foreignId('created_by')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
                 $table->timestamps();

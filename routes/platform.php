@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Kin;
+use App\Models\Kinsman;
 use App\Orchid\Screens\Article\ArticleEditScreen;
 use App\Orchid\Screens\Article\ArticleListScreen;
 use App\Orchid\Screens\Category\CategoryEditScreen;
@@ -17,6 +19,10 @@ use App\Orchid\Screens\Examples\ExampleFieldsScreen;
 use App\Orchid\Screens\Examples\ExampleLayoutsScreen;
 use App\Orchid\Screens\Examples\ExampleScreen;
 use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
+use App\Orchid\Screens\Kin\KinEditScreen;
+use App\Orchid\Screens\Kin\KinListScreen;
+use App\Orchid\Screens\Kinsman\KinsmanEditScreen;
+use App\Orchid\Screens\Kinsman\KinsmanListScreen;
 use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
@@ -170,5 +176,57 @@ Route::screen('categories/create', CategoryEditScreen::class)
     ->breadcrumbs(function (Trail $trail) {
         return $trail->parent('platform.index')
             ->push(__('Category.Orchid.Menu'), route('platform.categories'))
+            ->push('Create');
+    });
+
+// Platform > Kinsmans
+Route::screen('kinsmans', KinsmanListScreen::class)
+    ->name('platform.kinsmans')
+    ->breadcrumbs(function(Trail $trail) {
+        return $trail->parent('platform.index')
+            ->push(__('Kinsman.Orchid.Menu'));
+    });
+
+// Platform > Kinsmans > Edit
+Route::screen('kinsmans/{kinsman?}/edit', KinsmanEditScreen::class)
+    ->name('platform.kinsman.edit')
+    ->breadcrumbs(function(Trail $trail, Kinsman $kinsman) {
+        return $trail->parent('platform.index')
+            ->push(__('Kinsman.Orchid.Menu'), route('platform.kinsmans'))
+            ->push($kinsman->name);
+    });
+
+// Platform > Kinsmans > Create
+Route::screen('kinsmans/create', KinsmanEditScreen::class)
+    ->name('platform.kinsman.create')
+    ->breadcrumbs(function(Trail $trail) {
+        return $trail->parent('platform.index')
+            ->push(__('Kinsman.Orchid.Menu'), route('platform.kinsmans'))
+            ->push('Create');
+    });
+
+// Platform > Kins
+Route::screen('kins', KinListScreen::class)
+    ->name('platform.kins')
+    ->breadcrumbs(function(Trail $trail) {
+        return $trail->parent('platform.index')
+            ->push(__('Kin.Orchid.Menu'));
+    });
+
+// Platform > Kins > Edit
+Route::screen('kins/{kin}/edit', KinEditScreen::class)
+    ->name('platform.kin.edit')
+    ->breadcrumbs(function(Trail $trail, Kin $kin) {
+        return $trail->parent('platform.index')
+            ->push(__('Kin.Orchid.Menu'), route('platform.kins'))
+            ->push($kin->name);
+    });
+
+// Platform > Kins > Create
+Route::screen('kins/create', KinEditScreen::class)
+    ->name('platform.kin.create')
+    ->breadcrumbs(function(Trail $trail) {
+        return $trail->parent('platform.index')
+            ->push(__('Kin.Orchid.Menu'), route('platform.kins'))
             ->push('Create');
     });

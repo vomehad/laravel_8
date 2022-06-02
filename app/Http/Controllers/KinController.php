@@ -9,6 +9,15 @@ use Illuminate\Http\RedirectResponse;
 
 class KinController extends Controller
 {
+    private const PER_PAGE = 10;
+    private const DEFAULT_SORT = 'updated_at';
+    private const EAGER_LOADING = true;
+    private const OPTIONS = [
+        'perPage' => self::PER_PAGE,
+        'defaultSort' => self::DEFAULT_SORT,
+        'eager' => self::EAGER_LOADING,
+    ];
+
     private KinRepository $repository;
 
     public function __construct(KinRepository $repository)
@@ -19,7 +28,7 @@ class KinController extends Controller
 
     public function index()
     {
-        $kins = $this->repository->getAll(12);
+        $kins = $this->repository->getAll(self::OPTIONS);
 
         return view('kins.index', [
             'models' => $kins,

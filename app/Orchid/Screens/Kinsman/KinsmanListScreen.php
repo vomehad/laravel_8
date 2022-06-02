@@ -1,19 +1,26 @@
 <?php
 
-namespace App\Orchid\Screens\Article;
+namespace App\Orchid\Screens\Kinsman;
 
-use App\Orchid\Layouts\Article\ArticleListLayout;
-use App\Repositories\ArticleRepository;
+use App\Orchid\Layouts\Kinsman\KinsmanLayout;
+use App\Repositories\KinsmanRepository;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
 
-class ArticleListScreen extends Screen
+class KinsmanListScreen extends Screen
 {
     private const PER_PAGE = 10;
+    private const DEFAULT_SORT = 'updated_at';
+    private const EAGER_LOADING = true;
+    private const OPTIONS = [
+        'perPage' => self::PER_PAGE,
+        'defaultSort' => self::DEFAULT_SORT,
+        'eager' => self::EAGER_LOADING,
+    ];
 
-    private ArticleRepository $repository;
+    private KinsmanRepository $repository;
 
-    public function __construct(ArticleRepository $repository)
+    public function __construct(KinsmanRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -25,13 +32,8 @@ class ArticleListScreen extends Screen
      */
     public function query(): iterable
     {
-        $options = [
-            'perPage' => self::PER_PAGE,
-            'defaultSort' => 'updated_at'
-        ];
-
         return [
-            'articles' => $this->repository->getAll($options),
+            'kinsmans' => $this->repository->getAll(self::OPTIONS),
         ];
     }
 
@@ -42,12 +44,7 @@ class ArticleListScreen extends Screen
      */
     public function name(): ?string
     {
-        return __('Article.Orchid.Title');
-    }
-
-    public function description(): ?string
-    {
-        return "All blog posts";
+        return __('Kinsman.Orchid.Name');
     }
 
     /**
@@ -58,9 +55,9 @@ class ArticleListScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Link::make(__('Article.Button.Create'))
+            Link::make(__('Kinsman.Button.Create'))
                 ->icon('pencil')
-                ->route('platform.article.create'),
+                ->route('platform.kinsman.create')
         ];
     }
 
@@ -72,7 +69,7 @@ class ArticleListScreen extends Screen
     public function layout(): iterable
     {
         return [
-            ArticleListLayout::class
+            KinsmanLayout::class,
         ];
     }
 }

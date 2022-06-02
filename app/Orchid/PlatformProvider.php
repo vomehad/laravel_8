@@ -34,6 +34,10 @@ class PlatformProvider extends OrchidServiceProvider
 
             Menu::make(__('Category.Orchid.Menu'))->icon('speech')->route('platform.categories'),
 
+            Menu::make(__('Kinsman.Orchid.Menu'))->icon('speech')->route('platform.kinsmans'),
+
+            Menu::make(__('Kin.Orchid.Menu'))->icon('speech')->route('platform.kins'),
+
             Menu::make('Example screen')
                 ->icon('monitor')
                 ->route('platform.example')

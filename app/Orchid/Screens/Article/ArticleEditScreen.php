@@ -33,6 +33,7 @@ class ArticleEditScreen extends Screen
     /**
      * Query data.
      *
+     * @param Article $article
      * @return array
      */
     public function query(Article $article): iterable
@@ -65,11 +66,6 @@ class ArticleEditScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make('Create article')
-                ->icon('pencil')
-                ->method('create')
-                ->canSee(!$this->article->exists),
-
             Button::make('Update article')
                 ->icon('note')
                 ->method('update')

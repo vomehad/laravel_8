@@ -27,6 +27,10 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
     {
         $kinsmans = $this->kinsmanModel;
 
+        if (Arr::has($options, 'eager')) {
+            $kinsmans = $this->kinsmanModel->with(['father', 'mother', 'kin']);
+        }
+
         if (Arr::has($options, 'search')) {
             $kinsmans = $this->kinsmanModel->search(Arr::get($options, 'search'));
         }
@@ -81,10 +85,14 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
             ->first();
         $fathers = $this->kinsmanModel
             ->where(['gender' => 'male'])
+            ->where(['active' => true])
+            ->where('id', '!=', $id)
             ->get()
             ->keyBy('id');
         $mothers = $this->kinsmanModel
             ->where(['gender' => 'female'])
+            ->where(['active' => true])
+            ->where('id', '!=', $id)
             ->get()
             ->keyBy('id');
         $kins = $this->kinModel

@@ -14,7 +14,7 @@ class CreateOrchidRolesTable extends Migration
         if (!Schema::hasTable('roles')) {
             Schema::create('roles', function (Blueprint $table) {
                 $table->id();
-                $table->string('slug')->unique();
+                $table->string('slug', 255)->unique();
                 $table->string('name');
                 $table->jsonb('permissions')->nullable();
                 $table->timestamps();

@@ -57,17 +57,17 @@ class CategoryEditScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make('Create category')
+            Button::make(__('Category.Button.Create'))
                 ->icon('pencil')
                 ->method('create')
                 ->canSee(!$this->category->exists),
 
-            Button::make('Update category')
+            Button::make(__('Category.Button.Update'))
                 ->icon('note')
                 ->method('update')
                 ->canSee($this->category->exists),
 
-            Button::make('Remove category')
+            Button::make(__('Category.Button.Delete'))
                 ->icon('trash')
                 ->method('remove')
                 ->canSee($this->category->exists),
@@ -85,15 +85,15 @@ class CategoryEditScreen extends Screen
 
                 CheckBox::make('category.active')->title(__('Category.Label.Active'))->sendTrueOrFalse(),
 
-                Relation::make('category.article')
-                    ->title(__('Category.Label.Article'))
-                    ->fromModel(Article::class, 'title')
-                    ->multiple(),
-
-                Relation::make('category.note')
-                    ->title(__('Category.Label.Note'))
-                    ->fromModel(Note::class, 'name')
-                    ->multiple(),
+//                Relation::make('category.article')
+//                    ->title(__('Category.Label.Article'))
+//                    ->fromModel(Article::class, 'title')
+//                    ->multiple(),
+//
+//                Relation::make('category.note')
+//                    ->title(__('Category.Label.Note'))
+//                    ->fromModel(Note::class, 'name')
+//                    ->multiple(),
             ])
         ];
     }

@@ -2,14 +2,16 @@
 
 namespace App\Orchid\Screens\Kin;
 
+use App\Http\Requests\CreateKinRequest;
+use App\Http\Requests\UpdateKinRequest;
 use App\Models\Kin;
-use App\Models\User;
 use App\Repositories\KinRepository;
+use Illuminate\Http\RedirectResponse;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\CheckBox;
 use Orchid\Screen\Fields\Input;
-use Orchid\Screen\Fields\Relation;
 use Orchid\Screen\Screen;
+use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Layout;
 
 class KinEditScreen extends Screen
@@ -54,6 +56,11 @@ class KinEditScreen extends Screen
     public function commandBar(): iterable
     {
         return [
+            Button::make(__('Kin.Button.Create'))
+                ->icon('note')
+                ->method('create')
+                ->canSee(!$this->kin->exists),
+
             Button::make(__('Kin.Button.Update'))
                 ->icon('note')
                 ->method('update')
@@ -86,14 +93,46 @@ class KinEditScreen extends Screen
                     ->title(__('Kin.Label.Slug'))
                     ->placeholder(__('Kin.Placeholder.Slug')),
 
-                Relation::make('kin.created_by')
-                    ->fromModel(User::class, 'name')
-                    ->title('Kin.Label.CreatedBy'),
+//                Relation::make('kinsman')
+//                    ->fromModel(Kinsman::class, 'name')
+//                    ->displayAppend('fullName')
+//                    ->multiple(),
 
                 CheckBox::make('kin.active')
                     ->title(__('Kin.Label.Active'))
                     ->sendTrueOrFalse(),
             ]),
         ];
+    }
+
+    public function create(CreateKinRequest $request): RedirectResponse
+    {
+        $dto = $request->createDto();
+
+        $this->repository->create($dto);
+
+        Alert::info(__('Kin.Message.Created'));
+
+        return redirect()->route('platform.kins');
+    }
+
+    public function update(UpdateKinRequest $request): RedirectResponse
+    {
+        $dto = $request->createDto();
+
+        $this->repository->update($dto);
+
+        Alert::info(__('Kin.Message.Updated'));
+
+        return redirect()->route('platform.kins');
+    }
+
+    public function remove(Kin $kin): RedirectResponse
+    {
+        $this->repository->remove($kin->id);
+
+        Alert::info(__('Kin.Message.Deleted'));
+
+        return redirect()->route('platform.kins');
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Models\Kin;
 use App\Models\Kinsman;
+use App\Models\Note;
 use App\Orchid\Screens\Article\ArticleEditScreen;
 use App\Orchid\Screens\Article\ArticleListScreen;
 use App\Orchid\Screens\Category\CategoryEditScreen;
@@ -23,6 +24,8 @@ use App\Orchid\Screens\Kin\KinEditScreen;
 use App\Orchid\Screens\Kin\KinListScreen;
 use App\Orchid\Screens\Kinsman\KinsmanEditScreen;
 use App\Orchid\Screens\Kinsman\KinsmanListScreen;
+use App\Orchid\Screens\Note\NoteEditScreen;
+use App\Orchid\Screens\Note\NoteListScreen;
 use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
@@ -228,5 +231,31 @@ Route::screen('kins/create', KinEditScreen::class)
     ->breadcrumbs(function(Trail $trail) {
         return $trail->parent('platform.index')
             ->push(__('Kin.Orchid.Menu'), route('platform.kins'))
+            ->push('Create');
+    });
+
+// Platform > Notes
+Route::screen('notes', NoteListScreen::class)
+    ->name('platform.notes')
+    ->breadcrumbs(function(Trail $trail) {
+        return $trail->parent('platform.index')
+            ->push(__('Note.Orchid.Menu'));
+    });
+
+// Platform > Notes > Edit
+Route::screen('notes/{note}/edit', NoteEditScreen::class)
+    ->name('platform.note.edit')
+    ->breadcrumbs(function(Trail $trail, Note $note) {
+        return $trail->parent('platform.index')
+            ->push(__('Note.Orchid.Menu'), route('platform.notes'))
+            ->push($note->name);
+    });
+
+// Platform > Notes > Create
+Route::screen('notes/create', NoteEditScreen::class)
+    ->name('platform.note.create')
+    ->breadcrumbs(function(Trail $trail) {
+        return $trail->parent('platform.index')
+            ->push(__('Note.Orchid.Menu'), route('platform.notes'))
             ->push('Create');
     });

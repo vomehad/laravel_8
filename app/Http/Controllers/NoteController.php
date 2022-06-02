@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Lang;
 class NoteController extends Controller
 {
     private const PER_PAGE = 10;
+    private const DEFAULT_SORT = 'updated_at';
+    private const EAGER_LOADING = true;
+    private const OPTIONS = [
+        'perPage' => self::PER_PAGE,
+        'defaultSort' => self::DEFAULT_SORT,
+        'eager' => self::EAGER_LOADING,
+    ];
 
     private NoteRepository $repository;
 
@@ -24,12 +31,7 @@ class NoteController extends Controller
 
     public function index(): string
     {
-        $options = [
-            'perPage' => self::PER_PAGE,
-            'defaultSort' => 'updated_at'
-        ];
-
-        $notes = $this->repository->getAll($options);
+        $notes = $this->repository->getAll(self::OPTIONS);
 
         return view('notes.index', [
             'models' => $notes,
@@ -118,11 +120,9 @@ class NoteController extends Controller
 
     public function search(Request $request)
     {
-        $options = [
-            'perPage' => self::PER_PAGE,
-            'defaultSort' => 'updated_at',
+        $options = array_merge(self::OPTIONS, [
             'search' => $request->get('search') ?? $request->query->get('query') ?? ''
-        ];
+        ]);
 
         $notes = $this->repository->getAll($options);
 

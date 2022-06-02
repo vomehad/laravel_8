@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Orchid\Screens\Category;
+namespace App\Orchid\Screens\Note;
 
-use App\Orchid\Layouts\Category\CategoryListLayout;
-use App\Repositories\CategoryRepository;
+use App\Orchid\Layouts\Note\NoteLayout;
+use App\Repositories\NoteRepository;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
 
-class CategoryListScreen extends Screen
+class NoteListScreen extends Screen
 {
     private const PER_PAGE = 10;
     private const DEFAULT_SORT = 'updated_at';
@@ -18,9 +18,9 @@ class CategoryListScreen extends Screen
         'eager' => self::EAGER_LOADING,
     ];
 
-    private CategoryRepository $repository;
+    private NoteRepository $repository;
 
-    public function __construct(CategoryRepository $repository)
+    public function __construct(NoteRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -33,7 +33,7 @@ class CategoryListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'categories' => $this->repository->getAll(self::OPTIONS),
+            'notes' => $this->repository->getAll(self::OPTIONS),
         ];
     }
 
@@ -44,7 +44,7 @@ class CategoryListScreen extends Screen
      */
     public function name(): ?string
     {
-        return __('Category.Orchid.Title');
+        return __('Note.Orchid.Name');
     }
 
     /**
@@ -55,7 +55,9 @@ class CategoryListScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Link::make(__('Category.Button.Create'))->icon('pencil')->route('platform.category.create')
+            Link::make(__('Note.Button.Create'))
+                ->icon('pencil')
+                ->route('platform.note.create')
         ];
     }
 
@@ -67,7 +69,7 @@ class CategoryListScreen extends Screen
     public function layout(): iterable
     {
         return [
-            CategoryListLayout::class,
+            NoteLayout::class,
         ];
     }
 }

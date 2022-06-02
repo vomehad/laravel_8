@@ -16,11 +16,11 @@
         @if($model->parentNote->id)
         <a href="{{ route('test.notes.show', $model->parentNote->id) }}"
            class="btn btn-secondary"
-        >{{ __('Note.Parent.Note') ." ". $model->parentNote->name }}</a>
+        >{{ __('Note.Button.Parent') ." ". $model->parentNote->name }}</a>
         @endif
         <a href="{{ route('test.notes.index') }}"
            class="btn btn-success"
-        >{{ __('Note.List.Note')}}</a>
+        >{{ __('Note.Button.List')}}</a>
     </div>
 
     <main role="main" class="container">

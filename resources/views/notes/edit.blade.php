@@ -48,17 +48,16 @@
                 </div>
                 @enderror
 
+                @isset($model->parentNote->id)
                 <div class="col-md-12">
                     <label for="note" class="form-label">{{ __('Note.Label.Parent') }}</label>
+
                     <div class="">
                         <a href="{{ route('test.notes.show', $model->parentNote->id) }}">{{ $model->parentNote->name }}</a>
                     </div>
+
                 </div>
-                @error('parent_id')
-                <div class="alert alert-danger">
-                    <span>{{ $message }}</span>
-                </div>
-                @enderror
+                @endif
 
                 <div class="col-md-12">
                     <label for="content" class="form-label">{{ __('Note.Label.Content') }}</label>

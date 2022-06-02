@@ -4,8 +4,9 @@ namespace App\Http\Requests;
 
 use App\Dto\KinDto;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class CreateKinRequest extends FormRequest
+class UpdateKinRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +15,7 @@ class CreateKinRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->check();
     }
 
     /**
@@ -25,10 +26,12 @@ class CreateKinRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required_if:kin.name,null|string|min:3',
-            'kin.name' => 'required_if:name,null|string|min:3',
+            'id' => 'int',
+            'kin.id' => 'int',
             'active' => 'bool',
             'kin.active' => 'bool',
+            'name' => 'required_if:kin.name,null|string|min:3',
+            'kin.name' => 'required_if:name,null|string|min:3',
         ];
     }
 

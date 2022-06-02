@@ -10,6 +10,13 @@ use Orchid\Screen\Screen;
 class ArticleListScreen extends Screen
 {
     private const PER_PAGE = 10;
+    private const DEFAULT_SORT = 'updated_at';
+    private const EAGER_LOADING = true;
+    private const OPTIONS = [
+        'perPage' => self::PER_PAGE,
+        'defaultSort' => self::DEFAULT_SORT,
+        'eager' => self::EAGER_LOADING,
+    ];
 
     private ArticleRepository $repository;
 
@@ -25,13 +32,8 @@ class ArticleListScreen extends Screen
      */
     public function query(): iterable
     {
-        $options = [
-            'perPage' => self::PER_PAGE,
-            'defaultSort' => 'updated_at'
-        ];
-
         return [
-            'articles' => $this->repository->getAll($options),
+            'articles' => $this->repository->getAll(self::OPTIONS),
         ];
     }
 

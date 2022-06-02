@@ -66,12 +66,17 @@ class ArticleEditScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make('Update article')
+            Button::make(__('Article.Button.Create'))
+                ->icon('note')
+                ->method('create')
+                ->canSee(!$this->article->exists),
+
+            Button::make(__('Article.Button.Update'))
                 ->icon('note')
                 ->method('update')
                 ->canSee($this->article->exists),
 
-            Button::make('Remove article')
+            Button::make(__('Article.Button.Delete'))
                 ->icon('trash')
                 ->method('remove')
                 ->canSee($this->article->exists),

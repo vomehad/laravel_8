@@ -15,14 +15,14 @@
     <div class="control">
         <a href="{{ route('kins.create') }}"
            class="btn btn-success"
-        >{{ __('Kins.Button.Create') }}</a>
+        >{{ __('Kin.Button.Create') }}</a>
     </div>
 
     <div class="content">
         <table>
             <thead>
             <tr>
-                <th><div class="btn btn-default">{{ __('Kins.Table.Name') }}</div></th>
+                <th><div class="btn btn-default">{{ __('Kin.Table.Name') }}</div></th>
                 <th></th>
                 <th></th>
                 <th></th>

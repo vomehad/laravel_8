@@ -2,15 +2,19 @@
 
 namespace App\Orchid\Screens\Kinsman;
 
+use App\Http\Requests\CreateKinsmanRequest;
+use App\Http\Requests\UpdateKinsmanRequest;
 use App\Models\Kin;
 use App\Models\Kinsman;
 use App\Repositories\KinsmanRepository;
+use Illuminate\Http\RedirectResponse;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\CheckBox;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Relation;
 use Orchid\Screen\Fields\Select;
 use Orchid\Screen\Screen;
+use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Layout;
 
 class KinsmanEditScreen extends Screen
@@ -55,6 +59,12 @@ class KinsmanEditScreen extends Screen
     public function commandBar(): iterable
     {
         return [
+
+            Button::make(__('Kinsman.Button.Create'))
+                ->icon('note')
+                ->method('create')
+                ->canSee(!$this->kinsman->exists),
+
             Button::make(__('Kinsman.Button.Update'))
                 ->icon('note')
                 ->method('update')
@@ -117,5 +127,36 @@ class KinsmanEditScreen extends Screen
                     ->sendTrueOrFalse(),
             ]),
         ];
+    }
+
+    public function create(CreateKinsmanRequest $request): RedirectResponse
+    {
+        $dto = $request->createDto();
+
+        $this->repository->create($dto);
+
+        Alert::info(__('Kinsman.Message.Created'));
+
+        return redirect()->route('platform.kinsmans');
+    }
+
+    public function update(UpdateKinsmanRequest $request): RedirectResponse
+    {
+        $dto = $request->createDto();
+
+        $this->repository->update($dto);
+
+        Alert::info(__('Kinsman.Message.Updated'));
+
+        return redirect()->route('platform.kinsmans');
+    }
+
+    public function remove(Kinsman $kinsman): RedirectResponse
+    {
+        $this->repository->remove($kinsman->id);
+
+        Alert::info(__('Kinsman.Message.Deleted'));
+
+        return redirect()->route('platform.kinsmans');
     }
 }

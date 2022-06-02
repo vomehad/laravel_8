@@ -40,6 +40,9 @@ class KinLayout extends Table
                 return Switcher::make()->sendTrueOrFalse()->value($kin->active)->disabled(true);
             }),
 
+            TD::make('updated_at', __('Kin.Label.Updated')),
+            TD::make('created_at', __('Kin.Label.Created')),
+
         ];
     }
 }

@@ -28,20 +28,21 @@ class PlatformProvider extends OrchidServiceProvider
     public function registerMainMenu(): array
     {
         return [
-            Menu::make('DateTime')->icon('history')->route('platform.datetime')->title('Grade'),
+            Menu::make('DateTime')->icon('history')->route('platform.datetime')->title('Grade')->divider(),
 
             Menu::make(__('Article.Orchid.Menu'))->icon('speech')->route('platform.articles'),
 
             Menu::make(__('Category.Orchid.Menu'))->icon('speech')->route('platform.categories'),
 
-            Menu::make(__('Kinsman.Orchid.Menu'))->icon('speech')->route('platform.kinsmans'),
+            Menu::make(__('Note.Orchid.Menu'))->icon('speech')->route('platform.notes')->divider(),
+
+            Menu::make(__('Kinsman.Orchid.Menu'))->icon('speech')->route('platform.kinsmans')->title('Tree'),
 
             Menu::make(__('Kin.Orchid.Menu'))->icon('speech')->route('platform.kins'),
 
-            Menu::make('Example screen')
+            /*Menu::make('Example screen')
                 ->icon('monitor')
-                ->route('platform.example')
-                ->title('Navigation')
+                ->route('platform.example')->title('Navigation')
                 ->badge(function () {
                     return 6;
                 }),
@@ -53,37 +54,19 @@ class PlatformProvider extends OrchidServiceProvider
                     Menu::make('Sub element item 2')->icon('heart'),
                 ]),
 
-            Menu::make('Basic Elements')
-                ->title('Form controls')
-                ->icon('note')
-                ->route('platform.example.fields'),
+            Menu::make('Basic Elements')->title('Form controls')->icon('note')->route('platform.example.fields'),
 
-            Menu::make('Advanced Elements')
-                ->icon('briefcase')
-                ->route('platform.example.advanced'),
+            Menu::make('Advanced Elements')->icon('briefcase')->route('platform.example.advanced'),
 
-            Menu::make('Text Editors')
-                ->icon('list')
-                ->route('platform.example.editors'),
+            Menu::make('Text Editors')->icon('list')->route('platform.example.editors'),
 
-            Menu::make('Overview layouts')
-                ->title('Layouts')
-                ->icon('layers')
-                ->route('platform.example.layouts'),
+            Menu::make('Overview layouts')->title('Layouts')->icon('layers')->route('platform.example.layouts'),
 
-            Menu::make('Chart tools')
-                ->icon('bar-chart')
-                ->route('platform.example.charts'),
+            Menu::make('Chart tools')->icon('bar-chart')->route('platform.example.charts'),
 
-            Menu::make('Cards')
-                ->icon('grid')
-                ->route('platform.example.cards')
-                ->divider(),
+            Menu::make('Cards')->icon('grid')->route('platform.example.cards')->divider(),
 
-            Menu::make('Documentation')
-                ->title('Docs')
-                ->icon('docs')
-                ->url('https://orchid.software/en/docs'),
+            Menu::make('Documentation')->title('Docs')->icon('docs')->url('https://orchid.software/en/docs'),
 
             Menu::make('Changelog')
                 ->icon('shuffle')
@@ -91,18 +74,11 @@ class PlatformProvider extends OrchidServiceProvider
                 ->target('_blank')
                 ->badge(function () {
                     return Dashboard::version();
-                }, Color::DARK()),
+                }, Color::DARK()),*/
 
-            Menu::make(__('Users'))
-                ->icon('user')
-                ->route('platform.systems.users')
-                ->permission('platform.systems.users')
-                ->title(__('Access rights')),
+            Menu::make(__('Users'))->icon('user')->route('platform.systems.users')->permission('platform.systems.users')->title(__('Access rights')),
 
-            Menu::make(__('Roles'))
-                ->icon('lock')
-                ->route('platform.systems.roles')
-                ->permission('platform.systems.roles'),
+            Menu::make(__('Roles'))->icon('lock')->route('platform.systems.roles')->permission('platform.systems.roles'),
         ];
     }
 

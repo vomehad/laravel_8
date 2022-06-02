@@ -9,6 +9,8 @@ class KinDto implements DtoInterface
 {
     public int $id;
     public string $name;
+    public bool $active;
+    public int $created_by;
 
     public function createFromRequest(array $fields): DtoInterface
     {

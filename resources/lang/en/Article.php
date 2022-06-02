@@ -1,26 +1,6 @@
 <?php
 
 return [
-    'Menu' => [
-        'Top' => 'Articles',
-    ],
-    'Main' => 'Articles',
-    'New' => 'Creating',
-    'Update' => 'Update',
-    'View' => 'Article',
-    'Search' => 'Found articles',
-    'Label' => [
-        'Title' => 'Title',
-        'Text' => 'Text',
-        'Link' => 'Link',
-        'Category' => 'click to select category',
-    ],
-    'Message' => [],
-    'Placeholder' => [
-        'Title' => 'Enter title',
-        'Text' => 'Start writing an article here',
-        'Link' => 'Link to source',
-    ],
     'Button' => [
         'Save' => 'Save',
         'Search' => 'Search',
@@ -28,4 +8,33 @@ return [
         'Update' => 'Update',
         'Delete' => 'Delete',
     ],
+    'Label' => [
+        'Active' => 'Active',
+        'Author' => 'Author',
+        'Category' => 'Select category',
+        'Created' => 'Created',
+        'Disk' => 'Disk',
+        'Link' => 'Link',
+        'Preview' => 'Preview',
+        'Search' => 'Founded',
+        'Text' => 'Text',
+        'Title' => 'Title',
+        'Updated' => 'Updated',
+    ],
+    'Main' => 'Articles',
+    'Menu' => [
+        'Top' => 'Articles',
+    ],
+    'Message' => [],
+    'Orchid' => [
+        'Title' => 'Articles',
+        'Menu' => 'Articles',
+    ],
+    'Placeholder' => [
+        'Link' => 'Link to source',
+        'Preview' => 'Preview',
+        'Text' => 'Start writing an article here',
+        'Title' => 'Enter title',
+    ],
+
 ];

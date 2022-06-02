@@ -79,6 +79,8 @@ class KinsmanLayout extends Table
                     return null;
                 }),
 
+            TD::make('updated_at', __('Kinsman.Label.Updated'))->sort(),
+            TD::make('created_at', __('Kinsman.Label.Created'))->sort(),
         ];
     }
 }

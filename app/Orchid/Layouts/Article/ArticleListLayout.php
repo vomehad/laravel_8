@@ -55,9 +55,8 @@ class ArticleListLayout extends Table
                 return $article->author->name;
             })->sort(),
 
-            TD::make('created_at', __('Article.Label.CreatedAt'))->sort(),
-
-            TD::make('updated_at', __('Article.Label.UpdatedAt'))->sort(),
+            TD::make('updated_at', __('Article.Label.Updated'))->sort(),
+            TD::make('created_at', __('Article.Label.Created'))->sort(),
 
         ];
     }

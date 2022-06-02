@@ -49,7 +49,8 @@ class CategoryListLayout extends Table
                 return $category->note()->count();
             })->sort(),
 
-//            TD::make('updated_at'),
+            TD::make('updated_at', __('Category.Label.Updated'))->sort(),
+            TD::make('created_at', __('Category.Label.Created'))->sort(),
 
         ];
     }

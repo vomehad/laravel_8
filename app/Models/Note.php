@@ -18,6 +18,7 @@ use Orchid\Screen\AsSource;
  * @property int        $id
  * @property string     $name
  * @property string     $content
+ * @property Note       $parentNote
  *
  * @method static find(int $id)
  */

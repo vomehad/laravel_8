@@ -9,12 +9,13 @@ class ArticleDto implements DtoInterface
 {
     public int $id;
     public string $title;
+    public ?string $preview;
     public ?string $link;
     public bool $active;
     public array $category;
     public int $created_by;
     public string $text;
-    public $file;
+    public ?string $disk;
 
     public function createFromRequest(array $fields): DtoInterface
     {

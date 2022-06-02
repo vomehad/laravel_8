@@ -13,6 +13,12 @@ return [
         'index' => 'list',
         'show' => 'Detail'
     ],
+    'kins' => [
+        'create' => 'Create',
+        'edit' => 'Edit',
+        'index' => 'list',
+        'show' => 'Detail'
+    ],
     'tags' => [
         'index' => 'Tags',
         'create' => 'Create',

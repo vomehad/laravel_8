@@ -2,10 +2,12 @@
 
 namespace App\Repositories;
 
+use App\Dto\SelectedDto;
+use App\Helpers\NameHelper;
 use App\Interfaces\DtoInterface;
 use App\Interfaces\RepositoryInterface;
 use App\Models\Kin;
-use App\Models\User;
+use App\Models\Kinsman;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -13,23 +15,25 @@ use Illuminate\Support\Str;
 
 class KinRepository extends BaseRepository implements RepositoryInterface
 {
-    private Kin $model;
+    private Kin $kinModel;
+    private Kinsman $kinsmanModel;
 
-    public function __construct(Kin $model)
+    public function __construct(Kin $kinModel, Kinsman $kinsmanModel)
     {
-        $this->model = $model;
+        $this->kinModel = $kinModel;
+        $this->kinsmanModel = $kinsmanModel;
     }
 
     public function getAll(array $options = []): LengthAwarePaginator
     {
-        $kins = $this->model;
+        $kins = $this->kinModel->where(['active' => true]);
 
         if (Arr::has($options, 'search')) {
-            $kins = $this->model->search(Arr::get($options, 'search'));
+            $kins = $kins->search(Arr::get($options, 'search'));
         }
 
         if (Arr::has($options, 'defaultSort')) {
-            $kins = $this->model->defaultSort(Arr::get($options, 'defaultSort'));
+            $kins = $kins->defaultSort(Arr::get($options, 'defaultSort'));
         }
 
         return $kins->filters()->paginate(Arr::get($options, 'perPage'));
@@ -37,7 +41,8 @@ class KinRepository extends BaseRepository implements RepositoryInterface
 
     public function getOne(int $id): ?Model
     {
-        return $this->model
+        return $this->kinModel
+            ->with(['kinsman'])
             ->where(['id' => $id])
             ->where(['active' => true])
             ->first();
@@ -45,56 +50,87 @@ class KinRepository extends BaseRepository implements RepositoryInterface
 
     public function add(): array
     {
-        return [$this->model];
+        return [$this->kinModel];
     }
 
     public function create(DtoInterface $dto): ?int
     {
-        $kin = $this->setFields($this->model, $dto);
+        $kin = $this->setFields($this->kinModel, $dto);
         $kin->slug = Str::slug($kin->name);
         $kin->generation = 1;
-        $kin->created_by = $this->setUser();
+        $kin->created_by = auth()->id();
 
         $saved = $kin->save();
+
+//        $kin->kinsman()->sync($dto->kinsman);
 
         return $saved ? $kin->id : null;
     }
 
     public function edit(int $id): array
     {
-        // TODO: Implement edit() method.
+        $kin = $this->kinModel
+            ->with(['kinsman'])
+            ->where(['id' => $id])
+            ->where(['active' => true])
+            ->first();
+        $kinsmans = $this->kinsmanModel
+            ->where(['active' => true])
+            ->get()
+            ->keyBy('id');
+
+        $selected = new SelectedDto();
+        $selected->categories = $kin->kinsman
+                ->keyBy('id')
+                ->map(function ($item) {
+                    return $item->id;
+                }) ?? null;
+
+        return [$kin, $kinsmans, $selected];
     }
 
     public function update(DtoInterface $dto): ?int
     {
-        // TODO: Implement update() method.
+        $kin = $this->kinModel->findOrFail($dto->id);
+
+        $kin = $this->setFields($kin, $dto);
+
+        $updated = $kin->update();
+
+//        $kin->kinsman()->sync($dto->kinsman);
+
+        return $updated ? $kin->id : null;
     }
 
     public function remove(int $id): string
     {
-        // TODO: Implement remove() method.
+        /** @var Kin $kin */
+        $kin = $this->kinModel->find($id);
+        $kin->delete();
+
+        return NameHelper::getActionName();
     }
 
     public function restore(int $id): string
     {
-        // TODO: Implement restore() method.
+        $kin = $this->kinModel->onlyTrashed()->find($id);
+        $kin->restore();
+
+        return NameHelper::getActionName();
     }
 
     private function setFields(Kin $kin, DtoInterface $dto): Kin
     {
         foreach ($dto as $prop => $value) {
-            if ($dto->$prop) {
+            if ($dto->$prop !== null) {
+                if (is_array($dto->$prop)) {
+                    continue;
+                }
+
                 $kin->$prop = $value;
             }
         }
 
         return $kin;
-    }
-
-    private function setUser(): ?int
-    {
-        $user = User::first();
-
-        return $user->id;
     }
 }

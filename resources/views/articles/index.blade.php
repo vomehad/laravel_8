@@ -19,7 +19,7 @@
     </div>
 
     <div class="content">
-        <span>{{ __('Article.Search') }} - {{ $models->total() }}</span>
+        <span>{{ __('Article.Label.Search') }} - {{ $models->total() }}</span>
         @foreach($models as $article)
             @php /** @var \App\Models\Article $article */ @endphp
             <div class="list-group">

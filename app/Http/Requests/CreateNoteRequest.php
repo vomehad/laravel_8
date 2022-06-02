@@ -25,11 +25,17 @@ class CreateNoteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'nullable',
-            'name' => 'required|string|max:255',
-            'category.*' => 'required|integer|exists:categories,id',
+            'name' => 'required_if:note.name,null|string|max:255',
+            'note.name' => 'required_if:name,null|string|max:255',
+
+            'category.*' => 'required_if:note.category.*,null|integer|exists:categories,id',
+            'note.category.*' => 'required_if:category.*,null|integer|exists:categories,id',
+
             'parent_id' => 'nullable|integer|exists:notes,id',
-            'content' => 'required|string|min:14',
+            'note.parent_id' => 'nullable|integer|exists:notes,id',
+
+            'content' => 'required_if:note.content,null|string|min:14',
+            'note.content' => 'required_if:content,null|string|min:14',
         ];
     }
 

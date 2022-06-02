@@ -19,15 +19,22 @@ return [
         'List' => 'Children'
     ],
     'Label' => [
-        'Name' => 'Name',
-        'MiddleName' => 'Middle name',
-        'Gender' => 'Gender',
+        'Active' => 'Active',
+        'Created' => 'Created',
         'Father' => 'Father',
+        'Gender' => 'Gender',
+        'Kin' => 'Kin',
+        'MiddleName' => 'Middle name',
         'Mother' => 'Mother',
-        'Kin' => 'Kin'
+        'Name' => 'Name',
+        'Updated' => 'Updated',
     ],
     'Menu' => [
-        'Top' => 'Kinsman'
+        'Top' => 'Kinsman',
+    ],
+    'Orchid' => [
+        'Menu' => 'Kinsman list',
+        'Name' => 'Kinsman list'
     ],
     'Placeholder' => [
         'Name' => 'Name',

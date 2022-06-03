@@ -40,6 +40,8 @@ class PlatformProvider extends OrchidServiceProvider
 
             Menu::make(__('Kin.Orchid.Menu'))->icon('speech')->route('platform.kins'),
 
+            Menu::make(__('Life.Orchid.Menu'))->icon('speech')->route('platform.life.index'),
+
             /*Menu::make('Example screen')
                 ->icon('monitor')
                 ->route('platform.example')->title('Navigation')
@@ -52,13 +54,13 @@ class PlatformProvider extends OrchidServiceProvider
                 ->list([
                     Menu::make('Sub element item 1')->icon('bag'),
                     Menu::make('Sub element item 2')->icon('heart'),
-                ]),
+                ]),*/
 
-            Menu::make('Basic Elements')->title('Form controls')->icon('note')->route('platform.example.fields'),
+            /*Menu::make('Basic Elements')->title('Form controls')->icon('note')->route('platform.example.fields'),*/
 
-            Menu::make('Advanced Elements')->icon('briefcase')->route('platform.example.advanced'),
+            /*Menu::make('Advanced Elements')->icon('briefcase')->route('platform.example.advanced'),*/
 
-            Menu::make('Text Editors')->icon('list')->route('platform.example.editors'),
+            /*Menu::make('Text Editors')->icon('list')->route('platform.example.editors'),
 
             Menu::make('Overview layouts')->title('Layouts')->icon('layers')->route('platform.example.layouts'),
 

@@ -1,37 +1,27 @@
 <?php
 
 return [
-    'Main' => 'Cookie manager',
     'Menu' => [
-        'Top' => 'Cookies',
+        'Top' => 'Куки',
     ],
     'Label' => [
-        'Hourly' => 'Set cookie by 1 hour',
-        'Session' => 'Set cookie by Session',
-        'Split-word' => 'The word will be split',
-        'Text' => 'The dates will be displayed in a different format',
+        'Hourly' => 'Установить куку на час',
+        'Session' => 'Установить куку дл конца сессии',
+        'Split-word' => 'Слово разделится на буквы',
+        'Text' => 'Даты в тексте отобразятся в другом формате',
     ],
     'Placeholder' => [
-        'Hourly' => 'Enter value',
-        'Session' => 'Enter value',
-        'Split-word' => 'Enter word',
-        'Text' => 'Insert text with dates',
+        'Hourly' => 'Введите цифру',
+        'Session' => 'Введите цифру',
+        'Split-word' => 'Введите слово',
+        'Text' => 'Нужен текст с датами',
     ],
     'Message' => [
-        'Cookie' => 'Cookie :class is :cookie',
+        'Cookie' => 'Кука :class теперь :cookie',
     ],
     'Send' => [
-        'Cookie' => 'Set Cookies',
-        'Split-word' => 'Split',
-        'Text' => 'Send',
+        'Cookie' => 'Установить',
+        'Split-word' => 'Разбить',
+        'Text' => 'Отправить',
     ],
-    'Note' => [
-        'Create' => 'Create new note',
-        'All' => 'Notes',
-        'View' => 'Note',
-        'Search' => 'Found notes',
-    ],
-    'Category' => [
-        'List' => 'Categories',
-    ]
 ];

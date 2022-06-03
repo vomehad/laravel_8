@@ -34,35 +34,35 @@
             </tr>
             </thead>
             <tbody>
-        @foreach($models as $user)
-            @php /** @var \App\Models\Kinsman $user */ @endphp
+        @foreach($models as $kinsman)
+            @php /** @var \App\Models\Kinsman $kinsman */ @endphp
 
             <tr>
-                <td><div class="btn btn-default">{{ $user->name }}</div></td>
-                <td><div class="btn btn-default">{{ $user->middle_name }}</div></td>
-                <td><div class="btn btn-default">{{ $user->gender }}</div></td>
+                <td><div class="btn btn-default">{{ $kinsman->name }}</div></td>
+                <td><div class="btn btn-default">{{ $kinsman->middle_name }}</div></td>
+                <td><div class="btn btn-default">{{ $kinsman->getGender($kinsman->gender) }}</div></td>
 
-                @isset($user->father->id)
-                <td><a href="{{ route('kinsmans.show', $user->father->id) }}" class="btn btn-default">{{ $user->father->name ?? '-' }}</a></td>
+                @isset($kinsman->father->id)
+                <td><a href="{{ route('kinsmans.show', $kinsman->father->id) }}" class="btn btn-default">{{ $kinsman->father->name ?? '-' }}</a></td>
                 @else
-                <td><div class="btn btn-default">{{ $user->father->name ?? '-' }}</div></td>
+                <td><div class="btn btn-default">{{ $kinsman->father->name ?? '-' }}</div></td>
                 @endif
 
-                @isset($user->mother->id)
-                <td><a href="{{ route('kinsmans.show', $user->mother->id) }}" class="btn btn-default">{{ $user->mother->name ?? '-' }}</a></td>
+                @isset($kinsman->mother->id)
+                <td><a href="{{ route('kinsmans.show', $kinsman->mother->id) }}" class="btn btn-default">{{ $kinsman->mother->name ?? '-' }}</a></td>
                 @else
-                <td><div class="btn btn-default">{{ $user->mother->name ?? '-' }}</div></td>
+                <td><div class="btn btn-default">{{ $kinsman->mother->name ?? '-' }}</div></td>
                 @endif
 
-                @isset($user->kin->id)
-                <td><a href="{{ route('kins.show', $user->kin->id) }}" class="btn btn-default">{{ $user->kin->name ?? '-' }}</a></td>
+                @isset($kinsman->kin->id)
+                <td><a href="{{ route('kins.show', $kinsman->kin->id) }}" class="btn btn-default">{{ $kinsman->kin->name ?? '-' }}</a></td>
                 @else
-                <td><div class="btn btn-default">{{ $user->kin->name ?? '-' }}</div></td>
+                <td><div class="btn btn-default">{{ $kinsman->kin->name ?? '-' }}</div></td>
                 @endif
 
-                <td><a href="{{ route('kinsmans.show', $user->id) }}" class="btn btn-success">{{ __('Kinsman.Button.View') }}</a></td>
-                <td><a href="{{ route('kinsmans.edit', $user->id) }}" class="btn btn-primary">{{ __('Kinsman.Button.Update') }}</a></td>
-                <td><a href="{{ route('kinsmans.destroy', $user->id) }}" class="btn btn-danger">{{ __('Kinsman.Button.Delete') }}</a></td>
+                <td><a href="{{ route('kinsmans.show', $kinsman->id) }}" class="btn btn-success">{{ __('Kinsman.Button.View') }}</a></td>
+                <td><a href="{{ route('kinsmans.edit', $kinsman->id) }}" class="btn btn-primary">{{ __('Kinsman.Button.Update') }}</a></td>
+                <td><a href="{{ route('kinsmans.destroy', $kinsman->id) }}" class="btn btn-danger">{{ __('Kinsman.Button.Delete') }}</a></td>
             </tr>
         @endforeach
             </tbody>

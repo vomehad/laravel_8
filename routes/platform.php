@@ -24,6 +24,8 @@ use App\Orchid\Screens\Kin\KinEditScreen;
 use App\Orchid\Screens\Kin\KinListScreen;
 use App\Orchid\Screens\Kinsman\KinsmanEditScreen;
 use App\Orchid\Screens\Kinsman\KinsmanListScreen;
+use App\Orchid\Screens\Life\LifeEditScreen;
+use App\Orchid\Screens\Life\LifeListScreen;
 use App\Orchid\Screens\Note\NoteEditScreen;
 use App\Orchid\Screens\Note\NoteListScreen;
 use App\Orchid\Screens\PlatformScreen;
@@ -257,5 +259,31 @@ Route::screen('notes/create', NoteEditScreen::class)
     ->breadcrumbs(function(Trail $trail) {
         return $trail->parent('platform.index')
             ->push(__('Note.Orchid.Menu'), route('platform.notes'))
+            ->push('Create');
+    });
+
+// Platform > Life
+Route::screen('life', LifeListScreen::class)
+    ->name('platform.life.index')
+    ->breadcrumbs(function(Trail $trail) {
+        return $trail->parent('platform.index')
+            ->push(__('Life.Orchid.Menu'));
+    });
+
+// Platform > Life > Edit
+Route::screen('life/{id}/edit', LifeEditScreen::class)
+    ->name('platform.life.edit')
+    ->breadcrumbs(function(Trail $trail) {
+        return $trail->parent('platform.index')
+            ->push(__('Life.Orchid.Menu'), route('platform.life.index'))
+            ->push('life');
+    });
+
+// Platform > Life > Create
+Route::screen('life/create', LifeEditScreen::class)
+    ->name('platform.life.create')
+    ->breadcrumbs(function(Trail $trail) {
+        return $trail->parent('platform.index')
+            ->push(__('Life.Orchid.Menu'), route('platform.life.index'))
             ->push('Create');
     });

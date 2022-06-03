@@ -19,18 +19,26 @@ class KinsmanDto implements DtoInterface
     /** @var string $gender */
     public string $gender;
 
-    /** @var int $father_id */
-    public int $father_id;
+    /** @var int|null $father_id */
+    public ?int $father_id;
 
-    /** @var int $mother_id */
-    public int $mother_id;
+    /** @var int|null $mother_id */
+    public ?int $mother_id;
 
-    /** @var int $kin_id */
-    public int $kin_id;
+    /** @var int|null $kin_id */
+    public ?int $kin_id;
+
+    /** @var string|null $birth_date */
+    public string $birth_date;
+
+    /** @var string|null $end_date */
+    public ?string $end_date;
 
     public function createFromRequest(array $fields): DtoInterface
     {
-        $array = is_array(reset($fields)) ? reset($fields) : $fields;
+        $kinsman = Arr::has($fields, 'kinsman') ? Arr::get($fields, 'kinsman') : $fields;
+        $life = Arr::has($fields, 'life') ? Arr::get($fields, 'life') : $fields;
+        $array = array_merge($kinsman, $life);
 
         foreach (get_class_vars(self::class) as $prop => $item) {
             if (Arr::has($array, $prop)) {

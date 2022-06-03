@@ -8,7 +8,10 @@ use Illuminate\Support\Arr;
 class LifeDto implements DtoInterface
 {
     public int $id;
-    public string $name;
+    public int $kinsman_id;
+    public string $birth_date;
+    public ?string $end_date;
+    public bool $active;
 
     public function createFromRequest(array $fields): DtoInterface
     {

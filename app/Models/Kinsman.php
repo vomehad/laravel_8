@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use Orchid\Filters\Filterable;
@@ -14,14 +15,16 @@ use Orchid\Screen\AsSource;
 /**
  * Class Kinsman
  *
- * @property int $id
- * @property string $name
- * @property string $middle_name
- * @property string $gender
- * @property Kinsman $father
- * @property Kinsman $mother
- * @property Kin $kin
- * @property bool $active
+ * @property int        $id
+ * @property string     $name
+ * @property string     $middle_name
+ * @property string     $gender
+ * @property Kinsman    $father
+ * @property Kinsman    $mother
+ * @property Kin        $kin
+ * @property bool       $active
+ * @property Life       $life
+ *
  * @package App\Models
  */
 class Kinsman extends Model
@@ -54,6 +57,7 @@ class Kinsman extends Model
         'active',
     ];
 
+//====================== relations =====================================
     public function father(): BelongsTo
     {
         return $this->belongsTo(Kinsman::class)->withDefault([
@@ -73,6 +77,12 @@ class Kinsman extends Model
         return $this->BelongsTo(Kin::class);
     }
 
+    public function life(): HasOne
+    {
+        return $this->hasOne(Life::class);
+    }
+// ============================= end relations ===================================
+
     public function scopeFathers(Builder $query): Builder
     {
         return $query->where(['gender' => 'male'])
@@ -87,8 +97,22 @@ class Kinsman extends Model
             ->where('id', '!=', $this->id);
     }
 
+    public function scopeKinsman(Builder $query): Builder
+    {
+        return $query->where(['active' => true]);
+    }
+
     public function getFullNameAttribute(): string
     {
         return $this->name ." ". $this->middle_name;
+    }
+
+    public function getGender(string $key): string
+    {
+        $genders = [
+            'male' => __('Kinsman.Select.male'),
+            'female' => __('Kinsman.Select.female'),
+        ];
+        return $genders[$key];
     }
 }

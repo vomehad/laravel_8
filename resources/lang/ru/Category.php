@@ -2,29 +2,29 @@
 
 return [
     'Button' => [
-        'Create' => 'Create',
-        'Update' => 'Update',
-        'Delete' => 'Delete',
-        'Save' => 'Save',
+        'Create' => 'Добавить',
+        'Update' => 'Обновить',
+        'Delete' => 'Удалить',
+        'Save' => 'Сохранить',
     ],
     'Label' => [
-        'Active' => 'Active',
-        'Article' => 'Used in articles',
-        'Created' => 'Created',
-        'Name' => 'Name',
-        'Note' => 'Used in notes',
-        'Slug' => 'Slug',
-        'Updated' => 'Updated',
+        'Active' => 'Активность',
+        'Article' => 'Использовано в статьях',
+        'Created' => 'Создано',
+        'Name' => 'Имя',
+        'Note' => 'Использовано в заметках',
+        'Slug' => 'slug',
+        'Updated' => 'Обновлено',
     ],
     'Menu' => [
-        'Top' => 'Categories',
+        'Top' => 'Категории',
     ],
     'Orchid' => [
-        'Title' => 'Categories',
-        'Menu' => 'Categories',
+        'Title' => 'Категории',
+        'Menu' => 'Категории',
     ],
     'Placeholder' => [
-        'Name' => 'insert name'
+        'Name' => 'Введите имя'
     ],
 
 ];

@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Orchid\Screens\Kinsman;
+namespace App\Orchid\Screens\Life;
 
-use App\Orchid\Layouts\Kinsman\KinsmanListLayout;
-use App\Orchid\Layouts\Kinsman\KinsmanFilterLayout;
-use App\Repositories\KinsmanRepository;
+use App\Orchid\Layouts\Life\LifeListLayout;
+use App\Repositories\LifeRepository;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
 
-class KinsmanListScreen extends Screen
+class LifeListScreen extends Screen
 {
     private const PER_PAGE = 10;
     private const DEFAULT_SORT = 'updated_at';
@@ -19,9 +18,9 @@ class KinsmanListScreen extends Screen
         'eager' => self::EAGER_LOADING,
     ];
 
-    private KinsmanRepository $repository;
+    private LifeRepository $repository;
 
-    public function __construct(KinsmanRepository $repository)
+    public function __construct(LifeRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -34,7 +33,7 @@ class KinsmanListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'kinsmans' => $this->repository->getAll(self::OPTIONS),
+            'life' => $this->repository->getAll(self::OPTIONS),
         ];
     }
 
@@ -45,7 +44,7 @@ class KinsmanListScreen extends Screen
      */
     public function name(): ?string
     {
-        return __('Kinsman.Orchid.Name');
+        return __('Life.Orchid.Name');
     }
 
     /**
@@ -56,9 +55,9 @@ class KinsmanListScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Link::make(__('Kinsman.Button.Create'))
+            Link::make(__('Life.Button.Create'))
                 ->icon('plus')
-                ->route('platform.kinsman.create')
+                ->route('platform.life.create'),
         ];
     }
 
@@ -70,8 +69,7 @@ class KinsmanListScreen extends Screen
     public function layout(): iterable
     {
         return [
-            KinsmanFilterLayout::class,
-            KinsmanListLayout::class,
+            LifeListLayout::class,
         ];
     }
 }

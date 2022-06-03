@@ -15,10 +15,11 @@ use Orchid\Screen\AsSource;
  * Class Note
  * @package App\Models
  *
- * @property int        $id
- * @property string     $name
- * @property string     $content
- * @property Note       $parentNote
+ * @property int            $id
+ * @property string         $name
+ * @property string         $content
+ * @property Note           $parentNote
+ * @property Category       $category
  *
  * @method static find(int $id)
  */

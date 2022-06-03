@@ -6,10 +6,12 @@ use App\Http\Requests\CreateKinsmanRequest;
 use App\Http\Requests\UpdateKinsmanRequest;
 use App\Models\Kin;
 use App\Models\Kinsman;
+use App\Models\Life;
 use App\Repositories\KinsmanRepository;
 use Illuminate\Http\RedirectResponse;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\CheckBox;
+use Orchid\Screen\Fields\DateTimer;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Relation;
 use Orchid\Screen\Fields\Select;
@@ -32,9 +34,10 @@ class KinsmanEditScreen extends Screen
      * Query data.
      *
      * @param Kinsman $kinsman
+     * @param \App\Models\Life $life
      * @return array
      */
-    public function query(Kinsman $kinsman): iterable
+    public function query(Kinsman $kinsman, Life $life): iterable
     {
         return [
             'kinsman' => $kinsman,
@@ -48,7 +51,7 @@ class KinsmanEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return $this->kinsman->exists ? 'Edit person' : 'Creating a new person';
+        return $this->kinsman->exists ? __('Kinsman.Orchid.Update') : __('Kinsman.Orchid.Create');
     }
 
     /**
@@ -61,7 +64,7 @@ class KinsmanEditScreen extends Screen
         return [
 
             Button::make(__('Kinsman.Button.Create'))
-                ->icon('note')
+                ->icon('plus')
                 ->method('create')
                 ->canSee(!$this->kinsman->exists),
 
@@ -74,6 +77,7 @@ class KinsmanEditScreen extends Screen
                 ->icon('trash')
                 ->method('remove')
                 ->canSee($this->kinsman->exists),
+
         ];
     }
 
@@ -86,45 +90,66 @@ class KinsmanEditScreen extends Screen
     public function layout(): iterable
     {
         return [
-            Layout::rows([
 
-                Input::make('kinsman.id')->type('hidden'),
+            Layout::columns([
 
-                Input::make('kinsman.name')
-                    ->title(__('Kinsman.Label.Name'))
-                    ->placeholder(__('Kinsman.Placeholder.Name')),
+                Layout::rows([
 
-                Input::make('kinsman.middle_name')
-                    ->title(__('Kinsman.Label.MiddleName'))
-                    ->placeholder(__('Kinsman.Placeholder.MiddleName')),
+                    Input::make('kinsman.id')->type('hidden'),
 
-                Select::make('kinsman.gender')
-                    ->options([
-                        'male' => __('Kinsman.Select.male'),
-                        'female' => __('Kinsman.Select.female'),
-                    ])
-                    ->empty('Not selected')
-                    ->title('Kinsman.Label.Gender'),
+                    Input::make('kinsman.name')
+                        ->title(__('Kinsman.Label.Name'))
+                        ->placeholder(__('Kinsman.Placeholder.Name')),
 
-                Relation::make('kinsman.father')
-                    ->fromModel(Kinsman::class, 'name')
-                    ->applyScope('fathers')
-                    ->displayAppend('fullName')
-                    ->title('Kinsman.Label.Father'),
+                    Input::make('kinsman.middle_name')
+                        ->title(__('Kinsman.Label.MiddleName'))
+                        ->placeholder(__('Kinsman.Placeholder.MiddleName')),
 
-                Relation::make('kinsman.mother')
-                    ->fromModel(Kinsman::class, 'name')
-                    ->applyScope('mothers')
-                    ->displayAppend('fullName')
-                    ->title('Kinsman.Label.Mother'),
+                    Select::make('kinsman.gender')
+                        ->options([
+                            'male' => __('Kinsman.Select.male'),
+                            'female' => __('Kinsman.Select.female'),
+                        ])
+                        ->empty('Not selected')
+                        ->title('Kinsman.Label.Gender'),
 
-                Relation::make('kinsman.kin')
-                    ->fromModel(Kin::class, 'name')
-                    ->title('Kinsman.Label.Kin'),
+                    Relation::make('kinsman.father_id')
+                        ->fromModel(Kinsman::class, 'name', 'id')
+                        ->applyScope('fathers')
+                        ->displayAppend('fullName')
+                        ->title('Kinsman.Label.Father'),
 
-                CheckBox::make('kinsman.active')
-                    ->title(__('Kinsman.Label.Active'))
-                    ->sendTrueOrFalse(),
+                    Relation::make('kinsman.mother_id')
+                        ->fromModel(Kinsman::class, 'name', 'id')
+                        ->applyScope('mothers')
+                        ->displayAppend('fullName')
+                        ->title('Kinsman.Label.Mother'),
+
+                    Relation::make('kinsman.kin_id')
+                        ->fromModel(Kin::class, 'name', 'id')
+                        ->title('Kinsman.Label.Kin'),
+
+                    CheckBox::make('kinsman.active')
+                        ->title(__('Kinsman.Label.Active'))
+                        ->sendTrueOrFalse(),
+                ]),
+
+                Layout::rows([
+
+                    DateTimer::make('life.birth_date')
+                        ->title(__('Life.Label.BirthDate'))
+                        ->placeholder(__('Life.Placeholder.BirthDate'))
+                        ->value($this->kinsman->life->birth_date ?? null)
+                        ->enableTime(),
+
+                    DateTimer::make('life.end_date')
+                        ->title(__('Life.Label.EndDate'))
+                        ->placeholder(__('Life.Placeholder.EndDate'))
+                        ->value($this->kinsman->life->end_date ?? null)
+                        ->enableTime(),
+
+                ]),
+
             ]),
         ];
     }

@@ -2,25 +2,25 @@
 
 return [
     'Button' => [
-        'Create' => 'Create',
-        'Delete' => 'Delete',
-        'Update' => 'Update',
-        'Search' => 'Search',
-        'View' => 'View',
+        'Create' => 'Добавить',
+        'Delete' => 'Удалить',
+        'Update' => 'Обновить',
+        'Search' => 'Поиск',
+        'View' => 'Подробнее',
     ],
     'Label' => [
-        'Active' => 'Active',
-        'Created' => 'Created',
-        'Name' => 'Name',
-        'Slug' => 'Slug',
-        'Updated' => 'Updated',
+        'Active' => 'Активность',
+        'Created' => 'Создано',
+        'Name' => 'Имя',
+        'Slug' => 'slug',
+        'Updated' => 'Обновлён',
     ],
     'Orchid' => [
-        'Menu' => 'Kins',
-        'Name' => 'Kin list'
+        'Menu' => 'Список Родов',
+        'Name' => 'Список Родов'
     ],
     'Table' => [
-        'Name' => 'Name',
-        'Slug' => 'Slug',
+        'Name' => 'Имя',
+        'Slug' => 'slug',
     ]
 ];

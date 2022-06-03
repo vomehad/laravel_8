@@ -57,11 +57,13 @@
             @foreach($children as $child)
                 @php /** @var \App\Models\Note $child */ @endphp
                     <tr>
-                        <td><a href="{{ route('test.notes.show', $child->id) }}"
+                        <td>
+                            <a href="{{ route('test.notes.show', $child->id) }}"
                                class="btn btn-warning"
-                            >{{ $child->name }}</a></td>
+                            >{{ $child->name }}</a>
+                        </td>
                         @foreach($child->category as $category)
-                        <td class="btn btn-secondary">{{ $category->name }}</td>
+                        <td class="btn btn-secondary badge">{{ $category->name }}</td>
                         @endforeach
                     </tr>
             @endforeach

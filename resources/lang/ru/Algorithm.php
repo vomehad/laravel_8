@@ -2,6 +2,6 @@
 
 return [
     'Menu' => [
-        'Top' => 'Algorithm'
+        'Top' => 'Алгоритм'
     ]
 ];

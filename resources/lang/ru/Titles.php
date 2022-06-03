@@ -2,37 +2,25 @@
 
 return [
     'articles' => [
-        'index' => 'Articles',
-        'search' => 'Found',
-        'create' =>  'Create',
+        'create' =>  'Добавить',
+        'index' => 'Статьи',
+        'search' => 'Найдено',
     ],
     'home' => 'Home',
     'kinsmans' => [
-        'create' => 'Create',
-        'edit' => 'Edit',
-        'index' => 'list',
-        'show' => 'Detail'
-    ],
-    'kins' => [
-        'create' => 'Create',
-        'edit' => 'Edit',
-        'index' => 'list',
-        'show' => 'Detail'
-    ],
-    'tags' => [
-        'index' => 'Tags',
-        'create' => 'Create',
+        'create' => 'Добавить',
+        'edit' => 'Обновить',
+        'index' => 'Родственники',
+        'show' => 'Подробнее'
     ],
     'test' => [
-        'main' => 'cookie page',
-        'categories' => [
-            'index' => 'Categories',
-            'create' => 'Create',
+        'cookie' => [
+            'index' => 'Задания',
         ],
         'notes' => [
-            'index' => 'Notes',
-            'create' => 'Create',
-            'search' => 'Found',
+            'create' => 'Добавить',
+            'index' => 'Список заметок',
+            'search' => 'Найдено',
         ]
     ],
     'sort' => 'Bubble sort',

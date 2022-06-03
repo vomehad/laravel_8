@@ -3,44 +3,43 @@
 namespace App\Orchid\Layouts\Kinsman;
 
 use App\Models\Kinsman;
+use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
+use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Switcher;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
 
-class KinsmanLayout extends Table
+class KinsmanListLayout extends Table
 {
-    /**
-     * Data source.
-     *
-     * The name of the key to fetch it from the query.
-     * The results of which will be elements of the table.
-     *
-     * @var string
-     */
     protected $target = 'kinsmans';
 
-    /**
-     * Get the table cells to be displayed.
-     *
-     * @return TD[]
-     */
     protected function columns(): iterable
     {
         return [
 
             TD::make('name', __('Kinsman.Label.Name'))
+                ->sort()
+                ->cantHide()
+                ->filter(Input::make())
                 ->render(function(Kinsman $kinsman) {
+//                    return new Persona($user->presenter());
                     return Link::make($kinsman->name)->route('platform.kinsman.edit', $kinsman->id);
-                })->sort(),
+                }),
 
-            TD::make('middle_name', __('Kinsman.Label.MiddleName'))->sort(),
+            TD::make('middle_name', __('Kinsman.Label.MiddleName'))
+                ->sort()
+                ->cantHide()
+                ->filter(Input::make()),
 
             TD::make('gender', __('Kinsman.Label.Gender')),
 
-            TD::make('active', __('Kinsman.Label.Active'))->render(function(Kinsman $kinsman) {
-                return Switcher::make()->sendTrueOrFalse()->value($kinsman->active)->disabled(true);
-            }),
+            TD::make('active', __('Kinsman.Label.Active'))
+                ->sort()
+                ->render(function(Kinsman $kinsman) {
+                    return Switcher::make()->sendTrueOrFalse()->value($kinsman->active)->disabled(true);
+                }),
 
             TD::make('father_id', __('Kinsman.Label.Father'))
                 ->render(function(Kinsman $kinsman) {
@@ -81,6 +80,24 @@ class KinsmanLayout extends Table
 
             TD::make('updated_at', __('Kinsman.Label.Updated'))->sort(),
             TD::make('created_at', __('Kinsman.Label.Created'))->sort(),
+
+            TD::make(__('Kinsman.Button.Action'))
+                ->align(TD::ALIGN_CENTER)
+                ->width('100px')
+                ->render(function(Kinsman $kinsman) {
+                    return DropDown::make()
+                        ->icon('options-vertical')
+                        ->list([
+                            Link::make(__('Kinsman.Button.Update'))
+                                ->icon('pencil')
+                                ->route('platform.kinsman.edit', $kinsman->id),
+
+                            Button::make(__('Kinsman.Button.Delete'))
+                                ->icon('trash')
+                                ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
+                                ->method('remove'),
+                        ]);
+                })
         ];
     }
 }

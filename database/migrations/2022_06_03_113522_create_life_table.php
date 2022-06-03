@@ -16,12 +16,13 @@ class CreateLifeTable extends Migration
         if (!Schema::hasTable('life')) {
             Schema::create('life', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('user_id')
-                    ->constrained('users')
+                $table->foreignId('kinsman_id')
+                    ->unique()
+                    ->constrained('kinsmans')
                     ->cascadeOnUpdate()
                     ->cascadeOnDelete();
                 $table->timestamp('birth_date');
-                $table->timestamp('end_date');
+                $table->timestamp('end_date')->default(null);
                 $table->timestamps();
                 $table->boolean('active')->default(true);
                 $table->softDeletes();

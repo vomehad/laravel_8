@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\User;
+use App\Orchid\Components\ExtendedQuill;
 use App\Repositories\ArticleRepository;
 use Illuminate\Http\RedirectResponse;
 use Orchid\Screen\Actions\Button;
@@ -50,12 +51,7 @@ class ArticleEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return $this->article->exists ? 'Edit post' : 'Creating a new post';
-    }
-
-    public function description(): ?string
-    {
-        return 'articles';
+        return $this->article->exists ? __('Article.Orchid.Update') : __('Article.Orchid.Create');
     }
 
     /**
@@ -109,7 +105,7 @@ class ArticleEditScreen extends Screen
                     ->sendTrueOrFalse(),
 
                 Relation::make('article.created_by')
-                    ->title('Author')
+                    ->title(__('Article.Label.Author'))
                     ->fromModel(User::class, 'name'),
 
                 Relation::make('article.category')
@@ -118,6 +114,7 @@ class ArticleEditScreen extends Screen
                     ->multiple(),
 
                 Quill::make('article.text')->title(__('Article.Label.Text')),
+//                ExtendedQuill::make('article.text')->title(__('Article.Label.Text')),
 
                 input::make('article.disk')->title(__('Article.Label.Disk'))
             ]),

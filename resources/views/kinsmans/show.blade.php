@@ -31,7 +31,7 @@
                 <tr>
                     <td><div class="starter-template">{{ $model->name }}</div></td>
                     <td><div class="starter-template">{{ $model->middle_name }}</div></td>
-                    <td><div class="starter-template">{{ $model->gender }}</div></td>
+                    <td><div class="starter-template">{{ $model->getGender($model->gender) }}</div></td>
                     <td><div class="starter-template">{{ $model->father->name ?? '-'}}</div></td>
                     <td><div class="starter-template">{{ $model->mother->name ?? '-' }}</div></td>
                     <td><div class="starter-template">{{ $model->kin->name ?? '-' }}</div></td>
@@ -61,7 +61,7 @@
             <tr>
                 <td><div class="starter-template">{{ $child->name }}</div></td>
                 <td><div class="starter-template">{{ $child->middle_name }}</div></td>
-                <td><div class="starter-template">{{ $child->gender }}</div></td>
+                <td><div class="starter-template">{{ $child->getGender($child->gender) }}</div></td>
 
                 @if(isset($child->father->id) && $child->father->id !== $model->id)
                     <td><a href="{{ route('kinsmans.show', $child->father->id) }}">{{ $child->father->name }}</a></td>

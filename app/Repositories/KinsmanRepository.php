@@ -2,12 +2,17 @@
 
 namespace App\Repositories;
 
+use App\Dto\KinsmanDto;
+use App\Dto\LifeDto;
 use App\Dto\SelectedDto;
+use App\Helpers\NameHelper;
 use App\Interfaces\DtoInterface;
 use App\Interfaces\InheritInterface;
 use App\Interfaces\RepositoryInterface;
 use App\Models\Kin;
 use App\Models\Kinsman;
+use App\Models\Life;
+use App\Orchid\Layouts\Kinsman\KinsmanFilterLayout;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -16,11 +21,17 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
 {
     private Kinsman $kinsmanModel;
     private Kin $kinModel;
+    private LifeRepository $lifeRepository;
 
-    public function __construct(Kinsman $kinsmanModel, Kin $kinModel)
+    public function __construct(
+        Kinsman $kinsmanModel,
+        Kin $kinModel,
+        LifeRepository $lifeRepository
+    )
     {
         $this->kinsmanModel = $kinsmanModel;
         $this->kinModel = $kinModel;
+        $this->lifeRepository = $lifeRepository;
     }
 
     public function getAll(array $options = []): LengthAwarePaginator
@@ -36,7 +47,9 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         }
 
         if (Arr::has($options, 'defaultSort')) {
-            $kinsmans = $kinsmans->filters()->defaultSort(Arr::get($options, 'defaultSort'));
+            $kinsmans = $kinsmans->filters()
+                ->filtersApplySelection(KinsmanFilterLayout::class)
+                ->defaultSort(Arr::get($options, 'defaultSort'));
         }
 
         return $kinsmans->paginate(Arr::get($options, 'perPage'));
@@ -110,7 +123,13 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
 
     public function update(DtoInterface $dto): ?int
     {
+        /** @var KinsmanDto $dto */
         $kinsman = $this->kinsmanModel->findOrNew($dto->id);
+
+        $this->updateLife($dto);
+
+        unset($dto->birth_date);
+        unset($dto->end_date);
 
         $kinsman = $this->setFields($kinsman, $dto);
 
@@ -129,12 +148,19 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
 
     public function remove(int $id): string
     {
-        // TODO: Implement remove() method.
+        /** @var Kinsman $kinsamn */
+        $kinsman = $this->kinsmanModel->find($id);
+        $kinsman->delete();
+
+        return NameHelper::getActionName();
     }
 
     public function restore(int $id): string
     {
-        // TODO: Implement restore() method.
+        $kinsman = $this->kinsmanModel->withTrashed()->find($id);
+        $kinsman->restore();
+
+        return NameHelper::getActionName();
     }
 
     private function setFields(Kinsman $kinsman, DtoInterface $dto): Kinsman
@@ -146,5 +172,24 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         }
 
         return $kinsman;
+    }
+
+    private function updateLife(KinsmanDto $kinsmanDto)
+    {
+        $lifeDto = app(LifeDto::class);
+        $lifeDto->kinsman_id = $kinsmanDto->id;
+        $lifeDto->birth_date = $kinsmanDto->birth_date;
+        $lifeDto->end_date = $kinsmanDto->end_date;
+        $lifeDto->active = true;
+
+        /** @var Life $life */
+        $life = $this->lifeRepository->getOneByKinsmanId($kinsmanDto->id);
+
+        if ($life) {
+            $lifeDto->id = $life->id;
+            $this->lifeRepository->update($lifeDto);
+        } else {
+            $this->lifeRepository->create($lifeDto);
+        }
     }
 }

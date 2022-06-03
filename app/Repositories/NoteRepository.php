@@ -28,6 +28,9 @@ class NoteRepository extends BaseRepository implements RepositoryInterface, Inhe
     {
         $notes = $this->noteModel->where(['active' => true]);
 
+        if (Arr::has($options, 'eager')) {
+            $notes = $notes->with(['category', 'parentNote']);
+        }
         if (Arr::has($options, 'search')) {
             $notes = $notes->search(Arr::get($options, 'search'));
         }
@@ -58,6 +61,7 @@ class NoteRepository extends BaseRepository implements RepositoryInterface, Inhe
 
     public function create(DtoInterface $dto): ?int
     {
+        /** @var \App\Dto\NoteDto $dto */
         $note = $this->setFields($this->noteModel, $dto);
 
         $saved = $note->save();
@@ -69,6 +73,7 @@ class NoteRepository extends BaseRepository implements RepositoryInterface, Inhe
 
     public function edit(int $id): array
     {
+        /** @var Note $note */
         $note = $this->noteModel->with('parentNote')
             ->where(['id' => $id])
             ->where(['active' => true])
@@ -91,6 +96,7 @@ class NoteRepository extends BaseRepository implements RepositoryInterface, Inhe
 
     public function update(DtoInterface $dto): ?int
     {
+        /** @var \App\Dto\NoteDto $dto */
         $note = $this->noteModel->findOrNew($dto->id);
 
         $note = $this->setFields($note, $dto);
@@ -102,7 +108,7 @@ class NoteRepository extends BaseRepository implements RepositoryInterface, Inhe
         return $updated ? $note->id : null;
     }
 
-    public function getChildren(int $id)/*: ?Model*/
+    public function getChildren(int $id)
     {
         return $this->noteModel
             ->where(['parent_id' => $id])

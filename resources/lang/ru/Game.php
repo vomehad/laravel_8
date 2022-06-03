@@ -2,11 +2,11 @@
 
 return [
     'Menu' => [
-        'Top' => 'Find a pairs',
+        'Top' => 'Игра',
     ],
-    'Title' => 'Find a Pairs',
-    'Start' => 'Start',
-    'Win' => 'Win',
-    'Your-time' => 'Your time',
-    'New-game' => 'New game',
+    'Title' => 'Найти совпадения пар',
+    'Start' => 'Начать',
+    'Win' => 'Победа',
+    'Your-time' => 'Время',
+    'New-game' => 'Начать с начала',
 ];

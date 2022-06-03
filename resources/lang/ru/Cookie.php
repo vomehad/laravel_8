@@ -2,19 +2,19 @@
 
 return [
     'Menu' => [
-        'Top' => 'Cookies',
+        'Top' => 'Куки',
     ],
     'Label' => [
-        'Hourly' => 'Set cookie by 1 hour',
-        'Session' => 'Set cookie by Session',
-        'Split-word' => 'The word will be split',
+        'Hourly' => 'Установить куку на час',
+        'Session' => 'Установить куку до конца сессии',
+        'Split-word' => 'Разбить слово',
     ],
     'Placeholder' => [
-        'Hourly' => 'Enter value',
-        'Session' => 'Enter value',
-        'Split-word' => 'Enter word',
+        'Hourly' => 'Значение куки...',
+        'Session' => 'Значение куки...',
+        'Split-word' => 'Введите слово...',
     ],
     'Send' => [
-        'Cookie' => 'Set Cookies',
+        'Cookie' => 'Установить',
     ],
 ];

@@ -30,7 +30,7 @@ class AddForeignToKinsmans extends Migration
     public function down()
     {
         Schema::table('kinsmans', function (Blueprint $table) {
-            $table->dropForeign('life_id');
+            $table->dropForeign('kinsmans_life_id_foreign');
             $table->dropColumn('life_id');
         });
     }

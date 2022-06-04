@@ -22,7 +22,7 @@ class CreateLifeTable extends Migration
                     ->cascadeOnUpdate()
                     ->cascadeOnDelete();
                 $table->timestamp('birth_date');
-                $table->timestamp('end_date')->default(null);
+                $table->timestamp('end_date')->nullable()->default(null);
                 $table->timestamps();
                 $table->boolean('active')->default(true);
                 $table->softDeletes();

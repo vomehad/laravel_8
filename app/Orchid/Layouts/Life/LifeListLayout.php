@@ -54,7 +54,7 @@ class LifeListLayout extends Table
             TD::make('updated_at', __('Life.Label.Updated'))->sort(),
             TD::make('created_at', __('Life.Label.Created'))->sort(),
 
-            TD::make(__('Life.Button.Action'))
+            TD::make(__('Life.Label.Action'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
                 ->render(function(Life $life) {

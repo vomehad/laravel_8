@@ -29,7 +29,7 @@ class KinsmanDto implements DtoInterface
     public ?int $kin_id;
 
     /** @var string|null $birth_date */
-    public string $birth_date;
+    public ?string $birth_date;
 
     /** @var string|null $end_date */
     public ?string $end_date;

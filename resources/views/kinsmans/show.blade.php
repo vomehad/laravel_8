@@ -63,13 +63,14 @@
         </div>
         <div class="container">
             <div class="row">
-                @if(!is_null($model->life->birth_date))
+                @if(!empty($model->life->birth_date))
                 <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10">
                     <p>{{ Carbon\Carbon::make($model->life->birth_date)->format('j F Y') }} - Дата рождения</p>
                     <p>{{ Carbon\Carbon::make($model->life->birth_date)->format('H:i') }} - Время рождения</p>
                 </div>
                 @endif
-                @if(!is_null($model->life->end_date))
+
+                @if(!empty($model->life->end_date))
                 <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
                     <p>{{ Carbon\Carbon::make($model->life->end_date)->format('j F Y') }} - Дата смерти</p>
                 </div>
@@ -127,7 +128,7 @@
             <tr>
                 <th scope="row"><a href="{{ $child->id }}" class="starter-template">{{ $child->name }}</a></th>
 
-                @if(!is_null($child->life->birth_date))
+                @if(!empty($child->life->birth_date))
                     <th scope="row">{{ Carbon\Carbon::make($child->life->birth_date)->format('j M Y') }}</th>
                 @else
                     <td><div class="starter-template">{{ '-' }}</div></td>

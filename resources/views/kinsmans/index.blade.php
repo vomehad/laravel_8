@@ -38,7 +38,7 @@
                 <th scope="row"><a href="{{ route('kinsmans.show', $kinsman->id) }}">{{ $kinsman->name }}</a></th>
                 <td><div>{{ $kinsman->middle_name }}</div></td>
 
-                @isset($kinsman->life->id)
+                @if(!is_null($kinsman->life->birth_date))
                     <td><div>{{ Carbon\Carbon::make($kinsman->life->birth_date)->format('j F Y') }}</div></td>
                 @else
                     <td><div>{{ '-' }}</div></td>

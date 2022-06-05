@@ -110,8 +110,8 @@ class Kinsman extends Model
     public function getGender(string $key): string
     {
         $genders = [
-            'male' => __('Kinsman.Select.male'),
-            'female' => __('Kinsman.Select.female'),
+            'male' => __('Kinsman.Select.Male'),
+            'female' => __('Kinsman.Select.Female'),
         ];
         return $genders[$key];
     }

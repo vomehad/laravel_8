@@ -33,7 +33,9 @@ class KinsmanListLayout extends Table
                 ->cantHide()
                 ->filter(Input::make()),
 
-            TD::make('gender', __('Kinsman.Label.Gender')),
+            TD::make('gender', __('Kinsman.Label.Gender'))->render(function(Kinsman $kinsman) {
+                return $kinsman->getGender($kinsman->gender);
+            }),
 
             TD::make('active', __('Kinsman.Label.Active'))
                 ->sort()

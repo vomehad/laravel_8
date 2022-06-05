@@ -7,7 +7,9 @@ use App\Http\Requests\UpdateLifeRequest;
 use App\Models\Kinsman;
 use App\Models\Life;
 use App\Repositories\LifeRepository;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\RedirectResponse;
+use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\CheckBox;
 use Orchid\Screen\Fields\DateTimer;
@@ -31,6 +33,7 @@ class LifeEditScreen extends Screen
     /**
      * Query data.
      *
+     * @param Life $life
      * @return array
      */
     public function query(Life $life): iterable
@@ -53,7 +56,7 @@ class LifeEditScreen extends Screen
     /**
      * Button commands.
      *
-     * @return \Orchid\Screen\Action[]
+     * @return Action[]
      */
     public function commandBar(): iterable
     {
@@ -81,7 +84,7 @@ class LifeEditScreen extends Screen
      * Views.
      *
      * @return \Orchid\Screen\Layout[]|string[]
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionException
      */
     public function layout(): iterable
     {

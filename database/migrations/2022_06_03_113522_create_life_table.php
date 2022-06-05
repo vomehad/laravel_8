@@ -21,8 +21,10 @@ class CreateLifeTable extends Migration
                     ->constrained('kinsmans')
                     ->cascadeOnUpdate()
                     ->cascadeOnDelete();
-                $table->timestamp('birth_date');
-                $table->timestamp('end_date')->nullable()->default(null);
+//                $table->timestamp('birth_date');
+                $table->string('birth_date');
+//                $table->timestamp('end_date')->nullable()->default(null);
+                $table->string('end_date')->nullable()->default(null);
                 $table->timestamps();
                 $table->boolean('active')->default(true);
                 $table->softDeletes();

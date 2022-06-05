@@ -8,6 +8,7 @@ use App\Models\Kin;
 use App\Models\Kinsman;
 use App\Models\Life;
 use App\Repositories\KinsmanRepository;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\RedirectResponse;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\CheckBox;
@@ -34,10 +35,10 @@ class KinsmanEditScreen extends Screen
      * Query data.
      *
      * @param Kinsman $kinsman
-     * @param \App\Models\Life $life
+     * @param Life $life
      * @return array
      */
-    public function query(Kinsman $kinsman, Life $life): iterable
+    public function query(Kinsman $kinsman): iterable
     {
         return [
             'kinsman' => $kinsman,
@@ -85,7 +86,7 @@ class KinsmanEditScreen extends Screen
      * Views.
      *
      * @return \Orchid\Screen\Layout[]|string[]
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionException
      */
     public function layout(): iterable
     {
@@ -107,8 +108,8 @@ class KinsmanEditScreen extends Screen
 
                     Select::make('kinsman.gender')
                         ->options([
-                            'male' => __('Kinsman.Select.male'),
-                            'female' => __('Kinsman.Select.female'),
+                            'male' => __('Kinsman.Select.Male'),
+                            'female' => __('Kinsman.Select.Female'),
                         ])
                         ->empty('Not selected')
                         ->title('Kinsman.Label.Gender'),

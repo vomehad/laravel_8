@@ -42,6 +42,12 @@ class CreateKinsmanRequest extends FormRequest
 
             'kin_id' => 'nullable|int',
             'kinsman.kin_id' => 'nullable|int',
+
+            'birth_date' => 'required_if:life.birth_date,null|string',
+            'life.birth_date' => 'required_if:birth_date,null|string',
+
+            'end_date' => 'nullable|string',
+            'life.end_date' => 'nullable|string',
         ];
     }
 

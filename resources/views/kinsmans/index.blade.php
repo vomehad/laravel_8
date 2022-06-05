@@ -13,7 +13,7 @@
     </form>--}}
 
     <div class="control">
-        <a href="{{ route('kinsmans.create') }}"
+        <a href="{{ route('platform.kinsman.create') }}"
            class="btn btn-success"
         >{{ __('Kinsman.Button.Create') }}</a>
     </div>

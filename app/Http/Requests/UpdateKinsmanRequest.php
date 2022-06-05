@@ -46,8 +46,8 @@ class UpdateKinsmanRequest extends FormRequest
             'kin_id' => 'nullable',
             'kinsman.kin_id' => 'nullable',
 
-            'birth_date' => 'required_if:life.birth_date,null|string',
-            'life.birth_date' => 'required_if:birth_date,null|string',
+            'birth_date' => 'nullable|string',
+            'life.birth_date' => 'nullable|string',
 
             'end_date' => 'nullable|string',
             'life.end_date' => 'nullable|string',

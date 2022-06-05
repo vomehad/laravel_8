@@ -25,32 +25,18 @@ class UpdateKinsmanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'int',
             'kinsman.id' => 'int',
-
-            'name' => 'nullable|string',
-            'kinsman.name' => 'nullable|string',
-
-            'middle_name' => 'required_if:kinsman.middle_name,null|string',
-            'kinsman.middle_name' => 'required_if:middle_name,null|string',
-
-            'gender' => 'required_if:kinsman.gender,null|in:male,female',
-            'kinsman.gender' => 'required_if:gender,null|in:male,female',
-
-            'father_id' => 'nullable',
+            'kinsman.name' => 'required|string',
+            'kinsman.middle_name' => 'nullable|string',
+            'kinsman.gender' => 'required|in:male,female',
             'kinsman.father_id' => 'nullable',
-
-            'mother_id' => 'nullable',
             'kinsman.mother_id' => 'nullable',
-
-            'kin_id' => 'nullable',
             'kinsman.kin_id' => 'nullable',
 
-            'birth_date' => 'nullable|string',
             'life.birth_date' => 'nullable|string',
-
-            'end_date' => 'nullable|string',
             'life.end_date' => 'nullable|string',
+
+            'city.native' => 'nullable|int|exists:cities,id',
         ];
     }
 

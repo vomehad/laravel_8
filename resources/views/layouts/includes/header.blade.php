@@ -7,7 +7,12 @@
                     <a class="p-2 text-dark text-decoration-none" href="{{ $link['url'] }}">{{ $link['name'] }}</a>
                 @endforeach
             @endisset
-            <a class="btn btn-warning text-decoration-none" href="{{ route('locale', ['locale' => app()->getLocale() === 'ru' ? 'en' : 'ru']) }}">{{ app()->getLocale() === 'ru' ? 'ENG' : 'RUS' }}</a>
+            <a class="btn btn-{{ app()->getLocale() === 'ru' ? 'success' : 'warning' }} text-decoration-none"
+               href="{{ route('locale', ['locale' => 'ru']) }}"
+            >RUS</a>
+            <a class="btn btn-{{ app()->getLocale() === 'en' ? 'success' : 'warning' }} text-decoration-none"
+               href="{{ route('locale', ['locale' => 'en']) }}"
+            >ENG</a>
 {{--            @guest--}}
 {{--                <a href="{{ route('Login') }}" class="btn btn-outline-primary">Login</a>--}}
 {{--                <a class="btn btn-outline-primary" href="{{ route('SignUp') }}">Sign up</a>--}}

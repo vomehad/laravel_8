@@ -5,7 +5,9 @@ namespace App\Orchid\Screens\Kinsman;
 use App\Orchid\Layouts\Kinsman\KinsmanListLayout;
 use App\Orchid\Layouts\Kinsman\KinsmanFilterLayout;
 use App\Repositories\KinsmanRepository;
+use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Link;
+use Orchid\Screen\Layout;
 use Orchid\Screen\Screen;
 
 class KinsmanListScreen extends Screen
@@ -51,7 +53,7 @@ class KinsmanListScreen extends Screen
     /**
      * Button commands.
      *
-     * @return \Orchid\Screen\Action[]
+     * @return Action[]
      */
     public function commandBar(): iterable
     {
@@ -65,7 +67,7 @@ class KinsmanListScreen extends Screen
     /**
      * Views.
      *
-     * @return \Orchid\Screen\Layout[]|string[]
+     * @return Layout[]|string[]
      */
     public function layout(): iterable
     {

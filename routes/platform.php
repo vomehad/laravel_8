@@ -11,6 +11,8 @@ use App\Orchid\Screens\Article\ArticleEditScreen;
 use App\Orchid\Screens\Article\ArticleListScreen;
 use App\Orchid\Screens\Category\CategoryEditScreen;
 use App\Orchid\Screens\Category\CategoryListScreen;
+use App\Orchid\Screens\City\CityEditScreen;
+use App\Orchid\Screens\City\CityListScreen;
 use App\Orchid\Screens\Datetime\DatetimeScreen;
 use App\Orchid\Screens\Datetime\DatetimeViewScreen;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;
@@ -36,17 +38,6 @@ use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
 use Illuminate\Support\Facades\Route;
 use Tabuna\Breadcrumbs\Trail;
-
-/*
-|--------------------------------------------------------------------------
-| Dashboard Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the need "dashboard" middleware group. Now create something great!
-|
-*/
 
 // Main
 Route::screen('/main', PlatformScreen::class)
@@ -117,7 +108,7 @@ Route::screen('example-advanced', ExampleFieldsAdvancedScreen::class)->name('pla
 
 //Route::screen('idea', 'Idea::class','platform.screens.idea');
 
-// Platform > Datetime > Roles
+// Platform > Datetime
 Route::screen('datetime', DatetimeScreen::class)
     ->name('platform.datetime')
     ->breadcrumbs(function (Trail $trail) {
@@ -286,4 +277,30 @@ Route::screen('life/create', LifeEditScreen::class)
         return $trail->parent('platform.index')
             ->push(__('Life.Orchid.Menu'), route('platform.life.index'))
             ->push('Create');
+    });
+
+// Platform > City
+Route::screen('cities', CityListScreen::class)
+    ->name('platform.city.index')
+    ->breadcrumbs(function(Trail $trail) {
+        return $trail->parent('platform.index')
+            ->push(__('City.Orchid.Menu'));
+    });
+
+// Platform > City > Edit
+Route::screen('city/{id}/edit', CityEditScreen::class)
+    ->name('platform.city.edit')
+    ->breadcrumbs(function(Trail $trail) {
+        return $trail->parent('platform.index')
+            ->push(__('City.Orchid.Menu'), route('platform.city.index'))
+            ->push(__('City.Orchid.Update'));
+    });
+
+// Platform > City > Create
+Route::screen('city/create', CityEditScreen::class)
+    ->name('platform.city.create')
+    ->breadcrumbs(function(Trail $trail) {
+        return $trail->parent('platform.index')
+            ->push(__('City.Orchid.Menu'), route('platform.city.index'))
+            ->push(__('City.Orchid.Create'));
     });

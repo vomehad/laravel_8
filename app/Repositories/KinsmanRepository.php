@@ -22,16 +22,19 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
     private Kinsman $kinsmanModel;
     private Kin $kinModel;
     private LifeRepository $lifeRepository;
+    private CityRepository $cityRepository;
 
     public function __construct(
         Kinsman $kinsmanModel,
         Kin $kinModel,
-        LifeRepository $lifeRepository
+        LifeRepository $lifeRepository,
+        CityRepository $cityRepository
     )
     {
         $this->kinsmanModel = $kinsmanModel;
         $this->kinModel = $kinModel;
         $this->lifeRepository = $lifeRepository;
+        $this->cityRepository = $cityRepository;
     }
 
     public function getAll(array $options = []): LengthAwarePaginator
@@ -140,6 +143,14 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
 
         unset($dto->birth_date);
         unset($dto->end_date);
+
+//        if ($dto->native) {
+//            $city = $this->cityRepository->getOne($dto->native);
+//
+//            $cityDto->name = $city->name;
+//            $cityDto = new CityDto();
+//
+//        }
 
         $kinsman = $this->setFields($kinsman, $dto);
 

@@ -4,12 +4,13 @@ namespace App\Orchid\Screens\Kinsman;
 
 use App\Http\Requests\CreateKinsmanRequest;
 use App\Http\Requests\UpdateKinsmanRequest;
+use App\Models\City;
 use App\Models\Kin;
 use App\Models\Kinsman;
-use App\Models\Life;
 use App\Repositories\KinsmanRepository;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\RedirectResponse;
+use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\CheckBox;
 use Orchid\Screen\Fields\DateTimer;
@@ -35,7 +36,6 @@ class KinsmanEditScreen extends Screen
      * Query data.
      *
      * @param Kinsman $kinsman
-     * @param Life $life
      * @return array
      */
     public function query(Kinsman $kinsman): iterable
@@ -58,7 +58,7 @@ class KinsmanEditScreen extends Screen
     /**
      * Button commands.
      *
-     * @return \Orchid\Screen\Action[]
+     * @return Action[]
      */
     public function commandBar(): iterable
     {
@@ -132,7 +132,8 @@ class KinsmanEditScreen extends Screen
 
                     CheckBox::make('kinsman.active')
                         ->title(__('Kinsman.Label.Active'))
-                        ->sendTrueOrFalse(),
+                        ->sendTrueOrFalse()
+                        ->value(true),
                 ]),
 
                 Layout::rows([
@@ -148,6 +149,10 @@ class KinsmanEditScreen extends Screen
                         ->placeholder(__('Life.Placeholder.EndDate'))
                         ->value($this->kinsman->life->end_date ?? null)
                         ->enableTime(),
+
+                    Relation::make('city.native')
+                        ->title(__('City.Label.NativeCity'))
+                        ->fromModel(City::class, 'name'),
 
                 ]),
 

@@ -42,6 +42,8 @@ class PlatformProvider extends OrchidServiceProvider
 
             Menu::make(__('Life.Orchid.Menu'))->icon('speech')->route('platform.life.index'),
 
+            Menu::make(__('City.Orchid.Menu'))->icon('speech')->route('platform.city.index'),
+
             /*Menu::make('Example screen')
                 ->icon('monitor')
                 ->route('platform.example')->title('Navigation')

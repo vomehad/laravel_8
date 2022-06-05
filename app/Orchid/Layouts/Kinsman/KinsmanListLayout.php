@@ -26,22 +26,26 @@ class KinsmanListLayout extends Table
                 ->render(function(Kinsman $kinsman) {
 //                    return new Persona($user->presenter());
                     return Link::make($kinsman->name)->route('platform.kinsman.edit', $kinsman->id);
-                }),
+                }
+            ),
 
             TD::make('middle_name', __('Kinsman.Label.MiddleName'))
                 ->sort()
                 ->cantHide()
                 ->filter(Input::make()),
 
-            TD::make('gender', __('Kinsman.Label.Gender'))->render(function(Kinsman $kinsman) {
-                return $kinsman->getGender($kinsman->gender);
-            }),
+            TD::make('gender', __('Kinsman.Label.Gender'))
+                ->render(function(Kinsman $kinsman) {
+                    return $kinsman->getGender($kinsman->gender);
+                }
+            ),
 
             TD::make('active', __('Kinsman.Label.Active'))
                 ->sort()
                 ->render(function(Kinsman $kinsman) {
                     return Switcher::make()->sendTrueOrFalse()->value($kinsman->active)->disabled(true);
-                }),
+                }
+            ),
 
             TD::make('father_id', __('Kinsman.Label.Father'))
                 ->render(function(Kinsman $kinsman) {
@@ -54,7 +58,8 @@ class KinsmanListLayout extends Table
                     }
 
                     return null;
-                }),
+                }
+            ),
 
             TD::make('mother_id', __('Kinsman.Label.Mother'))
                 ->render(function(Kinsman $kinsman) {
@@ -67,7 +72,8 @@ class KinsmanListLayout extends Table
                     }
 
                     return null;
-                }),
+                }
+            ),
 
             TD::make('kin_id', __('Kinsman.Label.Kin'))
                 ->render(function(Kinsman $kinsman) {
@@ -78,7 +84,8 @@ class KinsmanListLayout extends Table
                     }
 
                     return null;
-                }),
+                }
+            ),
 
             TD::make('updated_at', __('Kinsman.Label.Updated'))->sort(),
             TD::make('created_at', __('Kinsman.Label.Created'))->sort(),
@@ -98,8 +105,10 @@ class KinsmanListLayout extends Table
                                 ->icon('trash')
                                 ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
                                 ->method('remove'),
-                        ]);
-                })
+                        ]
+                    );
+                }
+            ),
         ];
     }
 }

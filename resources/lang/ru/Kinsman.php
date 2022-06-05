@@ -60,6 +60,7 @@ return [
     ],
     'Table' => [
         'Active' => 'Активность',
+        'BirthDate' => 'Дата рождения',
         'Created' => 'Добавлен',
         'Father' => 'Отец',
         'Gender' => 'Пол',

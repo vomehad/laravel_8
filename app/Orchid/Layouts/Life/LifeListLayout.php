@@ -4,6 +4,7 @@ namespace App\Orchid\Layouts\Life;
 
 
 use App\Models\Life;
+use Carbon\Carbon;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
@@ -38,12 +39,10 @@ class LifeListLayout extends Table
             TD::make('birth_date', __('Life.Label.BirthDate'))
                 ->sort()
                 ->cantHide()
-                ->filter(Input::make()),
-
-            TD::make('end_date', __('Life.Label.EndDate'))
-                ->sort()
-                ->cantHide()
-                ->filter(Input::make()),
+                ->filter(Input::make())
+                ->render(function(Life $life) {
+                    return Carbon::make($life->birth_date)->format('j M Y');
+                }),
 
             TD::make('active', __('Life.Label.Active'))
                 ->sort()

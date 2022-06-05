@@ -84,9 +84,19 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
 
     public function create(DtoInterface $dto): ?int
     {
-        $kinsman = $this->setFields($this->kinsmanModel, $dto);
+        /** @var KinsmanDto $dto */
+        $birthDate = $dto->birth_date;
+        $endDate = $dto->end_date;
+        unset($dto->birth_date);
+        unset($dto->end_date);
 
+        $kinsman = $this->setFields($this->kinsmanModel, $dto);
         $saved = $kinsman->save();
+
+        $dto->id = $kinsman->id;
+        $dto->birth_date = (string)$birthDate;
+        $dto->end_date = (string)$endDate;
+        $this->updateLife($dto);
 
         return $saved ? $kinsman->id : null;
     }
@@ -177,15 +187,17 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
     private function updateLife(KinsmanDto $kinsmanDto)
     {
         $lifeDto = app(LifeDto::class);
-        $lifeDto->kinsman_id = $kinsmanDto->id;
-        $lifeDto->birth_date = $kinsmanDto->birth_date;
+        $lifeDto->kinsman_id = $kinsmanDto->id ?? null;
+        $lifeDto->birth_date = (string)$kinsmanDto->birth_date;
         $lifeDto->end_date = $kinsmanDto->end_date;
         $lifeDto->active = true;
 
-        /** @var Life $life */
-        $life = $this->lifeRepository->getOneByKinsmanId($kinsmanDto->id);
+        if ($lifeDto->kinsman_id) {
+            /** @var Life $life */
+            $life = $this->lifeRepository->getOneByKinsmanId($kinsmanDto->id);
+        }
 
-        if ($life) {
+        if ($lifeDto->kinsman_id && $life) {
             $lifeDto->id = $life->id;
             $this->lifeRepository->update($lifeDto);
         } else {

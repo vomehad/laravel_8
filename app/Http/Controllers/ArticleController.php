@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Lang;
 class ArticleController extends Controller
 {
     private const PER_PAGE = 10;
+    private const DEFAULT_SORT = 'updated_at';
+    private const EAGER_LOADING = true;
+    private const OPTIONS = [
+        'perPage' => self::PER_PAGE,
+        'defaultSort' => self::DEFAULT_SORT,
+        'eager' => self::EAGER_LOADING,
+    ];
+
     private ArticleRepository $repository;
 
     public function __construct(ArticleRepository $repository)
@@ -23,12 +31,7 @@ class ArticleController extends Controller
 
     public function index()
     {
-        $options = [
-            'perPage' => self::PER_PAGE,
-            'defaultSort' => 'updated_at',
-        ];
-
-        $articles = $this->repository->getAll($options);
+        $articles = $this->repository->getAll(self::OPTIONS);
 
         return view('articles.index', [
             'models' => $articles,
@@ -114,11 +117,9 @@ class ArticleController extends Controller
 
     public function search(Request $request)
     {
-        $options = [
-            'perPage' => self::PER_PAGE,
+        $options = array_merge(self::OPTIONS, [
             'search' => $request->get('search') ?? $request->query->get('query') ?? '',
-            'defaultSearch' => 'updated_at',
-        ];
+        ]);
 
         $articles = $this->repository->getAll($options);
 

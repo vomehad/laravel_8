@@ -10,10 +10,10 @@
 @endpush
 
 <div class="h2 fw-light d-flex align-items-center">
-   <x-orchid-icon path="orchid" width="1.2em" height="1.2em"/>
-
+    <x-orchid-icon path="orchid" width="1.2em" height="1.2em"/>
     <p class="ms-3 my-0 d-none d-sm-block">
-        Admin
-        <small class="align-top opacity">Platform</small>
+{{--        {{ __('Kinsman.Menu.Top') }}--}}
+        Main
+        <small class="align-top opacity">main</small>
     </p>
 </div>

@@ -95,6 +95,21 @@ class KinsmanController extends Controller
 
     public function destroy($id)
     {
-        //
+        $this->repository->remove($id);
     }
+
+    /*public function search(Request $request)
+    {
+        $options = array_merge(self::OPTIONS, [
+            'search' => $request->get('search') ?? $request->query->get('query') ?? '',
+        ]);
+
+        $articles = $this->repository->getAll($options);
+
+        return view('articles.index', [
+            'models' => $articles,
+            'string' => $options['string'],
+            'nav' => $this->nav,
+        ]);
+    }*/
 }

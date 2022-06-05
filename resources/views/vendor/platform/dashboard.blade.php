@@ -17,6 +17,9 @@
                 <a class="header-brand order-last" href="{{route('platform.index')}}">
                     @includeFirst([config('platform.template.header'), 'platform::header'])
                 </a>
+                <a class="header-brand order-last" href="{{ route('kinsmans.index') }}">
+                    @includeFirst(['platform::header-main'])
+                </a>
             </header>
 
             <nav class="collapse d-md-block w-100 mb-md-3" id="headerMenuCollapse">

@@ -207,7 +207,7 @@ Route::screen('kinsmans/create', KinsmanEditScreen::class)
     ->breadcrumbs(function(Trail $trail) {
         return $trail->parent('platform.index')
             ->push(__('Kinsman.Orchid.Menu'), route('platform.kinsmans'))
-            ->push('Create');
+            ->push(__('Kinsman.Orchid.Create'));
     });
 
 // Platform > Kins

@@ -28,8 +28,8 @@ class UpdateKinsmanRequest extends FormRequest
             'id' => 'int',
             'kinsman.id' => 'int',
 
-            'name' => 'required_if:kinsman.name,null|string|min:3',
-            'kinsman.name' => 'required_if:name,null|string|min:3',
+            'name' => 'nullable|string',
+            'kinsman.name' => 'nullable|string',
 
             'middle_name' => 'required_if:kinsman.middle_name,null|string',
             'kinsman.middle_name' => 'required_if:middle_name,null|string',

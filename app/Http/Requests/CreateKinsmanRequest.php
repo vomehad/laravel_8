@@ -28,8 +28,8 @@ class CreateKinsmanRequest extends FormRequest
             'name' => 'required_if:kinsman.name,null|string|min:3',
             'kinsman.name' => 'required_if:name,null|string|min:3',
 
-            'middle_name' => 'required_if:kinsman.middle_name,null|string',
-            'kinsman.middle_name' => 'required_if:middle_name,null|string',
+            'middle_name' => 'nullable|string',
+            'kinsman.middle_name' => 'nullable|string',
 
             'gender' => 'required_if:kinsman.gender,null|in:male,female',
             'kinsman.gender' => 'required_if:gender,null|in:male,female',

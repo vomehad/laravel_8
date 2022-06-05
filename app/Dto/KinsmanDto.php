@@ -13,8 +13,8 @@ class KinsmanDto implements DtoInterface
     /** @var string $name */
     public string $name;
 
-    /** @var string $middle_name */
-    public string $middle_name;
+    /** @var string|null $middle_name */
+    public ?string $middle_name;
 
     /** @var string $gender */
     public string $gender;

@@ -46,7 +46,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                    <h2>{{ $model->name }} {{ $model->middle_name }} {{ $model->kin->name }}</h2>
+                    <h2>{{ $model->name }} {{ $model->middle_name }} {{ $model->kin->name ?? '' }}</h2>
                 </div>
                 {{--<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <img src="img.url">

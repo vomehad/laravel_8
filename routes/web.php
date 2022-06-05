@@ -9,7 +9,7 @@ use App\Http\Controllers\KinsmanController;
 use App\Http\Controllers\NoteController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [GameController::class, 'playGame'])->name('home');
+Route::get('/', [KinsmanController::class, 'index'])->name('home');
 
 Route::get('locale/{locale}', function ($locale) {
     Session::put('locale', $locale);

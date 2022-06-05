@@ -82,5 +82,7 @@
         @endforeach
             </tbody>
         </table>
+
+        {{ $models->onEachSide(5)->links() }}
     </div>
 @endsection

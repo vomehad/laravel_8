@@ -41,7 +41,11 @@ class LifeListLayout extends Table
                 ->cantHide()
                 ->filter(Input::make())
                 ->render(function(Life $life) {
-                    return Carbon::make($life->birth_date)->format('j M Y');
+                    if (!empty($life->birth_date)) {
+                        return Carbon::make($life->birth_date)->format('j M Y');
+                    }
+
+                    return null;
                 }),
 
             TD::make('active', __('Life.Label.Active'))

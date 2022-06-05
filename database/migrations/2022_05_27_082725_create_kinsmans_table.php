@@ -29,7 +29,7 @@ class CreateKinsmansTable extends Migration
             Schema::create('kinsmans', function (Blueprint $table) {
                 $table->id();
                 $table->tinyText('name');
-                $table->tinyText('middle_name');
+                $table->tinyText('middle_name')->nullable()->default(null);
                 $table->tinyText('gender');
                 $table->foreignId('father_id')
                     ->nullable()

@@ -117,15 +117,15 @@ class ArticleController extends Controller
 
     public function search(Request $request)
     {
-        $options = array_merge(self::OPTIONS, [
+        $options = [
             'search' => $request->get('search') ?? $request->query->get('query') ?? '',
-        ]);
+        ];
 
         $articles = $this->repository->getAll($options);
 
         return view('articles.index', [
             'models' => $articles,
-            'string' => $options['string'],
+            'string' => $options['search'],
             'nav' => $this->nav,
         ]);
     }

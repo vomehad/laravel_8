@@ -45,6 +45,14 @@ class CityRepository extends BaseRepository implements RepositoryInterface
             ->first();
     }
 
+    public function getOneByGeo(string $geo): ?City
+    {
+        return $this->cityModel
+            ->where(['geo' => $geo])
+            ->where(['active' => true])
+            ->first();
+    }
+
     public function add(): array
     {
         $lifeList = $this->lifeModel

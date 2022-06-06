@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Dto\CityDto;
 use App\Dto\KinsmanDto;
 use App\Dto\LifeDto;
 use App\Dto\SelectedDto;
@@ -90,15 +91,22 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         /** @var KinsmanDto $dto */
         $birthDate = $dto->birth_date;
         $endDate = $dto->end_date;
+        $native = $dto->native;
         unset($dto->birth_date);
         unset($dto->end_date);
+        unset($dto->native);
 
         $kinsman = $this->setFields($this->kinsmanModel, $dto);
         $saved = $kinsman->save();
 
+        $dto->native = $native;
+        $cityId = $this->updateCity($dto);
+        unset($dto->native);
+
         $dto->id = $kinsman->id;
         $dto->birth_date = (string)$birthDate;
         $dto->end_date = (string)$endDate;
+        $dto->native_city_id = $cityId;
         $this->updateLife($dto);
 
         return $saved ? $kinsman->id : null;
@@ -139,18 +147,14 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         /** @var KinsmanDto $dto */
         $kinsman = $this->kinsmanModel->findOrNew($dto->id);
 
-        $this->updateLife($dto);
+        $cityId = $this->updateCity($dto);
+        $dto->native_city_id = $cityId;
+        unset($dto->native);
 
+        $this->updateLife($dto);
         unset($dto->birth_date);
         unset($dto->end_date);
-
-//        if ($dto->native) {
-//            $city = $this->cityRepository->getOne($dto->native);
-//
-//            $cityDto->name = $city->name;
-//            $cityDto = new CityDto();
-//
-//        }
+        unset($dto->native_city_id);
 
         $kinsman = $this->setFields($kinsman, $dto);
 
@@ -187,7 +191,7 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
     private function setFields(Kinsman $kinsman, DtoInterface $dto): Kinsman
     {
         foreach ($dto as $prop => $value) {
-            if ($dto->$prop) {
+            if ($dto->$prop !== null) {
                 $kinsman->$prop = $value;
             }
         }
@@ -202,6 +206,7 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         $lifeDto->birth_date = (string)$kinsmanDto->birth_date;
         $lifeDto->end_date = $kinsmanDto->end_date;
         $lifeDto->active = true;
+        $lifeDto->native_city_id = $kinsmanDto->native_city_id;
 
         if ($lifeDto->kinsman_id) {
             /** @var Life $life */
@@ -214,5 +219,20 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         } else {
             $this->lifeRepository->create($lifeDto);
         }
+    }
+
+    private function updateCity(KinsmanDto $kinsmanDto): ?int
+    {
+        $city = $this->cityRepository->getOneByGeo($kinsmanDto->native);
+
+        if (!$city) {
+            $dto = app(CityDto::class);
+            $dto->geo = $kinsmanDto->native;
+            $dto->active = true;
+
+            $saved = $this->cityRepository->create($dto);
+        }
+
+        return $saved ?? $city->id;
     }
 }

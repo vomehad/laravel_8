@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
@@ -24,6 +25,7 @@ use Orchid\Screen\AsSource;
  * @property Kin        $kin
  * @property bool       $active
  * @property Life       $life
+ * @property City[]     $nativeCity
  *
  * @package App\Models
  */
@@ -80,6 +82,16 @@ class Kinsman extends Model
     public function life(): HasOne
     {
         return $this->hasOne(Life::class);
+    }
+
+    public function nativeCity(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            City::class,
+            'life',
+            'kinsman_id',
+            'native_city_id'
+        );
     }
 // ============================= end relations ===================================
 

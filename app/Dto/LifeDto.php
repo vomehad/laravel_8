@@ -13,6 +13,9 @@ class LifeDto implements DtoInterface
     public ?string $end_date;
     public bool $active;
 
+    /** @var int|null $native_city_id */
+    public ?int $native_city_id;
+
     public function createFromRequest(array $fields): DtoInterface
     {
         $array = is_array(reset($fields)) ? reset($fields) : $fields;

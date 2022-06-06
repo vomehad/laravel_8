@@ -13,13 +13,15 @@ class AddForeignToKinsmans extends Migration
      */
     public function up()
     {
-        Schema::table('kinsmans', function (Blueprint $table) {
-            $table->foreignId('life_id')
-                ->nullable()
-                ->constrained('kinsmans')
-                ->cascadeOnUpdate()
-                ->nullOnDelete();
-        });
+        if (!Schema::hasColumn('kinsmans', 'life_id')) {
+            Schema::table('kinsmans', function (Blueprint $table) {
+                $table->foreignId('life_id')
+                    ->nullable()
+                    ->constrained('kinsmans')
+                    ->cascadeOnUpdate()
+                    ->nullOnDelete();
+            });
+        }
     }
 
     /**

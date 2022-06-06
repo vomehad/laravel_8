@@ -25,9 +25,9 @@ class CreateKinsmanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'kinsman.name' => 'required_if:name,null|string|min:3',
+            'kinsman.name' => 'required|string|min:3',
             'kinsman.middle_name' => 'nullable|string',
-            'kinsman.gender' => 'required_if:gender,null|in:male,female',
+            'kinsman.gender' => 'required|in:male,female',
             'kinsman.father_id' => 'nullable|exists:kinsmans,id',
             'kinsman.mother_id' => 'nullable|exists:kinsmans,id',
             'kinsman.kin_id' => 'nullable|exists:kins,id',
@@ -35,7 +35,7 @@ class CreateKinsmanRequest extends FormRequest
             'life.birth_date' => 'nullable|string',
             'life.end_date' => 'nullable|string',
 
-            'city.native' => 'nullable|exists:cities,id',
+            'city.native' => 'nullable',
         ];
     }
 

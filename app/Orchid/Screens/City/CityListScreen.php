@@ -76,13 +76,12 @@ class CityListScreen extends Screen
         ];
     }
 
-    public function remove(Request $request): RedirectResponse
-    {
-        dd(__METHOD__, $request->get('id'));
-        $this->repository->remove($request->id);
-
-        Alert::info(__('City.Message.Deleted'));
-
-        return redirect()->route('platform.city.index');
-    }
+//    public function remove(Request $request): RedirectResponse
+//    {
+//        $this->repository->remove($request->id);
+//
+//        Alert::info(__('City.Message.Deleted'));
+//
+//        return redirect()->route('platform.city.index');
+//    }
 }

@@ -120,15 +120,15 @@ class NoteController extends Controller
 
     public function search(Request $request)
     {
-        $options = array_merge(self::OPTIONS, [
+        $options = [
             'search' => $request->get('search') ?? $request->query->get('query') ?? ''
-        ]);
+        ];
 
         $notes = $this->repository->getAll($options);
 
         return view('notes.index', [
             'models' => $notes,
-            'string' => $options['string'],
+            'string' => $options['search'],
             'nav' => $this->nav,
         ]);
     }

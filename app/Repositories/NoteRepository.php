@@ -26,7 +26,7 @@ class NoteRepository extends BaseRepository implements RepositoryInterface, Inhe
 
     public function getAll(array $options = []): LengthAwarePaginator
     {
-        $notes = $this->noteModel->where(['active' => true]);
+        $notes = $this->noteModel;
 
         if (Arr::has($options, 'eager')) {
             $notes = $notes->with(['category', 'parentNote']);
@@ -37,6 +37,10 @@ class NoteRepository extends BaseRepository implements RepositoryInterface, Inhe
 
         if (Arr::has($options, 'defaultSort')) {
             $notes = $notes->filters()->defaultSort(Arr::get($options, 'defaultSort'));
+        }
+
+        if (Arr::has($options, ['eager', 'defaultSearch']) && !Arr::has($options, 'search')) {
+            $notes = $notes->where(['active' => true]);
         }
 
         return $notes->paginate(Arr::get($options, 'perPage'));

@@ -14,11 +14,12 @@ use Orchid\Screen\AsSource;
 /**
  * Class Life
  *
- * @property int $id
- * @property Kinsman $kinsman
- * @property string $birth_date
- * @property string $end_date
- * @property boolean $active
+ * @property int        $id
+ * @property Kinsman    $kinsman
+ * @property string     $birth_date
+ * @property string     $end_date
+ * @property boolean    $active
+ * @property City       $native
  *
  * @package App\Models
  */
@@ -58,9 +59,9 @@ class Life extends Model
         return $this->belongsTo(Kinsman::class);
     }
 
-    public function nativeCity(): BelongsTo
+    public function native(): BelongsTo
     {
-        return $this->belongsTo(City::class, 'native_city_id', 'id');
+        return $this->belongsTo(City::class, 'life_native_city_id_foreign', 'native_city_id');
     }
 
     public function city(): HasMany

@@ -26,7 +26,7 @@ class ArticleRepository extends BaseRepository implements RepositoryInterface
 
     public function getAll(array $options = []): LengthAwarePaginator
     {
-        $articles = $this->articleModel->where(['active' => true]);
+        $articles = $this->articleModel;
 
         if (Arr::has($options, 'eager')) {
             $articles = $articles->with(['category', 'author']);

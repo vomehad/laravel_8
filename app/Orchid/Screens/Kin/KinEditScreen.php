@@ -77,7 +77,6 @@ class KinEditScreen extends Screen
      * Views.
      *
      * @return \Orchid\Screen\Layout[]|string[]
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function layout(): iterable
     {

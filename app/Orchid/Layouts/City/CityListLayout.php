@@ -19,6 +19,9 @@ class CityListLayout extends Table
     {
         return [
 
+            TD::make('geo', __('City.Label.Geo'))
+                ->cantHide(),
+
             TD::make('name', __('City.Label.Name'))
                 ->sort()
                 ->cantHide()

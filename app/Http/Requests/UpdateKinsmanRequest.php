@@ -36,7 +36,7 @@ class UpdateKinsmanRequest extends FormRequest
             'life.birth_date' => 'nullable|string',
             'life.end_date' => 'nullable|string',
 
-            'city.native' => 'nullable|int|exists:cities,id',
+            'city.native' => 'nullable',
         ];
     }
 

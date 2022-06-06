@@ -4,7 +4,6 @@ namespace App\Orchid\Screens\Kinsman;
 
 use App\Http\Requests\CreateKinsmanRequest;
 use App\Http\Requests\UpdateKinsmanRequest;
-use App\Models\City;
 use App\Models\Kin;
 use App\Models\Kinsman;
 use App\Repositories\KinsmanRepository;
@@ -15,6 +14,7 @@ use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\CheckBox;
 use Orchid\Screen\Fields\DateTimer;
 use Orchid\Screen\Fields\Input;
+use Orchid\Screen\Fields\Map;
 use Orchid\Screen\Fields\Relation;
 use Orchid\Screen\Fields\Select;
 use Orchid\Screen\Screen;
@@ -90,6 +90,9 @@ class KinsmanEditScreen extends Screen
      */
     public function layout(): iterable
     {
+        $geo = $this->kinsman->nativeCity->first()->geo ?? null;
+        $coordinates = $geo ? json_decode($geo) : null;
+
         return [
 
             Layout::columns([
@@ -150,9 +153,13 @@ class KinsmanEditScreen extends Screen
                         ->value($this->kinsman->life->end_date ?? null)
                         ->enableTime(),
 
-                    Relation::make('city.native')
-                        ->title(__('City.Label.NativeCity'))
-                        ->fromModel(City::class, 'name'),
+                    Map::make('city.native')
+                        ->title(__('City.Label.Native'))
+                        ->zoom(4)
+                        ->value([
+                            'lat' => $coordinates->lat ?? 50,
+                            'lng' => $coordinates->lng ?? 40,
+                        ]),
 
                 ]),
 

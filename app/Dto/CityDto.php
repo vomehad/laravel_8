@@ -10,8 +10,8 @@ class CityDto implements DtoInterface
     /** @var int $id */
     public int $id;
 
-    /** @var string $name */
-    public string $name;
+    /** @var string|null $name */
+    public ?string $name;
 
     /** @var string|null $country */
     public ?string $country;

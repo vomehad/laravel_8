@@ -35,7 +35,11 @@ class CreateKinsmanRequest extends FormRequest
             'life.birth_date' => 'nullable|string',
             'life.end_date' => 'nullable|string',
 
+            'city.city_name' => 'nullable|string',
+            'city.country_name' => 'nullable|string',
             'city.native' => 'nullable',
+
+            'marriage.partner_id' => 'nullable|exists:kinsmans,id',
         ];
     }
 

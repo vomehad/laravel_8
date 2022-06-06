@@ -34,18 +34,28 @@ class KinsmanDto implements DtoInterface
     /** @var string|null $end_date */
     public ?string $end_date;
 
+    /** @var string|null $city_name */
+    public ?string $city_name;
+
+    /** @var string|null $country_name */
+    public ?string $country_name;
+
     /** @var string|null $native */
     public ?string $native;
 
     /** @var int|null $native_city_id */
     public ?int $native_city_id;
 
+    /** @var int|null $partner_id */
+    public ?int $partner_id;
+
     public function createFromRequest(array $fields): DtoInterface
     {
         $kinsman = Arr::has($fields, 'kinsman') ? Arr::get($fields, 'kinsman') : $fields;
         $life = Arr::has($fields, 'life') ? Arr::get($fields, 'life') : $fields;
+        $marriage = Arr::has($fields, 'marriage') ? Arr::get($fields, 'marriage') : $fields;
         $city = Arr::get($fields, 'city');
-        $array = array_merge($kinsman, $life);
+        $array = array_merge($kinsman, $life, $marriage);
 
         foreach (get_class_vars(self::class) as $prop => $item) {
             if (Arr::has($array, $prop)) {
@@ -54,6 +64,8 @@ class KinsmanDto implements DtoInterface
         }
 
         if (!empty($city)) {
+            $this->city_name = Arr::get($city, 'city_name');
+            $this->country_name = Arr::get($city, 'country_name');
             $this->native = json_encode(Arr::get($city, 'native'));
         }
 

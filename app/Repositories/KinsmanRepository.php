@@ -62,7 +62,17 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
     public function getOne(int $id): ?Model
     {
         return $this->kinsmanModel
-            ->with(['father', 'mother', 'kin'])
+            ->with([
+                'father',
+                'mother',
+                'kin',
+                'life',
+                'nativeCity',
+                'husband',
+                'exHusband',
+                'wife',
+                'exWife',
+            ])
             ->where(['id' => $id])
             ->where(['active' => true])
             ->first();
@@ -91,16 +101,26 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         /** @var KinsmanDto $dto */
         $birthDate = $dto->birth_date;
         $endDate = $dto->end_date;
+
+        $cityName = $dto->city_name;
+        $countryName = $dto->country_name;
         $native = $dto->native;
+
         unset($dto->birth_date);
         unset($dto->end_date);
+        unset($dto->city_name);
+        unset($dto->country_name);
         unset($dto->native);
 
         $kinsman = $this->setFields($this->kinsmanModel, $dto);
         $saved = $kinsman->save();
 
+        $dto->city_name = $cityName;
+        $dto->country_name = $countryName;
         $dto->native = $native;
         $cityId = $this->updateCity($dto);
+        unset($dto->city_name);
+        unset($dto->country_name);
         unset($dto->native);
 
         $dto->id = $kinsman->id;
@@ -147,9 +167,13 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         /** @var KinsmanDto $dto */
         $kinsman = $this->kinsmanModel->findOrNew($dto->id);
 
-        $cityId = $this->updateCity($dto);
-        $dto->native_city_id = $cityId;
+        $dto->native_city_id = $this->updateCity($dto);
+        unset($dto->city_name);
+        unset($dto->country_name);
         unset($dto->native);
+
+        $partnerId = $dto->partner_id;
+        unset($dto->partner_id);
 
         $this->updateLife($dto);
         unset($dto->birth_date);
@@ -159,6 +183,21 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         $kinsman = $this->setFields($kinsman, $dto);
 
         $updated = $kinsman->update();
+
+        if ($kinsman->gender === 'male') {
+            $kinsman->wife()->syncWithPivotValues([$partnerId],
+                [
+                    'wife_id' => $partnerId,
+                    'husband_id' => $kinsman->id,
+                    'active' => true
+            ]);
+        }
+
+        if ($kinsman->gender === 'female') {
+            $kinsman->husband()->attach([
+                $partnerId,
+            ]);
+        }
 
         return $updated ? $kinsman->id : null;
     }
@@ -227,6 +266,8 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
 
         if (!$city) {
             $dto = app(CityDto::class);
+            $dto->name = $kinsmanDto->city_name;
+            $dto->country = $kinsmanDto->country_name;
             $dto->geo = $kinsmanDto->native;
             $dto->active = true;
 

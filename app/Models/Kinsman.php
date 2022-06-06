@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,16 +17,18 @@ use Orchid\Screen\AsSource;
 /**
  * Class Kinsman
  *
- * @property int        $id
- * @property string     $name
- * @property string     $middle_name
- * @property string     $gender
- * @property Kinsman    $father
- * @property Kinsman    $mother
- * @property Kin        $kin
- * @property bool       $active
- * @property Life       $life
- * @property City[]     $nativeCity
+ * @property int                    $id
+ * @property string                 $name
+ * @property string                 $middle_name
+ * @property string                 $gender
+ * @property Kinsman                $father
+ * @property Kinsman                $mother
+ * @property Kin                    $kin
+ * @property bool                   $active
+ * @property Life                   $life
+ * @property Collection|City[]      $nativeCity
+ * @property Collection|Kinsman[]   $wife
+ * @property Collection|Kinsman[]   $husband
  *
  * @package App\Models
  */
@@ -93,6 +96,47 @@ class Kinsman extends Model
             'native_city_id'
         );
     }
+
+    public function husband(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Kinsman::class,
+            'marriage',
+            'wife_id',
+            'husband_id'
+        )->wherePivot('divorce_date', '=', null);
+    }
+
+    public function wife(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Kinsman::class,
+            'marriage',
+            'husband_id',
+            'wife_id',
+            ''
+        )->wherePivot('divorce_date', '=', null);
+    }
+
+    public function exHusband(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Kinsman::class,
+            'marriage',
+            'husband_id',
+            'husband_id'
+        )->wherePivot('divorce_date', '!=', null);
+    }
+
+    public function exWife(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Kinsman::class,
+            'marriage',
+            'husband_id',
+            'husband_id'
+        )->wherePivot('divorce_date', '!=', null);
+    }
 // ============================= end relations ===================================
 
     public function scopeFathers(Builder $query): Builder
@@ -112,6 +156,20 @@ class Kinsman extends Model
     public function scopeKinsman(Builder $query): Builder
     {
         return $query->where(['active' => true]);
+    }
+
+    public function scopeWed(Builder $query, string $gender, Collection $children): Builder
+    {
+        $childrenIds = $children->map(function ($child) {
+            return $child->id;
+        })->toArray();
+
+        return $query->where(['active' => true])
+            ->where(['gender' => $gender === 'male' ? 'female' : 'male'])
+            ->whereNotIn('id', $childrenIds)
+            ->where('id', '!=', $this->father->id)
+            ->where('id', '!=', $gender === 'male' ? $this->father->id : $this->mother->id)
+            ->where('id', '!=', $this->id);
     }
 
     public function getFullNameAttribute(): string

@@ -49,6 +49,11 @@ class City extends Model
     ];
 
 //====================== relations =====================================
+    public function nativeCityToLife(): HasMany
+    {
+        return $this->hasMany(Life::class, 'native_city_id', 'id');
+    }
+
     public function city(): HasMany
     {
         return $this->hasMany(Life::class, 'city_id', 'id');

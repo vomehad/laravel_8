@@ -57,7 +57,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h2>Жизнь</h2>
+                    <h2>{{ __('Kinsman.Label.Bio') }}</h2>
                 </div>
             </div>
         </div>
@@ -75,14 +75,21 @@
                     <p>{{ Carbon\Carbon::make($model->life->end_date)->format('j F Y') }} - Дата смерти</p>
                 </div>
                 @endif
+
+                @if($model->nativeCity->first() && !empty($model->nativeCity->first()->name))
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                        <p>{{ $model->nativeCity->first()->name }} - Город рождения</p>
+                    </div>
+                @endif
             </div>
         </div>
         @endif
+        <hr>
         @if(isset($model->father->id) || isset($model->mother->id))
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h2>Родители</h2>
+                    <h2>{{ __('Kinsman.Label.Parents') }}</h2>
                 </div>
             </div>
         </div>
@@ -111,6 +118,7 @@
         @endif
         <hr>
 
+        <hr>
         @if($children->count())
         <h2 class="">{{ __('Kinsman.Children.List') }}</h2>
         <table class="table">

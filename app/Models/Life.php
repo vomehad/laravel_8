@@ -61,7 +61,7 @@ class Life extends Model
 
     public function native(): BelongsTo
     {
-        return $this->belongsTo(City::class, 'life_native_city_id_foreign', 'native_city_id');
+        return $this->belongsTo(City::class, 'life_native_city_id_foreign', 'native_city_id', 'nativeCityToLife');
     }
 
     public function city(): HasMany

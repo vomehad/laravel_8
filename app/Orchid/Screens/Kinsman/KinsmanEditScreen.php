@@ -93,6 +93,10 @@ class KinsmanEditScreen extends Screen
         $geo = $this->kinsman->nativeCity->first()->geo ?? null;
         $coordinates = $geo ? json_decode($geo) : null;
 
+        if ($this->kinsman->id) {
+            $children = $this->repository->getChildren($this->kinsman->id);
+        }
+
         return [
 
             Layout::columns([
@@ -137,9 +141,6 @@ class KinsmanEditScreen extends Screen
                         ->title(__('Kinsman.Label.Active'))
                         ->sendTrueOrFalse()
                         ->value(true),
-                ]),
-
-                Layout::rows([
 
                     DateTimer::make('life.birth_date')
                         ->title(__('Life.Label.BirthDate'))
@@ -152,6 +153,16 @@ class KinsmanEditScreen extends Screen
                         ->placeholder(__('Life.Placeholder.EndDate'))
                         ->value($this->kinsman->life->end_date ?? null)
                         ->enableTime(),
+                ]),
+
+                Layout::rows([
+                    Input::make('city.city_name')
+                        ->title(__('City.Label.City'))
+                        ->placeholder(__('City.Placeholder.City')),
+
+                    Input::make('city.country_name')
+                        ->title(__('City.Label.Country'))
+                        ->placeholder(__('City.Placeholder.Country')),
 
                     Map::make('city.native')
                         ->title(__('City.Label.Native'))
@@ -161,6 +172,12 @@ class KinsmanEditScreen extends Screen
                             'lng' => $coordinates->lng ?? 40,
                         ]),
 
+                    Relation::make('marriage.partner_id')
+                        ->fromModel(Kinsman::class, 'name', 'id')
+                        ->applyScope('wed', $this->kinsman->gender, $children ?? [])
+                        ->displayAppend('fullName')
+                        ->value($this->kinsman->gender === 'male' ? $this->kinsman->wife->first()->id ?? '' : $this->kinsman->husband->first()->id ?? '')
+                        ->title($this->kinsman->gender === 'male' ? __('Kinsman.Label.Wife') : __('Kinsman.Label.Husband')),
                 ]),
 
             ]),

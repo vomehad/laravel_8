@@ -3,7 +3,7 @@
 namespace App\Orchid\Layouts\Kinsman;
 
 use App\Models\Kinsman;
-use Orchid\Screen\Actions\Button;
+use Carbon\Carbon;
 use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Fields\Input;
@@ -87,7 +87,11 @@ class KinsmanListLayout extends Table
                 }
             ),
 
-            TD::make('updated_at', __('Kinsman.Label.Updated'))->sort(),
+            TD::make('updated_at', __('Kinsman.Label.Updated'))
+                ->sort()
+                ->render(function(Kinsman $kinsman) {
+                    return Carbon::make($kinsman->updated_at)->format('j-M-Y H:i');
+                }),
             TD::make('created_at', __('Kinsman.Label.Created'))->sort(),
 
             TD::make(__('Kinsman.Button.Action'))
@@ -101,10 +105,10 @@ class KinsmanListLayout extends Table
                                 ->icon('pencil')
                                 ->route('platform.kinsman.edit', $kinsman->id),
 
-                            Button::make(__('Kinsman.Button.Delete'))
+                            /*Button::make(__('Kinsman.Button.Delete'))
                                 ->icon('trash')
                                 ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
-                                ->method('remove'),
+                                ->method('remove'),*/
                         ]
                     );
                 }

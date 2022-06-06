@@ -13,11 +13,14 @@ use Orchid\Screen\AsSource;
 /**
  * Class Kin
  *
- * @property int $id
- * @property string $name
- * @property string $slug
- * @property int $generation
- * @property int $created_by
+ * @property int        $id
+ * @property string     $name
+ * @property string     $slug
+ * @property int        $generation
+ * @property int        $created_by
+ * @property bool       $active
+ * @property string     $updated_at
+ *
  * @package App\Models
  */
 class Kin extends Model

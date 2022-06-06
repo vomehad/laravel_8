@@ -45,7 +45,7 @@ class KinEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return $this->kin->exists ? 'Edit kin' : 'Creating a new kin';
+        return $this->kin->exists ? __('Kin.Orchid.Update') : __('Kin.Orchid.Create');
     }
 
     /**
@@ -99,6 +99,7 @@ class KinEditScreen extends Screen
 
                 CheckBox::make('kin.active')
                     ->title(__('Kin.Label.Active'))
+                    ->value($this->kin->exists ? $this->kin->active : false)
                     ->sendTrueOrFalse(),
             ]),
         ];

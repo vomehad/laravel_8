@@ -224,7 +224,7 @@ Route::screen('kins/create', KinEditScreen::class)
     ->breadcrumbs(function(Trail $trail) {
         return $trail->parent('platform.index')
             ->push(__('Kin.Orchid.Menu'), route('platform.kins'))
-            ->push('Create');
+            ->push(__('Kin.Orchid.Create'));
     });
 
 // Platform > Notes

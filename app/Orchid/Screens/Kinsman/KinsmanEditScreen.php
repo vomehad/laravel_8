@@ -137,7 +137,7 @@ class KinsmanEditScreen extends Screen
                     CheckBox::make('kinsman.active')
                         ->title(__('Kinsman.Label.Active'))
                         ->sendTrueOrFalse()
-                        ->value(true),
+                        ->value($this->kinsman->exists ? $this->kinsman->active : true),
 
                     DateTimer::make('life.birth_date')
                         ->title(__('Life.Label.BirthDate'))

@@ -98,11 +98,8 @@ class KinsmanEditScreen extends Screen
         }
 
         return [
-
             Layout::columns([
-
                 Layout::rows([
-
                     Input::make('kinsman.id')->type('hidden'),
 
                     Input::make('kinsman.name')
@@ -158,10 +155,12 @@ class KinsmanEditScreen extends Screen
                 Layout::rows([
                     Input::make('city.city_name')
                         ->title(__('City.Label.City'))
+                        ->value($this->kinsman->nativeCity->first()->name ?? null)
                         ->placeholder(__('City.Placeholder.City')),
 
                     Input::make('city.country_name')
                         ->title(__('City.Label.Country'))
+                        ->value($this->kinsman->nativeCity->first()->country ?? null)
                         ->placeholder(__('City.Placeholder.Country')),
 
                     Map::make('city.native')

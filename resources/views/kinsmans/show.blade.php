@@ -53,72 +53,96 @@
                 </div>--}}
             </div>
         </div>
-        @isset($model->life->id)
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2>{{ __('Kinsman.Label.Bio') }}</h2>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                @if(!empty($model->life->birth_date))
-                <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10">
-                    <p>{{ Carbon\Carbon::make($model->life->birth_date)->format('j F Y') }} - Дата рождения</p>
-                    <p>{{ Carbon\Carbon::make($model->life->birth_date)->format('H:i') }} - Время рождения</p>
-                </div>
-                @endif
-
-                @if(!empty($model->life->end_date))
-                <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
-                    <p>{{ Carbon\Carbon::make($model->life->end_date)->format('j F Y') }} - Дата смерти</p>
-                </div>
-                @endif
-
-                @if($model->nativeCity->first() && !empty($model->nativeCity->first()->name))
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
-                        <p>{{ $model->nativeCity->first()->name }} - Город рождения</p>
+        @if(!empty($model->life->id))
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>{{ __('Kinsman.Label.Bio') }}</h2>
                     </div>
-                @endif
+                </div>
             </div>
-        </div>
-        @endif
+            <div class="container">
+                <div class="row">
+                    @if(!empty($model->life->birth_date))
+                    <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10">
+                        <p>{{ Carbon\Carbon::make($model->life->birth_date)->format('j F Y') }} - Дата рождения</p>
+                        <p>{{ Carbon\Carbon::make($model->life->birth_date)->format('H:i') }} - Время рождения</p>
+                    </div>
+                    @endif
+
+                    @if(!empty($model->life->end_date))
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                        <p>{{ Carbon\Carbon::make($model->life->end_date)->format('j F Y') }} - Дата смерти</p>
+                    </div>
+                    @endif
+
+                    @if($model->nativeCity->first() && !empty($model->nativeCity->first()->name))
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                            <p>{{ $model->nativeCity->first()->name }} - Город рождения</p>
+                        </div>
+                    @endif
+                </div>
+            </div>
         <hr>
+        @endif
+
         @if(isset($model->father->id) || isset($model->mother->id))
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2>{{ __('Kinsman.Label.Parents') }}</h2>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>{{ __('Kinsman.Label.Parents') }}</h2>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                @isset($model->father->id)
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                    <p>
-                        <a href="{{ route('kinsmans.show', $model->father->id) }}"
-                           class="btn btn-warning"
-                        >{{ $model->father->name }} {{ $model->father->middle_name }}</a>
-                    </p>
-                </div>
-                @endif
-                @isset($model->mother->id)
+            <div class="container">
+                <div class="row">
+                    @isset($model->father->id)
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                         <p>
-                            <a href="{{ route('kinsmans.show', $model->mother->id) }}"
+                            <a href="{{ route('kinsmans.show', $model->father->id) }}"
                                class="btn btn-warning"
-                            >{{ $model->mother->name }} {{ $model->mother->middle_name }}</a>
+                            >{{ $model->father->name }} {{ $model->father->middle_name }}</a>
                         </p>
                     </div>
-                @endif
+                    @endif
+                    @isset($model->mother->id)
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                            <p>
+                                <a href="{{ route('kinsmans.show', $model->mother->id) }}"
+                                   class="btn btn-warning"
+                                >{{ $model->mother->name }} {{ $model->mother->middle_name }}</a>
+                            </p>
+                        </div>
+                    @endif
+                </div>
             </div>
-        </div>
+        <hr>
         @endif
-        <hr>
 
-        <hr>
+        @if(!empty($model->gender === 'male' ? $model->wife : $model->husband))
+            @if(isset($model->wife->first()->id) && !empty($model->wife->first()->id))
+                <h2>{{ __('Kinsman.Label.Wife') }}</h2>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <p>
+                        <a href="{{ route('kinsmans.show', $model->wife->first()->id) }}"
+                           class="btn btn-warning"
+                        >{{ $model->wife->first()->getFullNameAttribute() }}</a>
+                    </p>
+                </div>
+                <hr>
+            @endif
+            @if(isset($model->husband->first()->id) && !empty($model->husband->first()->id))
+                <h2>{{ __('Kinsman.Label.Husband') }}</h2>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <p>
+                        <a href="{{ route('kinsmans.show', $model->husband->first()->id) }}"
+                           class="btn btn-warning"
+                        >{{ $model->husband->first()->getFullNameAttribute() }}</a>
+                    </p>
+                </div>
+                <hr>
+            @endif
+        @endif
         @if($children->count())
         <h2 class="">{{ __('Kinsman.Children.List') }}</h2>
         <table class="table">

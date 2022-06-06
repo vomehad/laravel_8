@@ -21,14 +21,18 @@ return [
     ],
     'Label' => [
         'Active' => 'Активность',
+        'Bio' => 'Биография',
         'Created' => 'Добавлен',
         'Father' => 'Отец',
         'Gender' => 'Пол',
         'Kin' => 'Род',
+        'Husband' => 'Муж',
         'MiddleName' => 'Отчество',
         'Mother' => 'Мать',
         'Name' => 'Имя',
+        'Parents' => 'Родители',
         'Updated' => 'Обновлён',
+        'Wife' => 'Жена',
     ],
     'Message' => [
         'Created' => 'Добавлено',

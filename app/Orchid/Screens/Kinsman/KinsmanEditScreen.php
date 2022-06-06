@@ -177,7 +177,8 @@ class KinsmanEditScreen extends Screen
                         ->applyScope('wed', $this->kinsman->gender, $children ?? [])
                         ->displayAppend('fullName')
                         ->value($this->kinsman->gender === 'male' ? $this->kinsman->wife->first()->id ?? '' : $this->kinsman->husband->first()->id ?? '')
-                        ->title($this->kinsman->gender === 'male' ? __('Kinsman.Label.Wife') : __('Kinsman.Label.Husband')),
+                        ->title($this->kinsman->gender === 'male' ? __('Kinsman.Label.Wife') : __('Kinsman.Label.Husband'))
+                        ->canSee($this->kinsman->exists),
                 ]),
 
             ]),

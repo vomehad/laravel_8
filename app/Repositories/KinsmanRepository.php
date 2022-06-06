@@ -172,7 +172,7 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         unset($dto->country_name);
         unset($dto->native);
 
-        $partnerId = $dto->partner_id;
+        $partnerId = $dto->partner_id ?? null;
         unset($dto->partner_id);
 
         $this->updateLife($dto);
@@ -184,19 +184,8 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
 
         $updated = $kinsman->update();
 
-        if ($kinsman->gender === 'male') {
-            $kinsman->wife()->syncWithPivotValues([$partnerId],
-                [
-                    'wife_id' => $partnerId,
-                    'husband_id' => $kinsman->id,
-                    'active' => true
-            ]);
-        }
-
-        if ($kinsman->gender === 'female') {
-            $kinsman->husband()->attach([
-                $partnerId,
-            ]);
+        if ($partnerId) {
+            $this->updatePartner($kinsman, $partnerId);
         }
 
         return $updated ? $kinsman->id : null;
@@ -275,5 +264,25 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         }
 
         return $saved ?? $city->id;
+    }
+
+    private function updatePartner(Kinsman $kinsman, ?string $partnerId)
+    {
+        if ($kinsman->gender === 'male') {
+            $kinsman->wife()->syncWithPivotValues(
+                [$partnerId],
+                [
+                    'wife_id' => $partnerId,
+                    'husband_id' => $kinsman->id,
+                    'active' => true
+                ]
+            );
+        }
+
+        if ($kinsman->gender === 'female') {
+            $kinsman->husband()->attach([
+                $partnerId,
+            ]);
+        }
     }
 }

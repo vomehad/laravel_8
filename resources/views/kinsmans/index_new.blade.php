@@ -109,8 +109,12 @@
                     @php /** @var \App\Models\Kinsman $kinsman */ @endphp
                     <div class="col-md-6 col-lg-4 item">
                         <div class="box">
-                            <a href="{{ route('kinsmans.show', $kinsman->id) }}"><img class="rounded-circle" src="assets/img/1.jpg" alt="{{ $kinsman->name }}"></a>
-                            <h3 class="name">{{ $kinsman->getFullNameAttribute() }}</h3>
+                            <a href="{{ route('kinsmans.show', $kinsman->id) }}">
+                                <img class="rounded-circle" src="{{ $kinsman->getImage() }}" alt="{{ $kinsman->name }}">
+                            </a>
+                            <a href="{{ route('kinsmans.show', $kinsman->id) }}">
+                                <h3 class="name">{{ $kinsman->getFullNameAttribute() }}</h3>
+                            </a>
                             @if(!empty($kinsman->life->birth_date))
                                 <p class="title">{{ Carbon\Carbon::make($kinsman->life->birth_date)->format('j F Y') }}</p>
                             @endif

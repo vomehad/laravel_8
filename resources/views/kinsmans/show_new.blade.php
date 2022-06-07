@@ -161,9 +161,11 @@
                     <div class="col-md-6 col-lg-4 item">
                         <div class="box">
                             <a href="{{ route('kinsmans.show', $model->father->id) }}">
-                                <img class="rounded-circle" src="assets/img/1.jpg" alt="{{ $model->father->name }}">
+                                <img class="rounded-circle" src="{{ $model->father->getImage() }}" alt="{{ $model->father->name }}">
                             </a>
-                            <h3 class="name">{{ $model->father->getFullNameAttribute() }}</h3>
+                            <a href="{{ route('kinsmans.show', $model->father->id) }}">
+                                <h3 class="name">{{ $model->father->getFullNameAttribute() }}</h3>
+                            </a>
                             @if(!empty($model->father->life->birth_date))
                                 <p class="title">{{ Carbon\Carbon::make($model->father->life->birth_date)->format('j F Y') }}</p>
                             @endif
@@ -174,20 +176,22 @@
                     </div>
                     @endif
                     @isset($model->mother->id)
-                            <div class="col-md-6 col-lg-4 item">
-                                <div class="box">
-                                    <a href="{{ route('kinsmans.show', $model->mother->id) }}">
-                                        <img class="rounded-circle" src="assets/img/1.jpg" alt="{{ $model->mother->name }}">
-                                    </a>
+                        <div class="col-md-6 col-lg-4 item">
+                            <div class="box">
+                                <a href="{{ route('kinsmans.show', $model->mother->id) }}">
+                                    <img class="rounded-circle" src="{{ $model->mother->getImage() }}" alt="{{ $model->mother->name }}">
+                                </a>
+                                <a href="{{ route('kinsmans.show', $model->mother->id) }}">
                                     <h3 class="name">{{ $model->mother->getFullNameAttribute() }}</h3>
-                                    @if(!empty($model->mother->life->birth_date))
-                                        <p class="title">{{ Carbon\Carbon::make($model->mother->life->birth_date)->format('j F Y') }}</p>
-                                    @endif
-                                    @if(!empty($model->mother->kin->name))
-                                        <p class="description">{{ $model->mother->kin->name }}</p>
-                                    @endif
-                                </div>
+                                </a>
+                                @if(!empty($model->mother->life->birth_date))
+                                    <p class="title">{{ Carbon\Carbon::make($model->mother->life->birth_date)->format('j F Y') }}</p>
+                                @endif
+                                @if(!empty($model->mother->kin->name))
+                                    <p class="description">{{ $model->mother->kin->name }}</p>
+                                @endif
                             </div>
+                        </div>
                     @endif
                 </div>
             </div>
@@ -201,9 +205,11 @@
                     <div class="col-md-6 col-lg-4 item">
                         <div class="box">
                             <a href="{{ route('kinsmans.show', $model->wife->first()->id) }}">
-                                <img class="rounded-circle" src="assets/img/1.jpg" alt="{{ $model->wife->first()->name }}">
+                                <img class="rounded-circle" src="{{ $model->wife->first()->getImage() }}" alt="{{ $model->wife->first()->name }}">
                             </a>
-                            <h3 class="name">{{ $model->wife->first()->getFullNameAttribute() }}</h3>
+                            <a href="{{ route('kinsmans.show', $model->wife->first()->id) }}">
+                                <h3 class="name">{{ $model->wife->first()->getFullNameAttribute() }}</h3>
+                            </a>
                             @if(!empty($model->wife->first()->life->birth_date))
                                 <p class="title">{{ Carbon\Carbon::make($model->wife->first()->life->birth_date)->format('j F Y') }}</p>
                             @endif
@@ -219,9 +225,11 @@
                 <div class="col-md-6 col-lg-4 item">
                     <div class="box">
                         <a href="{{ route('kinsmans.show', $model->husband->first()->id) }}">
-                            <img class="rounded-circle" src="assets/img/1.jpg" alt="{{ $model->husband->first()->name }}">
+                            <img class="rounded-circle" src="{{ $model->husband->first()->getImage() }}" alt="{{ $model->husband->first()->name }}">
                         </a>
-                        <h3 class="name">{{ $model->husband->first()->getFullNameAttribute() }}</h3>
+                        <a href="{{ route('kinsmans.show', $model->husband->first()->id) }}">
+                            <h3 class="name">{{ $model->husband->first()->getFullNameAttribute() }}</h3>
+                        </a>
                         @if(!empty($model->husband->first()->life->birth_date))
                             <p class="title">{{ Carbon\Carbon::make($model->husband->first()->life->birth_date)->format('j F Y') }}</p>
                         @endif
@@ -242,9 +250,11 @@
                     <div class="col-md-6 col-lg-4 item">
                         <div class="box">
                             <a href="{{ route('kinsmans.show', $child->id) }}">
-                                <img class="rounded-circle" src="assets/img/1.jpg" alt="{{ $child->name }}">
+                                <img class="rounded-circle" src="{{ $child->getImage() }}" alt="{{ $child->name }}">
                             </a>
-                            <h3 class="name">{{ $child->getFullNameAttribute() }}</h3>
+                            <a href="{{ route('kinsmans.show', $child->id) }}">
+                                <h3 class="name">{{ $child->getFullNameAttribute() }}</h3>
+                            </a>
                             @if(!empty($child->life->birth_date))
                                 <p class="title">{{ Carbon\Carbon::make($child->life->birth_date)->format('j F Y') }}</p>
                             @endif
@@ -254,13 +264,13 @@
                             @if(isset($child->mother->id) && $child->mother->id !== $model->id)
                                 <h4>{{ __('Kinsman.Label.Mother') }}</h4>
                                 <a href="{{ route('kinsmans.show', $child->mother->id) }}">
-                                    <img class="rounded-circle" src="assets/img/1.jpg" alt="{{ $child->mother->name }}">
+                                    <span>{{ $child->mother->getFullNameAttribute() }}</span>
                                 </a>
                             @endif
                             @if(isset($child->father->id) && $child->father->id !== $model->id)
                                 <h4>{{ __('Kinsman.Label.Father') }}</h4>
                                 <a href="{{ route('kinsmans.show', $child->father->id) }}">
-                                    <img class="rounded-circle" src="assets/img/1.jpg" alt="{{ $child->father->name }}">
+                                    <span>{{ $child->father->getFullNameAttribute() }}</span>
                                 </a>
                             @endif
                         </div>

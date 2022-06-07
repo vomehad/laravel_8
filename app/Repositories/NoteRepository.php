@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Dto\NoteDto;
 use App\Dto\SelectedDto;
 use App\Helpers\NameHelper;
 use App\Interfaces\DtoInterface;
@@ -65,7 +66,7 @@ class NoteRepository extends BaseRepository implements RepositoryInterface, Inhe
 
     public function create(DtoInterface $dto): ?int
     {
-        /** @var \App\Dto\NoteDto $dto */
+        /** @var NoteDto $dto */
         $note = $this->setFields($this->noteModel, $dto);
 
         $saved = $note->save();
@@ -100,7 +101,7 @@ class NoteRepository extends BaseRepository implements RepositoryInterface, Inhe
 
     public function update(DtoInterface $dto): ?int
     {
-        /** @var \App\Dto\NoteDto $dto */
+        /** @var NoteDto $dto */
         $note = $this->noteModel->findOrNew($dto->id);
 
         $note = $this->setFields($note, $dto);

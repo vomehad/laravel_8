@@ -190,4 +190,11 @@ class Kinsman extends Model
         ];
         return $genders[$key];
     }
+
+    public function getImage(): string
+    {
+        $name = $this->gender === 'male' ? 'man' : 'woman';
+
+        return "/img/{$name}.jpg";
+    }
 }

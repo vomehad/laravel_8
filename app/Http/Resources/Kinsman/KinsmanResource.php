@@ -9,8 +9,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class KinsmanResource extends JsonResource
 {
-    public static $wrap = '';
-
     public function toArray($request): array
     {
         /** @var Kinsman $this */

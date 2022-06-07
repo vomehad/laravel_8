@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Life;
 
 use App\Models\Life;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class LifeResource extends JsonResource
@@ -10,7 +11,7 @@ class LifeResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request): array

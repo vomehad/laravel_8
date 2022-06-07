@@ -5,6 +5,7 @@ namespace App\Http\Resources\Kinsman;
 use App\Http\Resources\Kin\KinResource;
 use App\Http\Resources\Life\LifeResource;
 use App\Models\Kinsman;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class KinsmanParentResource extends JsonResource
@@ -12,7 +13,7 @@ class KinsmanParentResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request): array

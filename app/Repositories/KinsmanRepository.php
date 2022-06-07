@@ -57,7 +57,7 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         }
 
         if (Arr::has($options, 'perPage')) {
-            $kinsmans = $kinsmans->paginate(Arr::get($options, 'perPage'));
+            return $kinsmans->paginate(Arr::get($options, 'perPage'));
         }
 
         return $kinsmans->get();

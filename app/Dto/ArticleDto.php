@@ -7,14 +7,31 @@ use Illuminate\Support\Arr;
 
 class ArticleDto implements DtoInterface
 {
+    /** @var int $id */
     public int $id;
+
+    /** @var string $title */
     public string $title;
+
+    /** @var string|null $preview */
     public ?string $preview;
+
+    /** @var string|null $linnk */
     public ?string $link;
+
+    /** @var bool $active */
     public bool $active;
+
+    /** @var array $category */
     public array $category;
+
+    /** @var int $created_by */
     public int $created_by;
+
+    /** @var string $text */
     public string $text;
+
+    /** @var string|null $disk */
     public ?string $disk;
 
     public function createFromRequest(array $fields): DtoInterface

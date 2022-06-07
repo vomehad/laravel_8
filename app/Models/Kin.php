@@ -19,7 +19,9 @@ use Orchid\Screen\AsSource;
  * @property int        $generation
  * @property int        $created_by
  * @property bool       $active
+ * @property string     $created_at
  * @property string     $updated_at
+ * @property string     $deleted_at
  *
  * @package App\Models
  */

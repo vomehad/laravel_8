@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Kinsman\KinsmanCollection;
 use App\Repositories\KinsmanRepository;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class KinsmanController extends Controller
 {
@@ -17,9 +17,11 @@ class KinsmanController extends Controller
         $this->repository = $repository;
     }
 
-    public function index(): LengthAwarePaginator
+    public function index(): KinsmanCollection
     {
-        return $this->repository->getAll();
+        $kinsmans = $this->repository->getAll();
+
+        return new KinsmanCollection($kinsmans);
     }
 
     /**

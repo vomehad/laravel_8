@@ -38,7 +38,7 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         $this->cityRepository = $cityRepository;
     }
 
-    public function getAll(array $options = []): LengthAwarePaginator
+    public function getAll(array $options = [])
     {
         $kinsmans = $this->kinsmanModel->where(['active' => true]);
 
@@ -56,7 +56,11 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
                 ->defaultSort(Arr::get($options, 'defaultSort'), 'desc');
         }
 
-        return $kinsmans->paginate(Arr::get($options, 'perPage'));
+        if (Arr::has($options, 'perPage')) {
+            $kinsmans = $kinsmans->paginate(Arr::get($options, 'perPage'));
+        }
+
+        return $kinsmans->get();
     }
 
     public function getOne(int $id): ?Model

@@ -29,6 +29,9 @@ use Orchid\Screen\AsSource;
  * @property Collection|City[]      $nativeCity
  * @property Collection|Kinsman[]   $wife
  * @property Collection|Kinsman[]   $husband
+ * @property string                 $created_at
+ * @property string                 $updated_at
+ * @property string                 $deleted_at
  *
  * @package App\Models
  */

@@ -9,7 +9,7 @@ use Illuminate\Http\RedirectResponse;
 
 class KinsmanController extends Controller
 {
-    private const PER_PAGE = 10;
+    private const PER_PAGE = 12;
     private const DEFAULT_SORT = 'updated_at';
     private const EAGER_LOADING = true;
     private const OPTIONS = [
@@ -27,6 +27,16 @@ class KinsmanController extends Controller
     }
 
     public function index()
+    {
+        $kinsmans = $this->repository->getAll(self::OPTIONS);
+
+        return view('kinsmans.index_new', [
+            'models' => $kinsmans,
+            'nav' => $this->nav
+        ]);
+    }
+
+    public function index_old()
     {
         $kinsmans = $this->repository->getAll(self::OPTIONS);
 
@@ -59,6 +69,18 @@ class KinsmanController extends Controller
     }
 
     public function show(int $id)
+    {
+        $kinsman = $this->repository->getOne($id);
+        $children = $this->repository->getChildren($id);
+
+        return view('kinsmans.show_new', [
+            'model' => $kinsman,
+            'children' => $children,
+            'nav' =>$this->nav
+        ]);
+    }
+
+    public function show_old(int $id)
     {
         $kinsman = $this->repository->getOne($id);
         $children = $this->repository->getChildren($id);

@@ -23,6 +23,14 @@ Route::prefix('/')->group(function() {
 });
 
 Route::prefix('/')->group(function() {
+    Route::match(['get', 'post'],'/kinsmans2/search', [KinsmanController::class, 'search2'])->name('kinsmans2.search');
+    Route::prefix('kinsmans2')->group(function() {
+        Route::get('/', [KinsmanController::class, 'index_old'])->name('kinsmans2.index');
+        Route::get('/{id}', [KinsmanController::class, 'show_old'])->name('kinsmans2.show');
+    });
+});
+
+Route::prefix('/')->group(function() {
     Route::match(['get', 'post'],'/kins/search', [KinController::class, 'search'])->name('kins.search');
     Route::resource('kins', KinController::class);
 });

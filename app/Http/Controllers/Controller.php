@@ -29,6 +29,7 @@ class Controller extends BaseController
             ['url' => route('articles.index'),          'name' => Lang::get('Article.Menu.Top')],
             ['url' => route('Game'),                    'name' => Lang::get('Game.Menu.Top')],
             ['url' => route('kinsmans.index'),          'name' => Lang::get('Kinsman.Menu.Top')],
+//            ['url' => route('kinsmans2.index'),         'name' => Lang::get('Kinsman.Menu.Top2')],
             ['url' => route('platform.index'),          'name' => Lang::get('Admin.Menu.Top')],
         ];
     }

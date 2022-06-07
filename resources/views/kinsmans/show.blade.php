@@ -66,7 +66,7 @@
                     @if(!empty($model->life->birth_date))
                     <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-10">
                         <p>{{ Carbon\Carbon::make($model->life->birth_date)->format('j F Y') }} - Дата рождения</p>
-                        <p>{{ Carbon\Carbon::make($model->life->birth_date)->format('H:i') }} - Время рождения</p>
+{{--                        <p>{{ Carbon\Carbon::make($model->life->birth_date)->format('H:i') }} - Время рождения</p>--}}
                     </div>
                     @endif
 

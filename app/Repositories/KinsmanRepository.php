@@ -53,7 +53,7 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         if (Arr::has($options, 'defaultSort')) {
             $kinsmans = $kinsmans->filters()
                 ->filtersApplySelection(KinsmanFilterLayout::class)
-                ->defaultSort(Arr::get($options, 'defaultSort'));
+                ->defaultSort(Arr::get($options, 'defaultSort'), 'desc');
         }
 
         return $kinsmans->paginate(Arr::get($options, 'perPage'));

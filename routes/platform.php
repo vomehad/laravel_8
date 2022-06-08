@@ -24,6 +24,7 @@ use App\Orchid\Screens\Examples\ExampleScreen;
 use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
 use App\Orchid\Screens\Kin\KinEditScreen;
 use App\Orchid\Screens\Kin\KinListScreen;
+use App\Orchid\Screens\Kinsman\KinsmanCreateScreen;
 use App\Orchid\Screens\Kinsman\KinsmanEditScreen;
 use App\Orchid\Screens\Kinsman\KinsmanListScreen;
 use App\Orchid\Screens\Life\LifeEditScreen;
@@ -193,7 +194,7 @@ Route::screen('kinsmans/{kinsman?}/edit', KinsmanEditScreen::class)
     });
 
 // Platform > Kinsmans > Create
-Route::screen('kinsmans/create', KinsmanEditScreen::class)
+Route::screen('kinsmans/create', KinsmanCreateScreen::class)
     ->name('platform.kinsman.create')
     ->breadcrumbs(function(Trail $trail) {
         return $trail->parent('platform.index')

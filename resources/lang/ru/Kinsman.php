@@ -27,6 +27,7 @@ return [
         'Gender' => 'Пол',
         'Kin' => 'Род',
         'Husband' => 'Муж',
+        'Main' => 'Дерево',
         'MiddleName' => 'Отчество',
         'Mother' => 'Мать',
         'Name' => 'Имя',

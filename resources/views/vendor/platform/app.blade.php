@@ -38,7 +38,7 @@
     @stack('stylesheets')
 
     @foreach(Dashboard::getResource('scripts') as $scripts)
-        <script src="{{  $scripts }}" defer type="text/javascript"></script>
+        <script src="{{ $scripts }}" defer type="text/javascript"></script>
     @endforeach
 </head>
 

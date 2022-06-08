@@ -16,6 +16,6 @@
     <p class="ms-3 my-0 d-none d-sm-block">
 {{--        {{ __('Kinsman.Menu.Top') }}--}}
         Main
-        <small class="align-top opacity">main</small>
+        <small class="align-top opacity">{{ __('Kinsman.Label.Main') }}</small>
     </p>
 </div>

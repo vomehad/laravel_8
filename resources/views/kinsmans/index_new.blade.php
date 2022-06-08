@@ -5,63 +5,47 @@
     <title>Untitled</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
 @endsection
 @push('styles')
     <style>
         .team-boxed {
-            color:#313437;
-            background-color:#eef4f7;
+            color: #313437;
+            background-color: #eef4f7;
         }
 
         .team-boxed p {
-            color:#7d8285;
-        }
-
-        .team-boxed h2 {
-            font-weight:bold;
-            margin-bottom:40px;
-            padding-top:40px;
-            color:inherit;
-        }
-
-        @media (max-width:767px) {
-            .team-boxed h2 {
-                margin-bottom:25px;
-                padding-top:25px;
-                font-size:24px;
-            }
+            color: #7d8285;
         }
 
         .team-boxed .people {
-            padding:50px 0;
+            padding: 50px 0;
         }
 
         .team-boxed .item {
-            text-align:center;
+            text-align: center;
         }
 
         .team-boxed .item .box {
-            text-align:center;
-            padding:30px;
-            background-color:#fff;
-            margin-bottom:30px;
+            text-align: center;
+            padding: 30px;
+            background-color: #fff;
+            margin-bottom: 30px;
             min-height: 400px;
         }
 
         .team-boxed .item .name {
-            font-weight:bold;
-            margin-top:28px;
-            margin-bottom:8px;
+            /*font-weight: bold;*/
+            margin-top: 28px;
+            margin-bottom: 8px;
             color: black;
         }
 
         .team-boxed .item .title {
-            text-transform:uppercase;
-            font-weight:bold;
+            text-transform: uppercase;
+            /*font-weight: bold;*/
             color: #0c0505;
-            letter-spacing:2px;
-            font-size:13px;
+            letter-spacing: 2px;
+            font-size: 11px;
         }
 
         .team-boxed .item .description {
@@ -88,7 +72,7 @@
                                 <img class="rounded-circle" src="{{ $kinsman->presenter()->image() }}" alt="{{ $kinsman->name }}">
                             </a>
                             <a href="{{ route('kinsmans.show', $kinsman->id) }}">
-                                <h3 class="name">{{ $kinsman->getFullNameAttribute() }}</h3>
+                                <h4 class="name">{{ $kinsman->getFullNameAttribute() }}</h4>
                             </a>
                             @if(!empty($kinsman->life->birth_date))
                                 <p class="title">{{ Carbon\Carbon::make($kinsman->life->birth_date)->format('j F Y') }}</p>
@@ -101,7 +85,7 @@
                 @endforeach
             </div>
         </div>
-        {{ $models->onEachSide(5)->links() }}
+        <p>{{ $models->onEachSide(5)->links() }}</p>
     </div>
 @endsection
 

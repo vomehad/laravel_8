@@ -10,6 +10,9 @@ class KinsmanDto implements DtoInterface
     /** @var int $id */
     public int $id;
 
+    /** @var string|null $photo */
+    public ?string $photo;
+
     /** @var string $name */
     public string $name;
 

@@ -108,6 +108,7 @@
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <h2>{{ $model->name }} {{ $model->middle_name }} {{ $model->kin->name ?? '' }}</h2>
+                    <img class="rounded-circle" src="{{ $model->presenter()->image() }}">
                 </div>
                 {{--<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <img src="img.url">
@@ -161,7 +162,7 @@
                     <div class="col-md-6 col-lg-4 item">
                         <div class="box">
                             <a href="{{ route('kinsmans.show', $model->father->id) }}">
-                                <img class="rounded-circle" src="{{ $model->father->getImage() }}" alt="{{ $model->father->name }}">
+                                <img class="rounded-circle" src="{{ $model->father->presenter()->image() }}" alt="{{ $model->father->name }}">
                             </a>
                             <a href="{{ route('kinsmans.show', $model->father->id) }}">
                                 <h3 class="name">{{ $model->father->getFullNameAttribute() }}</h3>
@@ -179,7 +180,7 @@
                         <div class="col-md-6 col-lg-4 item">
                             <div class="box">
                                 <a href="{{ route('kinsmans.show', $model->mother->id) }}">
-                                    <img class="rounded-circle" src="{{ $model->mother->getImage() }}" alt="{{ $model->mother->name }}">
+                                    <img class="rounded-circle" src="{{ $model->mother->presenter()->image() }}" alt="{{ $model->mother->name }}">
                                 </a>
                                 <a href="{{ route('kinsmans.show', $model->mother->id) }}">
                                     <h3 class="name">{{ $model->mother->getFullNameAttribute() }}</h3>
@@ -205,7 +206,7 @@
                     <div class="col-md-6 col-lg-4 item">
                         <div class="box">
                             <a href="{{ route('kinsmans.show', $model->wife->first()->id) }}">
-                                <img class="rounded-circle" src="{{ $model->wife->first()->getImage() }}" alt="{{ $model->wife->first()->name }}">
+                                <img class="rounded-circle" src="{{ $model->wife->first()->presenter()->image() }}" alt="{{ $model->wife->first()->name }}">
                             </a>
                             <a href="{{ route('kinsmans.show', $model->wife->first()->id) }}">
                                 <h3 class="name">{{ $model->wife->first()->getFullNameAttribute() }}</h3>
@@ -225,7 +226,7 @@
                 <div class="col-md-6 col-lg-4 item">
                     <div class="box">
                         <a href="{{ route('kinsmans.show', $model->husband->first()->id) }}">
-                            <img class="rounded-circle" src="{{ $model->husband->first()->getImage() }}" alt="{{ $model->husband->first()->name }}">
+                            <img class="rounded-circle" src="{{ $model->husband->first()->presenter()->image() }}" alt="{{ $model->husband->first()->name }}">
                         </a>
                         <a href="{{ route('kinsmans.show', $model->husband->first()->id) }}">
                             <h3 class="name">{{ $model->husband->first()->getFullNameAttribute() }}</h3>
@@ -250,7 +251,7 @@
                     <div class="col-md-6 col-lg-4 item">
                         <div class="box">
                             <a href="{{ route('kinsmans.show', $child->id) }}">
-                                <img class="rounded-circle" src="{{ $child->getImage() }}" alt="{{ $child->name }}">
+                                <img class="rounded-circle" src="{{ $child->presenter()->image() }}" alt="{{ $child->name }}">
                             </a>
                             <a href="{{ route('kinsmans.show', $child->id) }}">
                                 <h3 class="name">{{ $child->getFullNameAttribute() }}</h3>

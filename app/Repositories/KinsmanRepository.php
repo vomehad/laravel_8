@@ -14,7 +14,6 @@ use App\Models\Kin;
 use App\Models\Kinsman;
 use App\Models\Life;
 use App\Orchid\Layouts\Kinsman\KinsmanFilterLayout;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
@@ -30,8 +29,7 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         Kin $kinModel,
         LifeRepository $lifeRepository,
         CityRepository $cityRepository
-    )
-    {
+    ) {
         $this->kinsmanModel = $kinsmanModel;
         $this->kinModel = $kinModel;
         $this->lifeRepository = $lifeRepository;
@@ -184,6 +182,9 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         unset($dto->end_date);
         unset($dto->native_city_id);
 
+        $photoId = $dto->photo;
+        unset($dto->photo);
+
         $kinsman = $this->setFields($kinsman, $dto);
 
         $updated = $kinsman->update();
@@ -191,6 +192,9 @@ class KinsmanRepository extends BaseRepository implements RepositoryInterface, I
         if ($partnerId) {
             $this->updatePartner($kinsman, $partnerId);
         }
+
+        $photo = $photoId ? [$photoId] : [];
+        $kinsman->attachment()->sync($photo);
 
         return $updated ? $kinsman->id : null;
     }

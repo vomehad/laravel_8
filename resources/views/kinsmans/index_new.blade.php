@@ -33,16 +33,6 @@
             }
         }
 
-        .team-boxed .intro {
-            font-size:16px;
-            max-width:500px;
-            margin:0 auto;
-        }
-
-        .team-boxed .intro p {
-            margin-bottom:0;
-        }
-
         .team-boxed .people {
             padding:50px 0;
         }
@@ -83,22 +73,6 @@
         .team-boxed .item img {
             max-width:160px;
         }
-
-        .team-boxed .social {
-            font-size:18px;
-            color:#a2a8ae;
-        }
-
-        .team-boxed .social a {
-            color:inherit;
-            margin:0 10px;
-            display:inline-block;
-            opacity:0.7;
-        }
-
-        .team-boxed .social a:hover {
-            opacity:1;
-        }
     </style>
 @endpush
 @section('content')
@@ -110,7 +84,7 @@
                     <div class="col-md-6 col-lg-4 item">
                         <div class="box">
                             <a href="{{ route('kinsmans.show', $kinsman->id) }}">
-                                <img class="rounded-circle" src="{{ $kinsman->getImage() }}" alt="{{ $kinsman->name }}">
+                                <img class="rounded-circle" src="{{ $kinsman->presenter()->image() }}" alt="{{ $kinsman->name }}">
                             </a>
                             <a href="{{ route('kinsmans.show', $kinsman->id) }}">
                                 <h3 class="name">{{ $kinsman->getFullNameAttribute() }}</h3>

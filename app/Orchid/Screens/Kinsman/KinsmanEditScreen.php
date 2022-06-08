@@ -13,8 +13,10 @@ use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\CheckBox;
 use Orchid\Screen\Fields\DateTimer;
+use Orchid\Screen\Fields\Group;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Map;
+use Orchid\Screen\Fields\Picture;
 use Orchid\Screen\Fields\Relation;
 use Orchid\Screen\Fields\Select;
 use Orchid\Screen\Screen;
@@ -40,6 +42,8 @@ class KinsmanEditScreen extends Screen
      */
     public function query(Kinsman $kinsman): iterable
     {
+        $kinsman->load('photo');
+
         return [
             'kinsman' => $kinsman,
         ];
@@ -102,74 +106,75 @@ class KinsmanEditScreen extends Screen
                 Layout::rows([
                     Input::make('kinsman.id')->type('hidden'),
 
-                    Input::make('kinsman.name')
-                        ->title(__('Kinsman.Label.Name'))
-                        ->placeholder(__('Kinsman.Placeholder.Name')),
+                    Group::make([
+                        Picture::make('kinsman.photo')
+                            ->targetId(),
 
-                    Input::make('kinsman.middle_name')
-                        ->title(__('Kinsman.Label.MiddleName'))
-                        ->placeholder(__('Kinsman.Placeholder.MiddleName')),
+                        CheckBox::make('kinsman.active')
+                            ->vertical()
+                            ->title(__('Kinsman.Label.Active'))
+                            ->sendTrueOrFalse()
+                            ->value($this->kinsman->exists ? $this->kinsman->active : true),
 
-                    Select::make('kinsman.gender')
-                        ->options([
-                            'male' => __('Kinsman.Select.Male'),
-                            'female' => __('Kinsman.Select.Female'),
-                        ])
-                        ->empty('Not selected')
-                        ->title('Kinsman.Label.Gender'),
+//                        CheckBox::make('kinsman.active')
+//                            ->view('platform::field.checkbox')
+//                            ->vertical()
+//                            ->title(__('Kinsman.Label.Active'))
+//                            ->sendTrueOrFalse()
+//                            ->value($this->kinsman->exists ? $this->kinsman->active : true),
+                    ]),
 
-                    Relation::make('kinsman.father_id')
-                        ->fromModel(Kinsman::class, 'name', 'id')
-                        ->applyScope('fathers')
-                        ->displayAppend('fullName')
-                        ->title('Kinsman.Label.Father'),
+                    Group::make([
+                        Input::make('kinsman.name')
+                            ->title(__('Kinsman.Label.Name'))
+                            ->placeholder(__('Kinsman.Placeholder.Name')),
 
-                    Relation::make('kinsman.mother_id')
-                        ->fromModel(Kinsman::class, 'name', 'id')
-                        ->applyScope('mothers')
-                        ->displayAppend('fullName')
-                        ->title('Kinsman.Label.Mother'),
+                        Input::make('kinsman.middle_name')
+                            ->title(__('Kinsman.Label.MiddleName'))
+                            ->placeholder(__('Kinsman.Placeholder.MiddleName')),
+                    ]),
 
-                    Relation::make('kinsman.kin_id')
-                        ->fromModel(Kin::class, 'name', 'id')
-                        ->title('Kinsman.Label.Kin'),
+                    Group::make([
+                        Select::make('kinsman.gender')
+                            ->options([
+                                'male' => __('Kinsman.Select.Male'),
+                                'female' => __('Kinsman.Select.Female'),
+                            ])
+                            ->empty('Not selected')
+                            ->title('Kinsman.Label.Gender'),
 
-                    CheckBox::make('kinsman.active')
-                        ->title(__('Kinsman.Label.Active'))
-                        ->sendTrueOrFalse()
-                        ->value($this->kinsman->exists ? $this->kinsman->active : true),
+                        Relation::make('kinsman.kin_id')
+                            ->fromModel(Kin::class, 'name', 'id')
+                            ->title('Kinsman.Label.Kin'),
+                    ]),
 
-                    DateTimer::make('life.birth_date')
-                        ->title(__('Life.Label.BirthDate'))
-                        ->placeholder(__('Life.Placeholder.BirthDate'))
-                        ->value($this->kinsman->life->birth_date ?? null)
-                        ->enableTime(),
+                    Group::make([
+                        Relation::make('kinsman.father_id')
+                            ->fromModel(Kinsman::class, 'name', 'id')
+                            ->applyScope('fathers')
+                            ->displayAppend('fullName')
+                            ->title('Kinsman.Label.Father'),
 
-                    DateTimer::make('life.end_date')
-                        ->title(__('Life.Label.EndDate'))
-                        ->placeholder(__('Life.Placeholder.EndDate'))
-                        ->value($this->kinsman->life->end_date ?? null)
-                        ->enableTime(),
-                ]),
+                        Relation::make('kinsman.mother_id')
+                            ->fromModel(Kinsman::class, 'name', 'id')
+                            ->applyScope('mothers')
+                            ->displayAppend('fullName')
+                            ->title('Kinsman.Label.Mother'),
+                    ]),
 
-                Layout::rows([
-                    Input::make('city.city_name')
-                        ->title(__('City.Label.City'))
-                        ->value($this->kinsman->nativeCity->first()->name ?? null)
-                        ->placeholder(__('City.Placeholder.City')),
+                    Group::make([
+                        DateTimer::make('life.birth_date')
+                            ->title(__('Life.Label.BirthDate'))
+                            ->placeholder(__('Life.Placeholder.BirthDate'))
+                            ->value($this->kinsman->life->birth_date ?? null)
+                            ->enableTime(),
 
-                    Input::make('city.country_name')
-                        ->title(__('City.Label.Country'))
-                        ->value($this->kinsman->nativeCity->first()->country ?? null)
-                        ->placeholder(__('City.Placeholder.Country')),
-
-                    Map::make('city.native')
-                        ->title(__('City.Label.Native'))
-                        ->zoom(4)
-                        ->value([
-                            'lat' => $coordinates->lat ?? 50,
-                            'lng' => $coordinates->lng ?? 40,
-                        ]),
+                        DateTimer::make('life.end_date')
+                            ->title(__('Life.Label.EndDate'))
+                            ->placeholder(__('Life.Placeholder.EndDate'))
+                            ->value($this->kinsman->life->end_date ?? null)
+                            ->enableTime(),
+                    ]),
 
                     Relation::make('marriage.partner_id')
                         ->fromModel(Kinsman::class, 'name', 'id')
@@ -180,6 +185,27 @@ class KinsmanEditScreen extends Screen
                         ->canSee($this->kinsman->exists),
                 ]),
 
+                Layout::rows([
+                    Group::make([
+                        Input::make('city.city_name')
+                            ->title(__('City.Label.City'))
+                            ->value($this->kinsman->nativeCity->first()->name ?? null)
+                            ->placeholder(__('City.Placeholder.City')),
+
+                        Input::make('city.country_name')
+                            ->title(__('City.Label.Country'))
+                            ->value($this->kinsman->nativeCity->first()->country ?? null)
+                            ->placeholder(__('City.Placeholder.Country')),
+                    ]),
+
+                    Map::make('city.native')
+                        ->title(__('City.Label.Native'))
+                        ->zoom(4)
+                        ->value([
+                            'lat' => $coordinates->lat ?? 50,
+                            'lng' => $coordinates->lng ?? 40,
+                        ]),
+                ]),
             ]),
         ];
     }

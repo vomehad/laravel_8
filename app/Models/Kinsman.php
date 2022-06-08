@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Orchid\Presenters\KinsmanPresenter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
+use Orchid\Attachment\Attachable;
+use Orchid\Attachment\Models\Attachment;
 use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 
@@ -37,7 +40,7 @@ use Orchid\Screen\AsSource;
  */
 class Kinsman extends Model
 {
-    use HasFactory, Searchable, SoftDeletes, AsSource, Filterable;
+    use HasFactory, Searchable, SoftDeletes, AsSource, Filterable, Attachable;
 
     protected $table = 'kinsmans';
 
@@ -49,6 +52,7 @@ class Kinsman extends Model
         'mother_id',
         'kin_id',
         'active',
+        'photo',
     ];
 
     protected $allowedFilters = [
@@ -142,6 +146,11 @@ class Kinsman extends Model
             'husband_id'
         )->wherePivot('divorce_date', '!=', null);
     }
+
+    public function photo(): HasOne
+    {
+        return $this->hasOne(Attachment::class, 'id', 'photo')->withDefault();
+    }
 // ============================= end relations ===================================
 
     public function scopeFathers(Builder $query): Builder
@@ -182,19 +191,8 @@ class Kinsman extends Model
         return $this->name ." ". $this->middle_name;
     }
 
-    public function getGender(string $key): string
+    public function presenter(): KinsmanPresenter
     {
-        $genders = [
-            'male' => __('Kinsman.Select.Male'),
-            'female' => __('Kinsman.Select.Female'),
-        ];
-        return $genders[$key];
-    }
-
-    public function getImage(): string
-    {
-        $name = $this->gender === 'male' ? 'man' : 'woman';
-
-        return "/img/{$name}.jpg";
+        return new KinsmanPresenter($this);
     }
 }

@@ -26,6 +26,7 @@ class UpdateKinsmanRequest extends FormRequest
     {
         return [
             'kinsman.id' => 'int',
+            'kinsman.photo' => 'nullable',
             'kinsman.name' => 'required|string',
             'kinsman.middle_name' => 'nullable|string',
             'kinsman.gender' => 'required|in:male,female',

@@ -8,6 +8,7 @@ use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Switcher;
+use Orchid\Screen\Layouts\Persona;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
 
@@ -24,8 +25,7 @@ class KinsmanListLayout extends Table
                 ->cantHide()
                 ->filter(Input::make())
                 ->render(function(Kinsman $kinsman) {
-//                    return new Persona($user->presenter());
-                    return Link::make($kinsman->name)->route('platform.kinsman.edit', $kinsman->id);
+                    return new Persona($kinsman->presenter());
                 }
             ),
 
@@ -36,7 +36,7 @@ class KinsmanListLayout extends Table
 
             TD::make('gender', __('Kinsman.Label.Gender'))
                 ->render(function(Kinsman $kinsman) {
-                    return $kinsman->getGender($kinsman->gender);
+                    return $kinsman->presenter()->gender();
                 }
             ),
 

@@ -108,8 +108,7 @@ class KinsmanEditScreen extends Screen
 
                     Group::make([
 
-                        Picture::make('kinsman.photo')
-                            ->targetId(),
+                        Picture::make('kinsman.photo')->targetId(),
 
                         CheckBox::make('kinsman.active')
                             ->vertical()

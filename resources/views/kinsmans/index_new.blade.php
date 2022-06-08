@@ -53,13 +53,13 @@
             font-weight:bold;
             margin-top:28px;
             margin-bottom:8px;
-            color:inherit;
+            color: black;
         }
 
         .team-boxed .item .title {
             text-transform:uppercase;
             font-weight:bold;
-            color:#d0d0d0;
+            color: #0c0505;
             letter-spacing:2px;
             font-size:13px;
         }
@@ -68,6 +68,7 @@
             font-size:15px;
             margin-top:15px;
             margin-bottom:20px;
+            color: black;
         }
 
         .team-boxed .item img {
@@ -82,7 +83,7 @@
                 @foreach($models as $kinsman)
                     @php /** @var \App\Models\Kinsman $kinsman */ @endphp
                     <div class="col-md-6 col-lg-4 item">
-                        <div class="box">
+                        <div class="box" style="background-color: {{ $kinsman->presenter()->color() }}">
                             <a href="{{ route('kinsmans.show', $kinsman->id) }}">
                                 <img class="rounded-circle" src="{{ $kinsman->presenter()->image() }}" alt="{{ $kinsman->name }}">
                             </a>

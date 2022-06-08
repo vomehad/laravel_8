@@ -57,15 +57,15 @@
             font-weight:bold;
             margin-top:28px;
             margin-bottom:8px;
-            color:inherit;
-            min-height: 80px;
+            color:black;
+            min-height: 60px;
         }
 
         .item .title {
             text-transform:uppercase;
             font-weight:bold;
-            color:#d0d0d0;
-            letter-spacing:2px;
+            color: #0e0606;
+            letter-spacing: 2px;
             font-size:13px;
         }
 
@@ -73,6 +73,7 @@
             font-size:15px;
             margin-top:15px;
             margin-bottom:20px;
+            color: black;
         }
 
         .item img {
@@ -160,7 +161,7 @@
                 <div class="row people">
                     @isset($model->father->id)
                     <div class="col-md-6 col-lg-4 item">
-                        <div class="box">
+                        <div class="box" style="background-color: {{ $model->father->presenter()->color() }}">
                             <a href="{{ route('kinsmans.show', $model->father->id) }}">
                                 <img class="rounded-circle" src="{{ $model->father->presenter()->image() }}" alt="{{ $model->father->name }}">
                             </a>
@@ -178,7 +179,7 @@
                     @endif
                     @isset($model->mother->id)
                         <div class="col-md-6 col-lg-4 item">
-                            <div class="box">
+                            <div class="box" style="background-color: {{ $model->mother->presenter()->color() }}">
                                 <a href="{{ route('kinsmans.show', $model->mother->id) }}">
                                     <img class="rounded-circle" src="{{ $model->mother->presenter()->image() }}" alt="{{ $model->mother->name }}">
                                 </a>
@@ -204,7 +205,7 @@
                 @if(isset($model->wife->first()->id) && !empty($model->wife->first()->id))
                     <h2>{{ __('Kinsman.Label.Wife') }}</h2>
                     <div class="col-md-6 col-lg-4 item">
-                        <div class="box">
+                        <div class="box" style="background-color: {{ $model->wife->first()->presenter()->color() }}">
                             <a href="{{ route('kinsmans.show', $model->wife->first()->id) }}">
                                 <img class="rounded-circle" src="{{ $model->wife->first()->presenter()->image() }}" alt="{{ $model->wife->first()->name }}">
                             </a>
@@ -224,7 +225,7 @@
             @if(isset($model->husband->first()->id) && !empty($model->husband->first()->id))
                 <h2>{{ __('Kinsman.Label.Husband') }}</h2>
                 <div class="col-md-6 col-lg-4 item">
-                    <div class="box">
+                    <div class="box" style="background-color: {{ $model->husband->first()->presenter()->color() }}">
                         <a href="{{ route('kinsmans.show', $model->husband->first()->id) }}">
                             <img class="rounded-circle" src="{{ $model->husband->first()->presenter()->image() }}" alt="{{ $model->husband->first()->name }}">
                         </a>
@@ -249,7 +250,7 @@
                 @foreach($children as $child)
                     @php /** @var \App\Models\Kinsman $child */ @endphp
                     <div class="col-md-6 col-lg-4 item">
-                        <div class="box">
+                        <div class="box" style="background-color: {{ $child->presenter()->color() }}">
                             <a href="{{ route('kinsmans.show', $child->id) }}">
                                 <img class="rounded-circle" src="{{ $child->presenter()->image() }}" alt="{{ $child->name }}">
                             </a>

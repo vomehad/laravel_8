@@ -49,14 +49,18 @@
         }
 
         .team-boxed .item .description {
-            font-size:15px;
-            margin-top:15px;
-            margin-bottom:20px;
+            font-size: 15px;
+            margin-top: 15px;
+            margin-bottom: 20px;
             color: black;
         }
 
         .team-boxed .item img {
-            max-width:160px;
+            max-height: 150px;
+        }
+
+        .info-wrap {
+            min-height: 150px;
         }
     </style>
 @endpush
@@ -67,19 +71,21 @@
                 @foreach($models as $kinsman)
                     @php /** @var \App\Models\Kinsman $kinsman */ @endphp
                     <div class="col-md-6 col-lg-4 item">
-                        <div class="box" style="background-color: {{ $kinsman->presenter()->color() }}">
+                        <div class="box">
                             <a href="{{ route('kinsmans.show', $kinsman->id) }}">
-                                <img class="rounded-circle" src="{{ $kinsman->presenter()->image() }}" alt="{{ $kinsman->name }}">
+                                <img class="rounded-circle" src="{{ $kinsman->presenter()->image() }}">
                             </a>
-                            <a href="{{ route('kinsmans.show', $kinsman->id) }}">
-                                <h4 class="name">{{ $kinsman->getFullNameAttribute() }}</h4>
-                            </a>
-                            @if(!empty($kinsman->life->birth_date))
-                                <p class="title">{{ Carbon\Carbon::make($kinsman->life->birth_date)->format('j F Y') }}</p>
-                            @endif
-                            @if(!empty($kinsman->kin->name))
-                                <p class="description">{{ $kinsman->kin->name }}</p>
-                            @endif
+                            <div class="info-wrap" {!! $kinsman->presenter()->color() !!}>
+                                <a href="{{ route('kinsmans.show', $kinsman->id) }}">
+                                    <h4 class="name">{{ $kinsman->presenter()->title() }}</h4>
+                                </a>
+                                @if(!empty($kinsman->life->birth_date))
+                                    <p class="title">{{ $kinsman->presenter()->birthDate() }}</p>
+                                @endif
+                                @if(!empty($kinsman->kin->name))
+                                    <p class="description">{{ $kinsman->kin->name }}</p>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 @endforeach

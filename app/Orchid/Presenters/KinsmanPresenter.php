@@ -3,6 +3,7 @@
 namespace App\Orchid\Presenters;
 
 use App\Models\Kinsman;
+use Carbon\Carbon;
 use Laravel\Scout\Builder;
 use Orchid\Screen\Contracts\Personable;
 use Orchid\Screen\Contracts\Searchable;
@@ -92,6 +93,16 @@ class KinsmanPresenter extends Presenter implements Searchable, Personable
 
         $key = $this->entity->kin->slug ?? 'none';
 
-        return $colors[$key];
+        return "style=\"background-color: {$colors[$key]};\"";
+    }
+
+    public function birthDate(): string
+    {
+        return Carbon::make($this->entity->life->birth_date)->format('j F Y');
+    }
+
+    public function deathDate(): string
+    {
+        return Carbon::make($this->entity->life->end_date)->format('j F Y');
     }
 }

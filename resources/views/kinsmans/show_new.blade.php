@@ -1,97 +1,4 @@
 @extends('layouts.app')
-@push('styles')
-    <style>
-        img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-
-        h1 {
-            font-size: 50px;
-            margin-top: 30px;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            margin-top: 40px;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 18px;
-        }
-    </style>
-    <style>
-        .child-box {
-            font-weight:bold;
-            margin-bottom:40px;
-            padding-top:40px;
-            color:inherit;
-        }
-
-        @media (max-width:767px) {
-            .child-box {
-                margin-bottom:25px;
-                padding-top:25px;
-                font-size:24px;
-            }
-        }
-
-        .people {
-            padding:50px 0;
-        }
-
-        .item {
-            text-align:center;
-        }
-
-        .item .box {
-            text-align:center;
-            padding:30px;
-            background-color:#fff;
-            margin-bottom:30px;
-            min-height: 400px;
-        }
-
-        .item .name {
-            font-weight:bold;
-            margin-top:28px;
-            margin-bottom:8px;
-            color:black;
-            min-height: 70px;
-        }
-
-        .item .title {
-            text-transform:uppercase;
-            font-weight:bold;
-            color: #0e0606;
-            letter-spacing: 2px;
-            font-size:13px;
-        }
-
-        .item .description {
-            font-size:15px;
-            margin-top:15px;
-            margin-bottom:20px;
-            color: black;
-        }
-
-        .item img {
-            max-height: 150px;
-        }
-        .rounded-circle {
-            width: 160px;
-        }
-
-        .info-wrap {
-            min-height: 150px;
-        }
-
-        .info-wrap__child {
-            min-height: 60px;
-        }
-    </style>
-@endpush
 @section('content')
     @php
         /** @var \App\Models\Kinsman $model */
@@ -115,7 +22,10 @@
                         <span {!! $model->presenter()->color() !!}>{{ $model->kin->name ?? '' }}</span>
                     </h2>
                 </div>
-                <img class="rounded-circle" src="{{ $model->presenter()->image() }}">
+                <picture>
+                    <source class="rounded-circle" srcset="{{ $model->presenter()->image() }}">
+                    <img class="rounded-circle" src="{{ $model->presenter()->image() }}">
+                </picture>
             </div>
         </div>
         @if(!empty($model->life->id))

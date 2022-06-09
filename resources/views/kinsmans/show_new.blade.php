@@ -80,7 +80,7 @@
             max-width:160px;
         }
         .rounded-circle {
-            height: 200px;
+            width: 200px;
         }
     </style>
 @endpush

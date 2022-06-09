@@ -78,7 +78,10 @@
 
         .item img {
             max-width:160px;
-    }
+        }
+        .rounded-circle {
+            height: 200px;
+        }
     </style>
 @endpush
 @section('content')
@@ -108,9 +111,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                    <h2>{{ $model->name }} {{ $model->middle_name }} {{ $model->kin->name ?? '' }}</h2>
-                    <img class="rounded-circle" src="{{ $model->presenter()->image() }}">
+                    <h2>{{ $model->name }} {{ $model->middle_name }} <span style="background-color: {{ $model->presenter()->color() }}">{{ $model->kin->name ?? '' }}</span></h2>
                 </div>
+                <img class="rounded-circle" src="{{ $model->presenter()->image() }}">
                 {{--<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <img src="img.url">
                 </div>--}}

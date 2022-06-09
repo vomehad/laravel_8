@@ -31,7 +31,6 @@ class KinsmanListLayout extends Table
 
             TD::make('middle_name', __('Kinsman.Label.MiddleName'))
                 ->sort()
-                ->cantHide()
                 ->filter(Input::make()),
 
             TD::make('gender', __('Kinsman.Label.Gender'))
@@ -43,9 +42,22 @@ class KinsmanListLayout extends Table
             TD::make('active', __('Kinsman.Label.Active'))
                 ->sort()
                 ->render(function(Kinsman $kinsman) {
-                    return Switcher::make()->sendTrueOrFalse()->value($kinsman->active)->disabled(true);
+                    return Switcher::make()
+                        ->sendTrueOrFalse()
+                        ->value($kinsman->active)
+                        ->disabled(true);
                 }
             ),
+
+            TD::make('birth_date', __('Kinsman.Label.BirthDate'))
+                ->cantHide()
+                ->render(function(Kinsman $kinsman) {
+                    if (!empty($kinsman->life->birth_date)) {
+                        return $kinsman->presenter()->birthDate();
+                    }
+
+                    return null;
+                }),
 
             TD::make('father_id', __('Kinsman.Label.Father'))
                 ->render(function(Kinsman $kinsman) {
@@ -53,7 +65,7 @@ class KinsmanListLayout extends Table
                     $father = $kinsman->father ?? null;
 
                     if ($father) {
-                        return Link::make($father->name ." ". $father->middle_name)
+                        return Link::make($father->presenter()->title())
                             ->route('platform.kinsman.edit', ['kinsman' => $father->id]);
                     }
 

@@ -22,6 +22,7 @@ return [
     'Label' => [
         'Active' => 'Активность',
         'Bio' => 'Биография',
+        'BirthDate' => 'День рождения',
         'Created' => 'Добавлен',
         'Father' => 'Отец',
         'Gender' => 'Пол',

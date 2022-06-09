@@ -74,7 +74,7 @@ class KinsmanPresenter extends Presenter implements Searchable, Personable
     {
         $colors = [
             'none' => 'silver',
-            'mozhaev' => 'chartreuse',
+            'mozhaev' => 'wheat',
             'kalinin' => 'plum',
             'aleksandrov' => 'gold',
             'getmanstkii' => 'magenta',
@@ -84,7 +84,6 @@ class KinsmanPresenter extends Presenter implements Searchable, Personable
             'moroz' => 'cyan',
 //            'wheat',
 //            'yellow',
-//            'plum',
         ];
 
         if ($all) {

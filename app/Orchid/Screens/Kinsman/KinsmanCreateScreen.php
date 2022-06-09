@@ -97,18 +97,12 @@ class KinsmanCreateScreen extends Screen
         return [
             Layout::columns([
                 Layout::rows([
-                    Input::make('kinsman.id')->type('hidden'),
+                    Input::make('kinsman.id')->hidden(),
 
-                    Group::make([
-
-//                        Picture::make('kinsman.photo')
-//                            ->targetId(),
-
-                        CheckBox::make('kinsman.active')
-                            ->vertical()
-                            ->title(__('Kinsman.Label.Active'))
-                            ->sendTrueOrFalse()
-                            ->value($this->kinsman->exists ? $this->kinsman->active : true),
+                    CheckBox::make('kinsman.active')
+                        ->hidden()
+                        ->vertical()
+                        ->value(true),
 
 //                        CheckBox::make('kinsman.active')
 //                            ->view('platform::field.checkbox')
@@ -116,7 +110,6 @@ class KinsmanCreateScreen extends Screen
 //                            ->title(__('Kinsman.Label.Active'))
 //                            ->sendTrueOrFalse()
 //                            ->value($this->kinsman->exists ? $this->kinsman->active : true),
-                    ]),
 
                     Group::make([
                         Input::make('kinsman.name')

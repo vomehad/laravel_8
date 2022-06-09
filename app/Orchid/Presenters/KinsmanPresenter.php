@@ -60,6 +60,17 @@ class KinsmanPresenter extends Presenter implements Searchable, Personable
         return $image->url();
     }
 
+    public function imageInfo(): ?array
+    {
+        $image = $this->entity->attachment()->first() ?? null;
+
+        if ($image) {
+            return json_decode($image, true);
+        }
+
+        return $image;
+    }
+
     public function gender(): string
     {
         $genders = [

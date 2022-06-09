@@ -113,51 +113,28 @@
         <hr>
         @endif
 
-        @if(!empty($model->gender === 'male' ? $model->wife : $model->husband))
+        @if(!empty($model->presenter()->wed()) && isset($model->presenter()->wed()->id))
             <div class="container">
-                @if(isset($model->wife->first()->id) && !empty($model->wife->first()->id))
-                    <h2>{{ __('Kinsman.Label.Wife') }}</h2>
-                    <div class="col-md-6 col-lg-4 item">
-                        <div class="box">
-                            <a href="{{ route('kinsmans.show', $model->wife->first()->id) }}">
-                                <img class="rounded-circle" src="{{ $model->wife->first()->presenter()->image() }}">
-                            </a>
-                            <div class="info-wrap" {!! $model->wife->first()->presenter()->color() !!}>
-                                <a href="{{ route('kinsmans.show', $model->wife->first()->id) }}">
-                                    <h3 class="name">{{ $model->wife->first()->presenter()->title() }}</h3>
-                                </a>
-                                @if(!empty($model->wife->first()->life->birth_date))
-                                    <p class="title">{{ $model->wife->first()->presenter()->birthDate() }}</p>
-                                @endif
-                                @if(!empty($model->wife->first()->kin->name))
-                                    <p class="description">{{ $model->wife->first()->kin->name }}</p>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                @endif
-            </div>
-            @if(isset($model->husband->first()->id) && !empty($model->husband->first()->id))
-                <h2>{{ __('Kinsman.Label.Husband') }}</h2>
+                <h2>{{ __('Kinsman.Label.' . $model->presenter()->wedKey(true)) }}</h2>
                 <div class="col-md-6 col-lg-4 item">
                     <div class="box">
-                        <a href="{{ route('kinsmans.show', $model->husband->first()->id) }}">
-                            <img class="rounded-circle" src="{{ $model->husband->first()->presenter()->image() }}">
+                        <a href="{{ route('kinsmans.show', $model->presenter()->wed()->id) }}">
+                            <img class="rounded-circle" src="{{ $model->presenter()->wed()->presenter()->image() }}">
                         </a>
-                        <div class="info-wrap" {!! $model->husband->first()->presenter()->color() !!}>
-                            <a href="{{ route('kinsmans.show', $model->husband->first()->id) }}">
-                                <h3 class="name">{{ $model->husband->first()->presenter()->title() }}</h3>
+                        <div class="info-wrap" {!! $model->presenter()->wed()->presenter()->color() !!}>
+                            <a href="{{ route('kinsmans.show', $model->presenter()->wed()->id) }}">
+                                <h3 class="name">{{ $model->presenter()->wed()->presenter()->title() }}</h3>
                             </a>
-                            @if(!empty($model->husband->first()->life->birth_date))
-                                <p class="title">{{ $model->husband->first()->presenter()->birthDate() }}</p>
+                            @if(!empty($model->presenter()->wed()->life->birth_date))
+                                <p class="title">{{ $model->presenter()->wed()->presenter()->birthDate() }}</p>
                             @endif
-                            @if(!empty($model->husband->first()->kin->name))
-                                <p class="description">{{ $model->husband->first()->kin->name }}</p>
+                            @if(!empty($model->presenter()->wed()->kin->name))
+                                <p class="description">{{ $model->presenter()->wed()->kin->name }}</p>
                             @endif
                         </div>
                     </div>
                 </div>
-            @endif
+            </div>
         @endif
 
         @if($children->count())

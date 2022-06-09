@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Kinsman\KinsmanCollection;
+use App\Http\Resources\Kinsman\KinsmanSingleResource;
 use App\Repositories\KinsmanRepository;
 use Illuminate\Http\Request;
 
@@ -24,36 +25,21 @@ class KinsmanController extends Controller
         return new KinsmanCollection($kinsmans);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(int $id): KinsmanSingleResource
     {
-        //
+        $kinsman = $this->repository->getOne($id);
+
+        return new KinsmanSingleResource($kinsman);
     }
 
     /**

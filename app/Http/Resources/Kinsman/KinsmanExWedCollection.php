@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use JsonSerializable;
 
-class KinsmanParentCollection extends ResourceCollection
+class KinsmanExWedCollection extends ResourceCollection
 {
     protected $collect = KinsmanSingleResource::class;
     /**

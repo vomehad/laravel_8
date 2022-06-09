@@ -4,6 +4,7 @@ namespace App\Orchid\Presenters;
 
 use App\Models\Kinsman;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Laravel\Scout\Builder;
 use Orchid\Screen\Contracts\Personable;
 use Orchid\Screen\Contracts\Searchable;
@@ -114,5 +115,45 @@ class KinsmanPresenter extends Presenter implements Searchable, Personable
     public function deathDate(): string
     {
         return Carbon::make($this->entity->life->end_date)->format('j F Y');
+    }
+
+    public function wed(): ?Kinsman
+    {
+
+        if ($this->entity->gender === 'male') {
+            $wed = $this->entity->wife->first();
+        }
+
+        if ($this->entity->gender === 'female') {
+            $wed = $this->entity->husband->first();
+        }
+
+        return $wed ?? null;
+    }
+
+    public function exWed(): Collection
+    {
+        if ($this->entity->gender === 'male') {
+            $exWed = $this->entity->exWife;
+        }
+
+        if ($this->entity->gender === 'female') {
+            $exWed = $this->entity->exHusband;
+        }
+
+        return $exWed ?? Collection::make();
+    }
+
+    public function wedKey(bool $title = false): ?string
+    {
+        if ($this->entity->gender === 'male') {
+            return $title ? 'Wife' : 'wife';
+        }
+
+        if ($this->entity->gender === 'female') {
+            return $title ? 'Husband' : 'husband';
+        }
+
+        return null;
     }
 }

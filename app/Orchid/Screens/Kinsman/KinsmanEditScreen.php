@@ -166,13 +166,13 @@ class KinsmanEditScreen extends Screen
                         DateTimer::make('life.birth_date')
                             ->title(__('Life.Label.BirthDate'))
                             ->placeholder(__('Life.Placeholder.BirthDate'))
-                            ->value($this->kinsman->life->birth_date ?? null)
+                            ->value($this->kinsman->presenter()->birthDate(true))
                             ->enableTime(),
 
                         DateTimer::make('life.end_date')
                             ->title(__('Life.Label.EndDate'))
                             ->placeholder(__('Life.Placeholder.EndDate'))
-                            ->value($this->kinsman->life->end_date ?? null)
+                            ->value($this->kinsman->presenter()->deathDate(true))
                             ->enableTime(),
                     ]),
 
@@ -180,8 +180,8 @@ class KinsmanEditScreen extends Screen
                         ->fromModel(Kinsman::class, 'name', 'id')
                         ->applyScope('wed', $this->kinsman->gender, $children ?? [])
                         ->displayAppend('fullName')
-                        ->value($this->kinsman->gender === 'male' ? $this->kinsman->wife->first()->id ?? '' : $this->kinsman->husband->first()->id ?? '')
-                        ->title($this->kinsman->gender === 'male' ? __('Kinsman.Label.Wife') : __('Kinsman.Label.Husband'))
+                        ->value($this->kinsman->presenter()->wed()->id ?? '')
+                        ->title($this->kinsman->presenter()->wedKey(true))
                         ->canSee($this->kinsman->exists),
                 ]),
 

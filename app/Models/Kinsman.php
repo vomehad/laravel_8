@@ -190,7 +190,7 @@ class Kinsman extends Model
 
     public function getFullNameAttribute(): string
     {
-        return $this->name ." ". $this->middle_name;
+        return $this->presenter()->title();
     }
 
     public function presenter(): KinsmanPresenter

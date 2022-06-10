@@ -107,19 +107,34 @@ class KinsmanPresenter extends Presenter implements Searchable, Personable
         return "style=\"background-color: {$colors[$key]};\"";
     }
 
-    public function birthDate(): string
+    public function birthDate(bool $raw = false): ?string
     {
-        return Carbon::make($this->entity->life->birth_date)->format('j F Y');
+        if (isset($this->entity->life) && !empty($this->entity->life->birth_date)) {
+            if ($raw) {
+                return $this->entity->life->birth_date;
+            }
+
+            return Carbon::make($this->entity->life->birth_date)->format('j F Y');
+        }
+
+        return null;
     }
 
-    public function deathDate(): string
+    public function deathDate(bool $raw = false): ?string
     {
-        return Carbon::make($this->entity->life->end_date)->format('j F Y');
+        if (isset($this->entity->life) && !empty($this->entity->life->end_date)) {
+            if ($raw) {
+                return $this->entity->life->end_date;
+            }
+
+            return Carbon::make($this->entity->life->end_date)->format('j F Y');
+        }
+
+        return null;
     }
 
     public function wed(): ?Kinsman
     {
-
         if ($this->entity->gender === 'male') {
             $wed = $this->entity->wife->first();
         }

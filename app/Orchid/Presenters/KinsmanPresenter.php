@@ -82,9 +82,13 @@ class KinsmanPresenter extends Presenter implements Searchable, Personable
         return $genders[$this->entity->gender];
     }
 
-    public function color(bool $all = false): string
+    public function color(bool $admin = false): string
     {
         $color = $this->entity->kin->color ?? 'grey';
+
+        if ($admin) {
+            return "style=\"border: 3px solid {$color};\"";
+        }
 
         return "style=\"background-color: {$color};\"";
     }

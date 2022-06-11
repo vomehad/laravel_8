@@ -25,7 +25,7 @@ class KinsmanListLayout extends Table
                 ->cantHide()
                 ->filter(Input::make())
                 ->render(function(Kinsman $kinsman) {
-                    return new Persona($kinsman->presenter());
+                    return new KinsmanPersona($kinsman->presenter());
                 }
             ),
 

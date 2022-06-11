@@ -9,12 +9,13 @@ class KinDto implements DtoInterface
 {
     public int $id;
     public string $name;
+    public string $color;
     public bool $active;
     public int $created_by;
 
     public function createFromRequest(array $fields): DtoInterface
     {
-        $array = is_array(reset($fields)) ? reset($fields) : $fields;
+        $array = Arr::has($fields, 'kin') ? Arr::get($fields, 'kin') : $fields;
 
         foreach (get_class_vars(self::class) as $prop => $item) {
             if (Arr::has($array, $prop)) {

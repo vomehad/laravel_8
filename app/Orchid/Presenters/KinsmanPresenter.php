@@ -82,29 +82,11 @@ class KinsmanPresenter extends Presenter implements Searchable, Personable
         return $genders[$this->entity->gender];
     }
 
-    public function color(bool $all = false)
+    public function color(bool $all = false): string
     {
-        $colors = [
-            'none' => 'silver',
-            'mozhaev' => 'wheat',
-            'kalinin' => 'plum',
-            'aleksandrov' => 'gold',
-            'getmanstkii' => 'magenta',
-            'braginec' => 'khaki',
-            'pukalyak' => 'coral',
-            'kulbakov' => 'lime',
-            'moroz' => 'cyan',
-//            'wheat',
-//            'yellow',
-        ];
+        $color = $this->entity->kin->color ?? 'grey';
 
-        if ($all) {
-            return $colors;
-        }
-
-        $key = $this->entity->kin->slug ?? 'none';
-
-        return "style=\"background-color: {$colors[$key]};\"";
+        return "style=\"background-color: {$color};\"";
     }
 
     public function birthDate(bool $raw = false): ?string

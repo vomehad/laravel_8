@@ -181,7 +181,7 @@ class KinsmanEditScreen extends Screen
                         ->applyScope('wed', $this->kinsman->gender, $children ?? [])
                         ->displayAppend('fullName')
                         ->value($this->kinsman->presenter()->wed()->id ?? '')
-                        ->title($this->kinsman->presenter()->wedKey(true))
+                        ->title(__('Kinsman.Label.' . $this->kinsman->presenter()->wedKey(true)))
                         ->canSee($this->kinsman->exists),
                 ]),
 

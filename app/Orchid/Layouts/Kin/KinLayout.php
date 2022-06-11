@@ -24,6 +24,11 @@ class KinLayout extends Table
 
             TD::make('slug', __('Kin.Label.Slug'))->sort(),
 
+            TD::make('color', __('Kin.Label.Color'))
+                ->render(function (Kin $kin) {
+                    return "<span style='background-color: {$kin->color};'>$kin->color</span>";
+                }),
+
             TD::make('active', __('Kin.Label.Active'))->render(function(Kin $kin) {
                 return Switcher::make()->sendTrueOrFalse()->value($kin->active)->disabled(true);
             })->sort(),

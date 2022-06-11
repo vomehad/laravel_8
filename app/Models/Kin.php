@@ -19,6 +19,7 @@ use Orchid\Screen\AsSource;
  * @property int        $generation
  * @property int        $created_by
  * @property bool       $active
+ * @property string     $color
  * @property string     $created_at
  * @property string     $updated_at
  * @property string     $deleted_at
@@ -39,11 +40,13 @@ class Kin extends Model
     protected $allowedFilters = [
         'name',
         'slug',
+        'updated_at',
     ];
 
-    protected $allowedSort = [
+    protected $allowedSorts = [
         'name',
         'slug',
+        'updated_at',
     ];
 
     public function kinsman(): HasMany

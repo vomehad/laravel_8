@@ -25,9 +25,8 @@ class CreateKinRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required_if:kin.name,null|string|min:3',
-            'kin.name' => 'required_if:name,null|string|min:3',
-            'active' => 'bool',
+            'kin.name' => 'required|string|min:3',
+            'kin.color' => 'required|string',
             'kin.active' => 'bool',
         ];
     }

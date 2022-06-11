@@ -158,22 +158,25 @@
                                 @if(!empty($child->kin->name))
                                     <p class="description">{{ $child->kin->name }}</p>
                                 @endif
-                                <div class="info-wrap__child">
+
+                                <div class="info-wrap__child mt-2">
                                     @if(isset($child->mother->id) && $child->mother->id !== $model->id)
-                                        <div {!! $child->mother->presenter()->color() !!}>
-                                            <h4>{{ __('Kinsman.Label.Mother') }}</h4>
-                                            <a href="{{ route('kinsmans.show', $child->mother->id) }}">
+                                        <hr>
+                                        <a href="{{ route('kinsmans.show', $child->mother->id) }}">
+                                            <div {!! $child->mother->presenter()->color() !!}>
+                                                <h4>{{ __('Kinsman.Label.Mother') }}</h4>
                                                 <span>{{ $child->mother->presenter()->title() }}</span>
-                                            </a>
-                                        </div>
+                                            </div>
+                                        </a>
                                     @endif
                                     @if(isset($child->father->id) && $child->father->id !== $model->id)
-                                        <div class="info-wrap__child" {!! $child->father->presenter()->color() !!}>
-                                            <h4>{{ __('Kinsman.Label.Father') }}</h4>
-                                            <a href="{{ route('kinsmans.show', $child->father->id) }}">
+                                        <hr>
+                                        <a href="{{ route('kinsmans.show', $child->father->id) }}">
+                                            <div class="info-wrap__child" {!! $child->father->presenter()->color() !!}>
+                                                <h4>{{ __('Kinsman.Label.Father') }}</h4>
                                                 <span>{{ $child->father->presenter()->title() }}</span>
-                                            </a>
-                                        </div>
+                                            </div>
+                                        </a>
                                     @endif
                                 </div>
                             </div>

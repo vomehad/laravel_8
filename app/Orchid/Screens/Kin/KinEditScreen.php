@@ -92,6 +92,12 @@ class KinEditScreen extends Screen
                     ->title(__('Kin.Label.Slug'))
                     ->placeholder(__('Kin.Placeholder.Slug')),
 
+                Input::make('kin.color')
+                    ->type('color')
+                    ->title('Color')
+                    ->value($this->kin->color)
+                    ->horizontal(),
+
 //                Relation::make('kinsman')
 //                    ->fromModel(Kinsman::class, 'name')
 //                    ->displayAppend('fullName')

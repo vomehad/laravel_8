@@ -12,6 +12,7 @@ return [
     'Label' => [
         'Active' => 'Активность',
         'Created' => 'Создано',
+        'Color' => 'Цвет',
         'Filter' => 'Род',
         'Name' => 'Имя',
         'Slug' => 'slug',

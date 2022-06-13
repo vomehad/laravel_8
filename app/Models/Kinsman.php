@@ -62,7 +62,8 @@ class Kinsman extends Model
         'middle_name',
         'gender',
         'active',
-        'updated_at',
+//        'updated_at',
+//        'created_at',
     ];
 
     protected $allowedSorts = [
@@ -71,6 +72,7 @@ class Kinsman extends Model
         'gender',
         'active',
         'updated_at',
+        'created_at',
     ];
 
 //====================== relations =====================================

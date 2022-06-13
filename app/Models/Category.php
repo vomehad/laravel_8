@@ -14,9 +14,10 @@ use Orchid\Screen\AsSource;
  * Class Category
  * @package App\Models
  *
- * @property string $id
+ * @property int    $id
  * @property string $name
  * @property string $content
+ * @property bool   $active
  *
  */
 class Category extends Model

@@ -12,17 +12,17 @@ use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 
 /**
- * @property int                        $id
- * @property string                     $title
- * @property string                     $link
- * @property string                     $text
- * @property string                     $preview
- * @property string                     $disk
- * @property \App\Models\Category[]     $category
- * @property \App\Models\User           $author
- * @property string                     $created_at
- * @property string                     $updated_at
- * @property boolean                    $active
+ * @property int            $id
+ * @property string         $title
+ * @property string         $link
+ * @property string         $text
+ * @property string         $preview
+ * @property string         $disk
+ * @property Category[]     $category
+ * @property User           $author
+ * @property string         $created_at
+ * @property string         $updated_at
+ * @property boolean        $active
  *
  * @method static find(string $column)
  */

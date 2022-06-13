@@ -24,6 +24,7 @@ class KinsmanListLayout extends Table
                 ->sort()
                 ->cantHide()
                 ->filter(Input::make())
+                ->width('250px')
                 ->render(function(Kinsman $kinsman) {
                     return new KinsmanPersona($kinsman->presenter());
                 }
@@ -31,13 +32,14 @@ class KinsmanListLayout extends Table
 
             TD::make('middle_name', __('Kinsman.Label.MiddleName'))
                 ->sort()
-                ->filter(Input::make()),
+                ->filter(Input::make())
+                ->defaultHidden(),
 
             TD::make('gender', __('Kinsman.Label.Gender'))
                 ->render(function(Kinsman $kinsman) {
                     return $kinsman->presenter()->gender();
                 }
-            ),
+            )->defaultHidden(),
 
             TD::make('active', __('Kinsman.Label.Active'))
                 ->sort()
@@ -47,7 +49,7 @@ class KinsmanListLayout extends Table
                         ->value($kinsman->active)
                         ->disabled(true);
                 }
-            ),
+            )->defaultHidden(),
 
             TD::make('birth_date', __('Kinsman.Label.BirthDate'))
                 ->cantHide()
@@ -97,14 +99,16 @@ class KinsmanListLayout extends Table
 
                     return null;
                 }
-            ),
+            )->defaultHidden(),
 
             TD::make('updated_at', __('Kinsman.Label.Updated'))
                 ->sort()
                 ->render(function(Kinsman $kinsman) {
                     return Carbon::make($kinsman->updated_at)->format('j-M-Y H:i');
                 }),
-            TD::make('created_at', __('Kinsman.Label.Created'))->sort(),
+            TD::make('created_at', __('Kinsman.Label.Created'))
+                ->sort()
+                ->defaultHidden(),
 
             TD::make(__('Kinsman.Button.Action'))
                 ->align(TD::ALIGN_CENTER)

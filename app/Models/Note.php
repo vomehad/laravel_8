@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Orchid\Presenters\NotePresenter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,6 +21,8 @@ use Orchid\Screen\AsSource;
  * @property string         $content
  * @property Note           $parentNote
  * @property Category       $category
+ * @property bool           $active
+ * @property string         $updated_at
  *
  * @method static find(int $id)
  */
@@ -40,12 +43,14 @@ class Note extends Model
         'name',
         'content',
         'active',
+        'updated_at',
     ];
 
     protected $allowedSorts = [
         'name',
         'content',
         'active',
+        'updated_at',
     ];
 
     public function category(): BelongsToMany
@@ -59,5 +64,10 @@ class Note extends Model
             'active' => true,
             'parent_id' => null
         ]);
+    }
+
+    public function presenter(): NotePresenter
+    {
+        return new NotePresenter($this);
     }
 }

@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Orchid\Platform\Models\User as Authenticatable;
 
+/**
+ * @property string $name
+ */
 class User extends Authenticatable
 {
     /**
